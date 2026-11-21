@@ -1,0 +1,10 @@
+node_modules/
+dist/
+coverage/
+storybook-static/
+*.local
+*.tgz
+.idea/
+.vscode/
+.DS_Store
+.pnpm-store/

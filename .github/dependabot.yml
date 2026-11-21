@@ -1,0 +1,20 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      vue:
+        patterns: ['vue', 'vue-*', '@vue/*']
+      tooling:
+        patterns: ['vite', 'vitest', 'eslint*', '@vitejs/*', 'typescript', 'prettier']
+    ignore:
+      # Як у template-vue-app: typescript-eslint поки не підтримує TypeScript 7.
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Kite">
+  <title>Kite</title>
+  <path d="M16 1.5 L30.5 16 L16 30.5 L1.5 16 Z" fill="#ff5a36"/>
+  <path d="M16 1.5 V30.5 M1.5 16 H30.5" stroke="#0b1220" stroke-width="1.6" opacity="0.55"/>
+</svg>
