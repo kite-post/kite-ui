@@ -1,0 +1,2001 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kite UI · компоненти</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400..500&family=Manrope:wght@400..700&family=Unbounded:wght@500..600&display=swap">
+<style>
+/* Макет: вітрина кіта — липка шапка з розділами, далі зразки компонентів на поверхнях; токени 1:1 зі стайлгайду kite-ui v0.1 */
+:root{
+  --font-display:"Unbounded","Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-sans:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --r-xs:4px;--r-sm:8px;--r-md:12px;--r-lg:16px;--r-full:9999px;
+  --d-fast:100ms;--d-base:150ms;--d-mod:200ms;--d-slow:300ms;
+  --e-out:cubic-bezier(.16,1,.3,1);--e-in:cubic-bezier(.4,0,1,1);--e-io:cubic-bezier(.65,0,.35,1);
+
+  --bg:#F7F4EE;--bg-subtle:#F1F4F7;--surface:#FFFFFF;--surface-raised:#FFFFFF;--surface-sunken:#F8FAFD;
+  --surface-hover:#F1F4F7;--surface-active:#E3E6EC;--surface-inverse:#0E1A2B;--scrim:rgb(14 26 43 / .5);
+  --text:#0E1A2B;--text-muted:#545E6F;--text-disabled:#A4ABB8;--text-inverse:#EEF2F7;
+  --link:#2858D1;--link-hover:#1E46A8;
+  --border:#E3E6EC;--border-strong:#D0D4DC;--border-input:#788190;--border-input-hover:#545E6F;--border-focus:#2E6BFF;
+  --primary:#FF5A36;--primary-hover:#FF8265;--primary-active:#FFAD98;--on-primary:#0E1A2B;--primary-subtle:#FFF4F1;--primary-text:#942512;
+  --neutral-solid:#384355;--neutral-on:#FFFFFF;--neutral-subtle:#F1F4F7;--neutral-border:#D0D4DC;--neutral-text:#384355;--neutral-ti:#D0D4DC;
+  --info-solid:#2858D1;--info-on:#FFFFFF;--info-subtle:#F3F7FF;--info-border:#C7DAFF;--info-text:#1E46A8;--info-ti:#A3C1FF;
+  --success-solid:#1A8057;--success-on:#FFFFFF;--success-subtle:#EEFAF3;--success-border:#BBE9D0;--success-text:#116544;--success-ti:#90D9B3;
+  --warning-solid:#F2A93B;--warning-on:#0E1A2B;--warning-subtle:#FDF6EA;--warning-border:#FADCAE;--warning-text:#7B4B00;--warning-ti:#F6C57E;
+  --danger-solid:#C01242;--danger-on:#FFFFFF;--danger-subtle:#FFF4F4;--danger-border:#FFCCCE;--danger-text:#902338;--danger-ti:#FFA9AF;
+  --danger-hover:#902338;--danger-active:#6A1626;
+  --switch-off:#788190;
+  --focus:#2E6BFF;--selection:#E3EDFF;
+  --sh-sm:0 1px 2px rgb(14 26 43 / .06),0 1px 3px rgb(14 26 43 / .08);
+  --sh-md:0 4px 8px -2px rgb(14 26 43 / .08),0 2px 4px -2px rgb(14 26 43 / .06);
+  --sh-lg:0 12px 24px -6px rgb(14 26 43 / .14),0 4px 8px -4px rgb(14 26 43 / .08);
+  --sh-xl:0 24px 48px -12px rgb(14 26 43 / .22);
+  --raised-border:transparent;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B1220;--bg-subtle:#142033;--surface:#142033;--surface-raised:#1E2C40;--surface-sunken:#0B1220;
+  --surface-hover:#222E42;--surface-active:#384355;--surface-inverse:#EEF2F7;--scrim:rgb(0 0 0 / .6);
+  --text:#EEF2F7;--text-muted:#A4ABB8;--text-disabled:#545E6F;--text-inverse:#0E1A2B;
+  --link:#79A4FF;--link-hover:#A3C1FF;
+  --border:#222E42;--border-strong:#384355;--border-input:#788190;--border-input-hover:#A4ABB8;--border-focus:#79A4FF;
+  --on-primary:#0B1220;--primary-subtle:#4A0C05;--primary-text:#FFAD98;
+  --neutral-solid:#D0D4DC;--neutral-on:#0B1220;--neutral-subtle:#222E42;--neutral-border:#384355;--neutral-text:#D0D4DC;--neutral-ti:#384355;
+  --info-solid:#79A4FF;--info-on:#0B1220;--info-subtle:#0B2158;--info-border:#1E46A8;--info-text:#A3C1FF;--info-ti:#1E46A8;
+  --success-solid:#62C596;--success-on:#0B1220;--success-subtle:#022F1D;--success-border:#116544;--success-text:#90D9B3;--success-ti:#116544;
+  --warning-solid:#F2A93B;--warning-on:#0B1220;--warning-subtle:#3A1F00;--warning-border:#7B4B00;--warning-text:#F6C57E;--warning-ti:#7B4B00;
+  --danger-solid:#FFA9AF;--danger-on:#0B1220;--danger-subtle:#490C18;--danger-border:#902338;--danger-text:#FFA9AF;--danger-ti:#902338;
+  --danger-hover:#FFCCCE;--danger-active:#FFE6E7;
+  --focus:#79A4FF;--selection:#13327D;
+  --sh-sm:0 1px 2px rgb(0 0 0 / .4);--sh-md:0 4px 8px -2px rgb(0 0 0 / .5);
+  --sh-lg:0 12px 24px -6px rgb(0 0 0 / .6);--sh-xl:0 24px 48px -12px rgb(0 0 0 / .7);
+  --raised-border:#222E42;color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0B1220;--bg-subtle:#142033;--surface:#142033;--surface-raised:#1E2C40;--surface-sunken:#0B1220;
+  --surface-hover:#222E42;--surface-active:#384355;--surface-inverse:#EEF2F7;--scrim:rgb(0 0 0 / .6);
+  --text:#EEF2F7;--text-muted:#A4ABB8;--text-disabled:#545E6F;--text-inverse:#0E1A2B;
+  --link:#79A4FF;--link-hover:#A3C1FF;
+  --border:#222E42;--border-strong:#384355;--border-input:#788190;--border-input-hover:#A4ABB8;--border-focus:#79A4FF;
+  --on-primary:#0B1220;--primary-subtle:#4A0C05;--primary-text:#FFAD98;
+  --neutral-solid:#D0D4DC;--neutral-on:#0B1220;--neutral-subtle:#222E42;--neutral-border:#384355;--neutral-text:#D0D4DC;--neutral-ti:#384355;
+  --info-solid:#79A4FF;--info-on:#0B1220;--info-subtle:#0B2158;--info-border:#1E46A8;--info-text:#A3C1FF;--info-ti:#1E46A8;
+  --success-solid:#62C596;--success-on:#0B1220;--success-subtle:#022F1D;--success-border:#116544;--success-text:#90D9B3;--success-ti:#116544;
+  --warning-solid:#F2A93B;--warning-on:#0B1220;--warning-subtle:#3A1F00;--warning-border:#7B4B00;--warning-text:#F6C57E;--warning-ti:#7B4B00;
+  --danger-solid:#FFA9AF;--danger-on:#0B1220;--danger-subtle:#490C18;--danger-border:#902338;--danger-text:#FFA9AF;--danger-ti:#902338;
+  --danger-hover:#FFCCCE;--danger-active:#FFE6E7;
+  --focus:#79A4FF;--selection:#13327D;
+  --sh-sm:0 1px 2px rgb(0 0 0 / .4);--sh-md:0 4px 8px -2px rgb(0 0 0 / .5);
+  --sh-lg:0 12px 24px -6px rgb(0 0 0 / .6);--sh-xl:0 24px 48px -12px rgb(0 0 0 / .7);
+  --raised-border:#222E42;color-scheme:dark;
+}
+
+/* ---------- база ---------- */
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--text);font:400 16px/24px var(--font-sans);-webkit-font-smoothing:antialiased}
+::selection{background:var(--selection);color:var(--text)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+button,input,select,textarea{font:inherit;color:inherit}
+.num{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--font-mono)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.lucide{width:20px;height:20px;stroke-width:1.5;flex:none}
+.i16 .lucide,.lucide.i16{width:16px;height:16px}
+.i12 .lucide,.lucide.i12{width:12px;height:12px}
+.i24 .lucide,.lucide.i24{width:24px;height:24px}
+.i32 .lucide,.lucide.i32{width:32px;height:32px}
+.i48 .lucide,.lucide.i48{width:48px;height:48px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--surface)}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ---------- вітрина ---------- */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--surface);border-bottom:1px solid var(--border)}
+.top-in{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;align-items:center;gap:16px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font:600 18px/24px var(--font-display);white-space:nowrap}
+.brand small{font:500 12px/16px var(--font-sans);color:var(--text-muted)}
+.toc{display:flex;gap:4px;overflow-x:auto;flex:1;min-width:0;scrollbar-width:none}
+.toc a{flex:none;font:500 14px/20px var(--font-sans);color:var(--text-muted);text-decoration:none;padding:6px 12px;border-radius:var(--r-full)}
+.toc a:hover{color:var(--text);background:var(--surface-hover)}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px 96px}
+.intro{display:grid;gap:12px;margin-bottom:48px;max-width:760px}
+.intro h1{margin:0;font:600 40px/48px var(--font-display);letter-spacing:-.02em;text-wrap:balance}
+.intro p{margin:0;color:var(--text-muted)}
+.group{scroll-margin-top:88px;margin-top:64px}
+.group>h2{margin:0 0 8px;font:600 32px/40px var(--font-display);letter-spacing:-.015em}
+.group>p{margin:0 0 24px;color:var(--text-muted);max-width:65ch}
+.spec{display:grid;gap:12px;margin-top:32px;scroll-margin-top:88px}
+.spec-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.spec-h h3{margin:0;font:500 20px/28px var(--font-display)}
+.spec-h code{font:500 12px/16px var(--font-mono);color:var(--text-muted)}
+.spec-h a{margin-left:auto;font:500 14px/20px var(--font-sans);color:var(--link)}
+.spec-h p{flex-basis:100%;margin:0;font-size:14px;line-height:20px;color:var(--text-muted)}
+.stage{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:24px;display:grid;gap:24px;min-width:0}
+.stage.sunk{background:var(--bg-subtle)}
+.demo{display:grid;gap:8px;min-width:0}
+.lbl{font:600 12px/16px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.row.top-al{align-items:flex-start}
+.cols{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.cols>*,.row>*,.stage>*,.demo>*,.spec>*{min-width:0}
+.cols.c3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.theme-sw{display:flex;gap:2px;padding:3px;background:var(--bg-subtle);border-radius:var(--r-full);flex:none}
+.theme-sw button{border:0;background:none;width:32px;height:32px;border-radius:var(--r-full);display:grid;place-items:center;color:var(--text-muted);cursor:pointer}
+.theme-sw button[aria-pressed="true"]{background:var(--surface);color:var(--text);box-shadow:var(--sh-sm)}
+.note{font-size:12px;line-height:16px;color:var(--text-muted)}
+.sw-grid{display:grid;gap:4px;grid-template-columns:72px repeat(12,minmax(0,1fr));align-items:center;font:500 12px/16px var(--font-sans);color:var(--text-muted)}
+.sw-grid i{display:block;height:32px;border-radius:6px}
+.sw-grid i.pin{outline:2px solid var(--text);outline-offset:1px}
+.scroll-x{overflow-x:auto;min-width:0}
+
+/* ---------- KButton / KIconButton ---------- */
+.kite-btn{--h:40px;--px:16px;--gap:8px;display:inline-flex;align-items:center;justify-content:center;gap:var(--gap);height:var(--h);padding:0 var(--px);border-radius:var(--r-full);border:1px solid transparent;font:600 16px/24px var(--font-sans);white-space:nowrap;cursor:pointer;text-decoration:none;position:relative;transition:background-color var(--d-fast) var(--e-out),border-color var(--d-fast) var(--e-out),transform var(--d-fast) var(--e-out);
+  background:var(--surface);color:var(--text);border-color:var(--border-strong)}
+.kite-btn[data-size="sm"]{--h:32px;--px:12px;--gap:6px;font:600 14px/20px var(--font-sans)}
+.kite-btn[data-size="sm"] .lucide{width:16px;height:16px}
+.kite-btn[data-size="sm"]::before{content:"";position:absolute;inset:-4px 0}
+.kite-btn[data-size="lg"]{--h:48px;--px:24px}
+.kite-btn:hover,.kite-btn.is-hover{background:var(--surface-hover)}
+.kite-btn:active,.kite-btn.is-active{background:var(--surface-active);transform:scale(.98)}
+.kite-btn.is-focus{outline:2px solid var(--focus);outline-offset:2px}
+.kite-btn[data-variant="primary"]{background:var(--primary);color:var(--on-primary);border-color:transparent}
+.kite-btn[data-variant="primary"]:hover,.kite-btn[data-variant="primary"].is-hover{background:var(--primary-hover)}
+.kite-btn[data-variant="primary"]:active,.kite-btn[data-variant="primary"].is-active{background:var(--primary-active)}
+.kite-btn[data-variant="ghost"]{background:transparent;border-color:transparent}
+.kite-btn[data-variant="ghost"]:hover,.kite-btn[data-variant="ghost"].is-hover{background:var(--surface-hover)}
+.kite-btn[data-variant="danger"]{background:var(--danger-solid);color:var(--danger-on);border-color:transparent}
+.kite-btn[data-variant="danger"]:hover,.kite-btn[data-variant="danger"].is-hover{background:var(--danger-hover)}
+.kite-btn[data-variant="danger"]:active,.kite-btn[data-variant="danger"].is-active{background:var(--danger-active)}
+.kite-btn[data-variant="link"]{height:auto;padding:0;background:none;border:0;color:var(--link);text-decoration:underline;text-underline-offset:.2em}
+.kite-btn[data-variant="link"]:hover{color:var(--link-hover);background:none}
+.kite-btn[disabled],.kite-btn[data-variant][disabled]{background:var(--bg-subtle);color:var(--text-disabled);border-color:transparent;cursor:not-allowed;transform:none}
+.kite-btn[data-variant="ghost"][disabled],.kite-btn[data-variant="link"][disabled]{background:none}
+.kite-btn[data-block]{width:100%}
+.kite-btn .spin{width:20px;height:20px}
+.kite-btn[data-size="sm"] .spin{width:16px;height:16px}
+.kite-icon-btn{--s:40px;width:var(--s);padding:0}
+.kite-icon-btn[data-size="sm"]{--s:32px;--h:32px}
+.kite-icon-btn[data-size="lg"]{--s:48px;--h:48px}
+.kite-icon-btn[data-size="lg"] .lucide{width:24px;height:24px}
+.kite-btn-group{display:inline-flex}
+.kite-btn-group>.kite-btn{border-radius:0}
+.kite-btn-group>.kite-btn:first-child{border-radius:var(--r-full) 0 0 var(--r-full)}
+.kite-btn-group>.kite-btn:last-child{border-radius:0 var(--r-full) var(--r-full) 0}
+.kite-btn-group>.kite-btn+.kite-btn{margin-left:-1px}
+.kite-btn-group[data-variant="primary"]>.kite-btn+.kite-btn{margin-left:0;border-left:1px solid var(--primary-active)}
+.kite-btn-group>.kite-btn:last-child.kite-icon-btn{width:40px}
+
+/* ---------- KSpinner ---------- */
+.spin{width:20px;height:20px;animation:kspin .8s linear infinite;flex:none}
+.spin circle{fill:none;stroke:currentColor;stroke-width:2.5}
+.spin .t{opacity:.2}
+.spin .a{stroke-dasharray:15 60;stroke-linecap:round}
+@keyframes kspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.spin{animation-duration:1.6s!important}}
+
+/* ---------- KLink ---------- */
+.kite-link{color:var(--link);text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
+.kite-link:hover{color:var(--link-hover);text-decoration-thickness:2px}
+.kite-link[data-variant="standalone"]{display:inline-flex;align-items:center;gap:6px;font:500 16px/24px var(--font-sans);text-decoration:none}
+.kite-link[data-variant="standalone"]:hover{text-decoration:underline}
+.kite-link[data-variant="subtle"]{color:var(--text-muted);text-decoration:none;font-size:14px}
+.kite-link[data-variant="subtle"]:hover{color:var(--text);text-decoration:underline}
+
+/* ---------- KToggle / KToggleGroup ---------- */
+.kite-toggle[aria-pressed="true"]{background:var(--primary-subtle);color:var(--primary-text);border-color:transparent}
+.kite-toggle[data-variant="secondary"][aria-pressed="true"]{border-color:var(--primary)}
+.kite-tg{display:inline-flex;padding:4px;gap:2px;background:var(--bg-subtle);border-radius:var(--r-full)}
+.kite-tg button{height:32px;padding:0 14px;border:0;border-radius:var(--r-full);background:none;color:var(--text-muted);font:500 14px/20px var(--font-sans);display:inline-flex;align-items:center;gap:6px;cursor:pointer;transition:background-color var(--d-mod) var(--e-io)}
+.kite-tg button:hover{color:var(--text)}
+.kite-tg button[aria-pressed="true"]{background:var(--surface);color:var(--text);font-weight:600;box-shadow:var(--sh-sm)}
+.kite-tg[data-block]{display:flex}.kite-tg[data-block] button{flex:1;justify-content:center}
+.kite-tg[data-size="lg"] button{height:40px;font-size:16px;padding:0 18px}
+
+/* ---------- KField / KInput / KTextarea ---------- */
+.kite-field{display:grid;gap:4px;min-width:0}
+.kite-field>label,.kite-field>.fl{display:flex;justify-content:space-between;gap:8px;font:500 14px/20px var(--font-sans);color:var(--text)}
+.kite-field .opt{font-weight:400;color:var(--text-muted)}
+.kite-field .hint{display:flex;justify-content:space-between;gap:8px;font:400 12px/16px var(--font-sans);color:var(--text-muted)}
+.kite-field .err{display:flex;gap:6px;align-items:flex-start;font:500 12px/16px var(--font-sans);color:var(--danger-text)}
+.kite-field .err .lucide{width:16px;height:16px}
+.kite-field[data-disabled]>label{color:var(--text-disabled)}
+.kite-field.h{grid-template-columns:200px 1fr;column-gap:16px;align-items:start}
+.kite-field.h>label{padding-top:10px}
+.kite-field.h>.hint,.kite-field.h>.err{grid-column:2}
+@media (max-width:767px){.kite-field.h{grid-template-columns:1fr}.kite-field.h>label{padding-top:0}.kite-field.h>.hint,.kite-field.h>.err{grid-column:1}}
+.kite-input{--h:40px;display:flex;align-items:center;gap:8px;height:var(--h);padding:0 12px;background:var(--surface);border:1px solid var(--border-input);border-radius:var(--r-sm);color:var(--text);transition:border-color var(--d-fast) var(--e-out),box-shadow var(--d-fast) var(--e-out);min-width:0}
+.kite-input:hover{border-color:var(--border-input-hover)}
+.kite-input:focus-within,.kite-input.is-focus{border-color:var(--border-focus);box-shadow:0 0 0 1px var(--border-focus)}
+.kite-input input{flex:1;min-width:0;width:100%;border:0;outline:0;background:none;height:100%;padding:0;font:400 16px/24px var(--font-sans)}
+.kite-input input::placeholder,.kite-input textarea::placeholder{color:var(--text-muted)}
+.kite-input .pre,.kite-input .suf{color:var(--text-muted);font-size:16px;flex:none}
+.kite-input .pre.div{padding-right:10px;border-right:1px solid var(--border);align-self:stretch;display:flex;align-items:center}
+.kite-input>.lucide{color:var(--text-muted)}
+.kite-input .clr{width:24px;height:24px;border:0;background:none;border-radius:var(--r-full);display:grid;place-items:center;color:var(--text-muted);cursor:pointer}
+.kite-input .clr:hover{background:var(--surface-hover);color:var(--text)}
+.kite-input[data-size="sm"]{--h:32px}
+.kite-input[data-size="sm"] input{font-size:14px}
+.kite-input[data-size="lg"]{--h:48px;padding:0 16px}
+.kite-input[data-invalid]{border-color:var(--danger-text)}
+.kite-input[data-invalid]:focus-within,.kite-input[data-invalid].is-focus{box-shadow:0 0 0 1px var(--danger-text)}
+.kite-input[data-disabled]{background:var(--bg-subtle);border-color:var(--border);color:var(--text-disabled)}
+.kite-input[data-disabled] input{color:var(--text-disabled)}
+.kite-input[data-readonly]{background:var(--surface-sunken);border-color:transparent}
+.kite-input.ta{height:auto;align-items:stretch;padding:8px 12px}
+.kite-input.ta textarea{flex:1;border:0;outline:0;background:none;resize:none;font:400 16px/24px var(--font-sans);min-height:72px}
+.kite-input.num-in input{text-align:right;font-variant-numeric:tabular-nums}
+.kite-input .step{display:flex;align-self:stretch;margin-right:-12px;border-left:1px solid var(--border)}
+.kite-input .step button{width:36px;border:0;background:none;color:var(--text-muted);display:grid;place-items:center;cursor:pointer}
+.kite-input .step button+button{border-left:1px solid var(--border)}
+.kite-input .step button:hover{background:var(--surface-hover);color:var(--text)}
+.kite-input .step button[disabled]{color:var(--text-disabled);cursor:not-allowed;background:none}
+.kite-input.filled{background:var(--bg-subtle);border-color:transparent}
+.kbd{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 5px;border:1px solid var(--border);border-bottom-width:2px;border-radius:var(--r-xs);background:var(--surface-sunken);font:500 12px/16px var(--font-mono);color:var(--text-muted)}
+.kbd[data-size="md"]{height:24px;min-width:24px}
+.kbds{display:inline-flex;gap:4px}
+.kite-input.trk input{font-family:var(--font-mono);font-weight:500;letter-spacing:.02em}
+
+/* ---------- KSelect / KCombobox / меню ---------- */
+.kite-trigger{justify-content:space-between;cursor:pointer;text-align:left}
+.kite-trigger .val{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kite-trigger .ph{color:var(--text-muted)}
+.kite-trigger[data-open] {border-color:var(--border-focus);box-shadow:0 0 0 1px var(--border-focus)}
+.kite-trigger[data-open] .chev{transform:rotate(180deg)}
+.chev{transition:transform var(--d-mod) var(--e-out);color:var(--text-muted)}
+.kite-pop{background:var(--surface-raised);border:1px solid var(--raised-border);border-radius:var(--r-md);box-shadow:var(--sh-lg);padding:4px;min-width:200px}
+.kite-list{display:grid;gap:1px;max-height:320px;overflow:auto}
+.kite-opt{display:flex;align-items:center;gap:10px;min-height:40px;padding:8px 12px;border-radius:var(--r-sm);font:400 14px/20px var(--font-sans);color:var(--text);cursor:pointer}
+.kite-opt .d{display:block;font-size:12px;line-height:16px;color:var(--text-muted)}
+.kite-opt .txt{flex:1;min-width:0}
+.kite-opt[data-highlighted],.kite-opt:hover{background:var(--surface-hover)}
+.kite-opt[data-selected]{font-weight:600}
+.kite-opt[data-selected] .ck{color:var(--text)}
+.kite-opt .ck{margin-left:auto;width:16px;height:16px;color:transparent}
+.kite-opt[data-disabled]{color:var(--text-disabled);cursor:not-allowed;background:none}
+.kite-opt[data-danger]{color:var(--danger-text)}
+.kite-opt[data-danger][data-highlighted],.kite-opt[data-danger]:hover{background:var(--danger-subtle)}
+.kite-opt .sc{margin-left:auto}
+.kite-opt mark{background:none;color:inherit;font-weight:700}
+.kite-grp{padding:8px 12px 4px;font:600 12px/16px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)}
+.kite-sep{height:1px;background:var(--border);margin:4px 0;border:0}
+.kite-status-row{display:flex;align-items:center;gap:8px;padding:12px;font-size:14px;color:var(--text-muted)}
+.chips{display:flex;flex-wrap:wrap;gap:4px;align-items:center;flex:1;min-width:0;padding-block:4px}
+.chips input{min-width:80px}
+.kite-input.multi{height:auto;min-height:40px;padding-block:0}
+.chip{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 4px 0 8px;border:1px solid var(--border-strong);border-radius:var(--r-full);font:500 12px/16px var(--font-sans);background:var(--surface)}
+.chip button{width:16px;height:16px;border:0;padding:0;background:none;border-radius:var(--r-full);display:grid;place-items:center;color:var(--text-muted);cursor:pointer}
+.chip button:hover{background:var(--surface-hover);color:var(--text)}
+.chip[data-tone="danger"]{border-color:var(--danger-border);background:var(--danger-subtle);color:var(--danger-text)}
+.chip.mono{font-family:var(--font-mono)}
+
+/* ---------- KCheckbox / KRadio / KSwitch ---------- */
+.kite-check{display:inline-flex;gap:8px;align-items:flex-start;cursor:pointer;min-height:24px;font:400 16px/24px var(--font-sans)}
+.kite-check .box{width:20px;height:20px;margin-top:2px;flex:none;border:1.5px solid var(--border-input);border-radius:var(--r-xs);background:var(--surface);display:grid;place-items:center;color:transparent;transition:background-color var(--d-base) var(--e-out)}
+.kite-check .box .lucide{width:16px;height:16px;stroke-width:2.5}
+.kite-check:hover .box{border-color:var(--border-input-hover)}
+.kite-check[data-state="checked"] .box,.kite-check[data-state="indeterminate"] .box{background:var(--text);border-color:var(--text);color:var(--text-inverse)}
+.kite-check[data-invalid] .box{border-color:var(--danger-text)}
+.kite-check[data-disabled]{color:var(--text-disabled);cursor:not-allowed}
+.kite-check[data-disabled] .box{background:var(--bg-subtle);border-color:var(--border)}
+.kite-check[data-disabled][data-state="checked"] .box{background:var(--text-disabled);border-color:var(--text-disabled);color:var(--surface)}
+.kite-check .d{display:block;font-size:12px;line-height:16px;color:var(--text-muted)}
+.kite-check.is-focus .box{outline:2px solid var(--focus);outline-offset:2px}
+.kite-check[data-size="sm"]{font-size:14px;line-height:20px}
+.kite-check[data-size="sm"] .box{width:16px;height:16px;margin-top:2px}
+.kite-check[data-size="sm"] .box .lucide{width:12px;height:12px}
+.kite-radio .box{border-radius:50%}
+.kite-radio[data-state="checked"] .box{background:var(--text);border-color:var(--text)}
+.kite-radio[data-state="checked"] .box::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--text-inverse)}
+.fs{border:0;margin:0;padding:0;display:grid;gap:12px;min-width:0}
+.fs legend{padding:0;margin-bottom:4px;font:500 14px/20px var(--font-sans)}
+.fs.hz .opts{display:flex;flex-wrap:wrap;gap:12px 24px}
+.fs .opts{display:grid;gap:12px}
+.rcards{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.rcard{display:flex;gap:12px;align-items:flex-start;padding:16px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);cursor:pointer}
+.rcard:hover{border-color:var(--border-strong)}
+.rcard[data-state="checked"]{border:2px solid var(--primary);padding:15px}
+.rcard .t{font:600 16px/24px var(--font-sans)}
+.rcard .d{font-size:14px;line-height:20px;color:var(--text-muted)}
+.rcard .aside{margin-left:auto;text-align:right;font:600 16px/24px var(--font-sans);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rcard .aside small{display:block;font-weight:400;font-size:12px;line-height:16px;color:var(--text-muted)}
+.kite-switch{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;cursor:pointer;min-height:40px}
+.kite-switch .t{font:400 16px/24px var(--font-sans)}
+.kite-switch .d{display:block;font-size:12px;line-height:16px;color:var(--text-muted)}
+.kite-switch .track{width:40px;height:24px;flex:none;border-radius:var(--r-full);background:var(--switch-off);padding:2px;transition:background-color var(--d-base) var(--e-out);margin-top:0}
+.kite-switch .thumb{width:20px;height:20px;border-radius:50%;background:var(--surface);box-shadow:var(--sh-sm);transition:transform var(--d-base) var(--e-out);display:grid;place-items:center}
+.kite-switch[data-state="checked"] .track{background:var(--success-solid)}
+.kite-switch[data-state="checked"] .thumb{transform:translateX(16px)}
+.kite-switch[data-disabled]{cursor:not-allowed;color:var(--text-disabled)}
+.kite-switch[data-disabled] .track{background:var(--bg-subtle)}
+.kite-switch[data-disabled] .thumb{background:var(--surface-sunken);box-shadow:none}
+.kite-switch .thumb .spin{width:12px;height:12px;color:var(--text-muted)}
+.kite-switch[data-size="sm"] .track{width:32px;height:20px}
+.kite-switch[data-size="sm"] .thumb{width:16px;height:16px}
+.kite-switch[data-size="sm"][data-state="checked"] .thumb{transform:translateX(12px)}
+
+/* ---------- KPinInput ---------- */
+.kite-pin{display:flex;gap:8px;align-items:center}
+.kite-pin .gap{width:8px}
+.kite-pin span{flex:0 1 48px;min-width:32px;height:56px;display:grid;place-items:center;border:1px solid var(--border-input);border-radius:var(--r-sm);background:var(--surface);font:500 20px/28px var(--font-mono)}
+.kite-pin span.f{border-color:var(--border-focus);box-shadow:0 0 0 1px var(--border-focus)}
+.kite-pin span.f::after{content:"";width:2px;height:24px;background:var(--text);animation:blink 1s step-end infinite}
+.kite-pin[data-invalid] span{border-color:var(--danger-text)}
+@keyframes blink{50%{opacity:0}}
+
+/* ---------- календар ---------- */
+.cal{padding:12px;width:100%;max-width:304px}
+.cal-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font:600 14px/20px var(--font-sans)}
+.cal-g{display:grid;grid-template-columns:repeat(7,minmax(0,40px));gap:0;font:400 14px/20px var(--font-sans);font-variant-numeric:tabular-nums}
+.cal-g .dow{height:32px;display:grid;place-items:center;font-size:12px;color:var(--text-muted)}
+.cal-g .day{height:40px;display:grid;place-items:center;border-radius:var(--r-full);cursor:pointer}
+.cal-g .day:hover{background:var(--surface-hover)}
+.cal-g .out{color:var(--text-muted)}
+.cal-g .today{box-shadow:inset 0 0 0 1px var(--border-strong);font-weight:600}
+.cal-g .sel{background:var(--text);color:var(--text-inverse);font-weight:600}
+.cal-g .sel:hover{background:var(--text)}
+.cal-g .na{color:var(--text-disabled);text-decoration:line-through;cursor:not-allowed}
+.cal-g .na:hover{background:none}
+.cal-g .in{background:var(--surface-active);border-radius:0}
+.cal-g .rs{border-radius:var(--r-full) 0 0 var(--r-full)}
+.cal-g .re{border-radius:0 var(--r-full) var(--r-full) 0}
+.presets{display:grid;gap:2px;padding:8px;border-right:1px solid var(--border);min-width:160px}
+.range-pop{display:flex;flex-wrap:wrap}
+.range-foot{display:flex;justify-content:flex-end;gap:8px;padding:12px;border-top:1px solid var(--border);width:100%}
+
+/* ---------- KFileUpload ---------- */
+.drop{display:grid;justify-items:center;gap:8px;padding:24px;text-align:center;border:1.5px dashed var(--border-input);border-radius:var(--r-md);background:var(--surface);color:var(--text-muted);font-size:14px;line-height:20px;cursor:pointer}
+.drop .lucide{width:24px;height:24px;color:var(--text)}
+.drop b{color:var(--text);font-weight:500}
+.drop[data-over]{border-style:solid;border-color:var(--border-focus);background:var(--selection)}
+.files{display:grid;gap:8px;list-style:none;margin:0;padding:0}
+.file{display:grid;grid-template-columns:auto 1fr auto;gap:4px 12px;align-items:center;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--surface);font-size:14px;line-height:20px}
+.file .meta{font-size:12px;line-height:16px;color:var(--text-muted)}
+.file .bar{grid-column:2/3}
+.file[data-status="error"] .meta{color:var(--danger-text)}
+
+/* ---------- KBadge ---------- */
+.kite-badge{--b:var(--neutral-border);--f:var(--neutral-subtle);--t:var(--neutral-text);display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 8px;border-radius:var(--r-full);border:1px solid var(--b);background:var(--f);color:var(--t);font:600 12px/16px var(--font-sans);white-space:nowrap}
+.kite-badge .lucide{width:14px;height:14px}
+.kite-badge[data-size="sm"]{height:20px;padding:0 6px;font-weight:500}
+.kite-badge[data-size="sm"] .lucide{width:12px;height:12px}
+.kite-badge[data-size="lg"]{height:28px;padding:0 10px;font-size:14px;line-height:20px}
+.kite-badge[data-size="lg"] .lucide{width:16px;height:16px}
+.kite-badge[data-tone="info"]{--b:var(--info-border);--f:var(--info-subtle);--t:var(--info-text);--s:var(--info-solid);--o:var(--info-on)}
+.kite-badge[data-tone="success"]{--b:var(--success-border);--f:var(--success-subtle);--t:var(--success-text);--s:var(--success-solid);--o:var(--success-on)}
+.kite-badge[data-tone="warning"]{--b:var(--warning-border);--f:var(--warning-subtle);--t:var(--warning-text);--s:var(--warning-solid);--o:var(--warning-on)}
+.kite-badge[data-tone="danger"]{--b:var(--danger-border);--f:var(--danger-subtle);--t:var(--danger-text);--s:var(--danger-solid);--o:var(--danger-on)}
+.kite-badge{--s:var(--neutral-solid);--o:var(--neutral-on)}
+.kite-badge[data-variant="solid"]{background:var(--s);color:var(--o);border-color:transparent}
+.kite-badge[data-variant="outline"]{background:transparent}
+.kite-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--s)}
+.kite-badge.count{min-width:24px;justify-content:center;padding:0 6px}
+.kite-badge.count[data-size="sm"]{min-width:20px;padding:0 5px}
+
+/* ---------- KAvatar ---------- */
+.kite-avatar{--s:32px;width:var(--s);height:var(--s);border-radius:50%;display:inline-grid;place-items:center;font:600 14px/1 var(--font-sans);flex:none;overflow:hidden}
+.kite-avatar[data-size="sm"]{--s:24px;font-size:11px}
+.kite-avatar[data-size="lg"]{--s:48px;font-size:16px;font-weight:700}
+.kite-avatar[data-shape="square"]{border-radius:var(--r-sm)}
+.av-sky{background:#E3EDFF;color:#1E46A8}.av-green{background:#DBF5E6;color:#116544}.av-amber{background:#FDEDD3;color:#7B4B00}.av-coral{background:#FFE7E0;color:#942512}.av-slate{background:#E3E6EC;color:#222E42}
+.av-icon{background:var(--bg-subtle);color:var(--text-muted)}
+.av-photo{background:linear-gradient(135deg,#5A8DFF,#1E46A8);color:#fff}
+
+/* ---------- KCard ---------- */
+.kite-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);min-width:0;position:relative}
+.kite-card[data-variant="elevated"]{border-color:var(--raised-border);box-shadow:var(--sh-sm)}
+.kite-card[data-variant="subtle"]{background:var(--bg-subtle);border-color:transparent}
+.kite-card .ch{display:flex;gap:12px;align-items:flex-start;padding:24px 24px 0}
+.kite-card .ch h4{margin:0;font:500 20px/28px var(--font-display)}
+.kite-card .ch p{margin:2px 0 0;font-size:14px;line-height:20px;color:var(--text-muted)}
+.kite-card .ch .act{margin-left:auto;display:flex;gap:4px}
+.kite-card .cc{padding:16px 24px 24px}
+.kite-card .cf{display:flex;justify-content:flex-end;gap:8px;padding:16px 24px;border-top:1px solid var(--border)}
+.kite-card[data-padding="sm"] .ch{padding:16px 16px 0}.kite-card[data-padding="sm"] .cc{padding:12px 16px 16px}
+.kite-card[data-interactive]{cursor:pointer;transition:box-shadow var(--d-fast) var(--e-out),border-color var(--d-fast) var(--e-out)}
+.kite-card[data-interactive]:hover,.kite-card[data-interactive].is-hover{box-shadow:var(--sh-md);border-color:var(--border-strong)}
+.kite-card[data-selected]{border:2px solid var(--primary);margin:-1px}
+.kite-card .stretch::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.kite-card a.stretch{color:inherit;text-decoration:none}
+.kite-card .sel-mark{position:absolute;top:12px;right:12px;width:24px;height:24px;border-radius:50%;background:var(--text);color:var(--text-inverse);display:grid;place-items:center}
+.kite-card .sel-mark .lucide{width:16px;height:16px;stroke-width:2.5}
+
+/* ---------- KSeparator / KSkeleton ---------- */
+.kite-separator{height:1px;background:var(--border);border:0;margin:0}
+.kite-separator.v{width:1px;height:20px}
+.kite-separator.lb{display:flex;align-items:center;gap:12px;height:auto;background:none;font:400 12px/16px var(--font-sans);color:var(--text-muted)}
+.kite-separator.lb::before,.kite-separator.lb::after{content:"";flex:1;height:1px;background:var(--border)}
+.sk{background:var(--bg-subtle);border-radius:var(--r-xs);animation:pulse 1.5s var(--e-io) infinite}
+.sk.r{border-radius:var(--r-sm)}.sk.c{border-radius:50%}
+@keyframes pulse{50%{opacity:.5}}
+:root[data-theme="dark"] .sk{background:#222E42}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sk{background:#222E42}}
+
+/* ---------- KDescriptionList ---------- */
+.kite-dl{display:grid;gap:16px 24px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin:0}
+.kite-dl dt{font:400 12px/16px var(--font-sans);color:var(--text-muted)}
+.kite-dl dd{margin:2px 0 0;font:400 16px/24px var(--font-sans);font-variant-numeric:tabular-nums}
+.kite-dl.inline{grid-template-columns:1fr;gap:0}
+.kite-dl.inline>div{display:grid;grid-template-columns:minmax(120px,40%) 1fr;gap:16px;padding:12px 0;border-bottom:1px solid var(--border)}
+.kite-dl.inline>div:last-child{border-bottom:0}
+.kite-dl.inline dt{font-size:14px;line-height:20px}
+.kite-dl.inline dd{margin:0;font-size:14px;line-height:20px}
+.muted{color:var(--text-muted)}
+
+/* ---------- KTrackingNumber ---------- */
+.trk{display:inline-flex;align-items:center;gap:4px;font:500 16px/24px var(--font-mono);white-space:nowrap}
+.trk .g{display:inline-flex;gap:.35em}
+.trk[data-size="sm"]{font-size:14px;line-height:20px}
+.trk[data-size="lg"]{font-size:20px;line-height:28px;letter-spacing:.02em}
+.trk a{color:inherit;text-decoration:none}
+.trk a:hover{text-decoration:underline;text-underline-offset:.2em}
+.trk b{font-weight:700}
+
+/* ---------- KAlert / KToast / KProgress / KEmptyState ---------- */
+.kite-alert{--b:var(--info-border);--f:var(--info-subtle);--t:var(--info-text);display:flex;gap:12px;align-items:flex-start;padding:16px;border:1px solid var(--b);background:var(--f);border-radius:var(--r-md);color:var(--text);font-size:14px;line-height:20px;min-width:0}
+.kite-alert>.lucide{color:var(--t);margin-top:0}
+.kite-alert .bd{display:grid;gap:4px;flex:1;min-width:0}
+.kite-alert .tt{font:600 16px/24px var(--font-sans);margin-top:-2px}
+.kite-alert .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.kite-alert[data-tone="success"]{--b:var(--success-border);--f:var(--success-subtle);--t:var(--success-text)}
+.kite-alert[data-tone="warning"]{--b:var(--warning-border);--f:var(--warning-subtle);--t:var(--warning-text)}
+.kite-alert[data-tone="danger"]{--b:var(--danger-border);--f:var(--danger-subtle);--t:var(--danger-text)}
+.kite-alert[data-tone="neutral"]{--b:var(--neutral-border);--f:var(--neutral-subtle);--t:var(--neutral-text)}
+.kite-alert[data-size="sm"]{padding:10px 12px;gap:8px;align-items:center}
+.kite-alert[data-variant="banner"]{border-radius:0;border-width:1px 0}
+.kite-alert .x{margin:-6px -6px 0 0}
+.kite-toast{display:flex;gap:12px;align-items:flex-start;width:min(360px,100%);padding:12px 12px 12px 16px;background:var(--surface-inverse);color:var(--text-inverse);border-radius:var(--r-md);box-shadow:var(--sh-lg);font-size:14px;line-height:20px}
+.kite-toast .bd{flex:1;min-width:0}
+.kite-toast .tt{font-weight:600}
+.kite-toast .ds{opacity:.85}
+.kite-toast .tb{height:32px;padding:0 12px;border:0;border-radius:var(--r-full);background:transparent;color:var(--text-inverse);font:600 14px/20px var(--font-sans);cursor:pointer;flex:none;margin-top:-6px}
+.kite-toast .tb:hover{background:rgb(127 127 127 / .2)}
+.kite-toast .tx{width:32px;padding:0;display:grid;place-items:center;margin-right:-4px}
+.kite-toast[data-tone="success"]>.lucide{color:var(--success-ti)}
+.kite-toast[data-tone="info"]>.lucide{color:var(--info-ti)}
+.kite-toast[data-tone="warning"]>.lucide{color:var(--warning-ti)}
+.kite-toast[data-tone="danger"]>.lucide{color:var(--danger-ti)}
+.kite-progress{display:grid;gap:6px;min-width:0}
+.kite-progress .pl{display:flex;justify-content:space-between;gap:8px;font:500 14px/20px var(--font-sans)}
+.kite-progress .pl span:last-child{color:var(--text-muted);font-weight:400;font-variant-numeric:tabular-nums}
+.kite-progress .tr{height:8px;border-radius:var(--r-full);background:var(--bg-subtle);overflow:hidden}
+.kite-progress[data-size="sm"] .tr{height:4px}
+.kite-progress .fl{height:100%;border-radius:inherit;background:var(--info-solid);transform-origin:left;transition:transform var(--d-mod)}
+.kite-progress[data-tone="warning"] .fl{background:var(--warning-solid)}
+.kite-progress[data-tone="success"] .fl{background:var(--success-solid)}
+.kite-progress[data-tone="danger"] .fl{background:var(--danger-solid)}
+.kite-progress .fl.ind{width:30%;animation:ind 1.5s var(--e-io) infinite}
+@keyframes ind{from{transform:translateX(-100%)}to{transform:translateX(340%)}}
+.kite-empty{display:grid;justify-items:center;text-align:center;gap:8px;padding:48px 16px;max-width:400px;margin:0 auto}
+.kite-empty .ic{width:80px;height:80px;border-radius:50%;background:var(--bg-subtle);display:grid;place-items:center;color:var(--text-muted);margin-bottom:8px}
+.kite-empty .ic .lucide{width:40px;height:40px}
+.kite-empty h4{margin:0;font:500 20px/28px var(--font-display)}
+.kite-empty p{margin:0;font-size:14px;line-height:20px;color:var(--text-muted)}
+.kite-empty .acts{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:12px}
+.kite-empty[data-size="sm"]{padding:24px 16px}
+.kite-empty[data-size="sm"] .ic{width:56px;height:56px}.kite-empty[data-size="sm"] .ic .lucide{width:24px;height:24px}
+.kite-empty[data-size="sm"] h4{font:700 16px/24px var(--font-sans)}
+
+/* ---------- оверлеї ---------- */
+.faux{position:relative;border-radius:var(--r-md);background:var(--scrim);padding:32px 16px;display:grid;place-items:center;min-height:320px;overflow:hidden}
+.faux-page{position:absolute;inset:0;background:var(--bg);z-index:-1}
+.kite-dialog{width:min(560px,100%);background:var(--surface-raised);border:1px solid var(--raised-border);border-radius:var(--r-lg);box-shadow:var(--sh-xl);display:grid;max-height:100%}
+.kite-dialog[data-size="sm"]{width:min(400px,100%)}
+.kite-dialog .dh{display:flex;gap:16px;align-items:flex-start;padding:24px 24px 0}
+.kite-dialog .dh h4{margin:0;font:500 24px/32px var(--font-display);text-wrap:balance}
+.kite-dialog[data-size="sm"] .dh h4{font-size:20px;line-height:28px}
+.kite-dialog .dh p{margin:4px 0 0;font-size:14px;line-height:20px;color:var(--text-muted)}
+.kite-dialog .dh .kite-btn{margin:-4px -8px 0 auto}
+.kite-dialog .db{padding:20px 24px;display:grid;gap:16px}
+.kite-dialog .df{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:12px;padding:0 24px 24px}
+.kite-dialog .aic{width:48px;height:48px;border-radius:50%;background:var(--danger-subtle);color:var(--danger-text);display:grid;place-items:center;flex:none}
+.kite-dialog .aic .lucide{width:24px;height:24px}
+@media (max-width:639px){.kite-dialog .df{flex-direction:column-reverse}.kite-dialog .df .kite-btn{width:100%}.kite-dialog .dh h4{font-size:20px;line-height:28px}}
+.faux.sheet{place-items:stretch;justify-items:end;padding:0;min-height:380px}
+.kite-sheet{width:min(400px,100%);height:100%;background:var(--surface-raised);border-left:1px solid var(--raised-border);border-radius:var(--r-lg) 0 0 var(--r-lg);box-shadow:var(--sh-xl);display:grid;grid-template-rows:auto 1fr auto}
+.kite-sheet .dh{display:flex;gap:12px;align-items:flex-start;padding:20px 24px 16px;border-bottom:1px solid var(--border)}
+.kite-sheet .dh h4{margin:0;font:500 20px/28px var(--font-display)}
+.kite-sheet .db{padding:20px 24px;display:grid;gap:20px;align-content:start;overflow:auto}
+.kite-sheet .df{display:flex;justify-content:flex-end;gap:8px;padding:16px 24px;border-top:1px solid var(--border)}
+.faux.drawer{place-items:end stretch;padding:0;min-height:380px}
+.kite-drawer{background:var(--surface-raised);border-top:1px solid var(--raised-border);border-radius:var(--r-lg) var(--r-lg) 0 0;box-shadow:var(--sh-xl);padding:8px 16px 16px;display:grid;gap:12px}
+.kite-drawer .handle{justify-self:center;width:40px;height:20px;border:0;background:none;display:grid;place-items:center;cursor:pointer;border-radius:var(--r-full)}
+.kite-drawer .handle::after{content:"";width:32px;height:4px;border-radius:var(--r-full);background:var(--border-strong)}
+.map-faux{position:absolute;inset:0;background:
+  linear-gradient(90deg,transparent 49.5%,var(--border) 49.5% 50.5%,transparent 50.5%) 0 0/120px 120px,
+  linear-gradient(0deg,transparent 49.5%,var(--border) 49.5% 50.5%,transparent 50.5%) 0 0/120px 120px,var(--bg-subtle)}
+.pin-m{position:absolute;width:28px;height:28px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--primary);box-shadow:var(--sh-md)}
+.kite-popover{width:280px;padding:16px;font-size:14px;line-height:20px}
+.kite-popover .pt{font:600 14px/20px var(--font-sans);margin-bottom:8px}
+.price-rows{display:grid;gap:6px}
+.price-rows div{display:flex;justify-content:space-between;gap:12px;font-variant-numeric:tabular-nums}
+.price-rows .tot{border-top:1px solid var(--border);padding-top:8px;font-weight:700}
+.kite-tooltip{position:relative;display:inline-flex;align-items:center;gap:8px;max-width:280px;padding:6px 8px;background:var(--surface-inverse);color:var(--text-inverse);border-radius:var(--r-sm);font:500 12px/16px var(--font-sans)}
+.kite-tooltip::after{content:"";position:absolute;left:50%;bottom:-4px;width:8px;height:8px;background:inherit;transform:translateX(-50%) rotate(45deg);border-radius:1px}
+.kite-tooltip .kbd{background:transparent;color:inherit;border-color:rgb(127 127 127 / .5)}
+.tip-demo{display:grid;justify-items:center;gap:8px}
+.anchor-demo{display:grid;gap:8px;justify-items:start}
+
+/* ---------- навігація ---------- */
+.kite-tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);overflow-x:auto}
+.kite-tabs button{position:relative;height:40px;padding:0 12px;border:0;background:none;color:var(--text-muted);font:500 14px/20px var(--font-sans);display:inline-flex;align-items:center;gap:6px;cursor:pointer;white-space:nowrap}
+.kite-tabs button:hover{color:var(--text)}
+.kite-tabs button[aria-selected="true"]{color:var(--text);font-weight:600}
+.kite-tabs button[aria-selected="true"]::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:2px;background:var(--primary);border-radius:2px 2px 0 0}
+.kite-tabs button[disabled]{color:var(--text-disabled);cursor:not-allowed}
+.kite-tabs.pills{border:0;padding:4px;background:var(--bg-subtle);border-radius:var(--r-full);display:inline-flex}
+.kite-tabs.pills button{height:32px;border-radius:var(--r-full)}
+.kite-tabs.pills button[aria-selected="true"]{background:var(--surface);box-shadow:var(--sh-sm)}
+.kite-tabs.pills button[aria-selected="true"]::after{display:none}
+.tab-panel{padding-top:16px;font-size:14px;color:var(--text-muted)}
+.kite-crumbs ol{display:flex;flex-wrap:wrap;align-items:center;gap:4px;list-style:none;margin:0;padding:0;font:400 14px/20px var(--font-sans)}
+.kite-crumbs li{display:inline-flex;align-items:center;gap:4px}
+.kite-crumbs a{color:var(--text-muted);text-decoration:none}
+.kite-crumbs a:hover{color:var(--text);text-decoration:underline}
+.kite-crumbs .lucide{width:16px;height:16px;color:var(--text-muted)}
+.kite-crumbs [aria-current]{color:var(--text);font-weight:500}
+.kite-crumbs .more{border:0;background:none;color:var(--text-muted);border-radius:var(--r-xs);padding:0 4px;cursor:pointer}
+.kite-pag{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;font-size:14px;line-height:20px}
+.kite-pag .rng{color:var(--text-muted);font-variant-numeric:tabular-nums}
+.kite-pag .ps{display:flex;align-items:center;gap:8px;color:var(--text-muted)}
+.kite-pag .pages{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-left:auto}
+.kite-pag .pg{min-width:40px;height:40px;padding:0 8px;border:0;background:none;border-radius:var(--r-full);font:500 14px/20px var(--font-sans);font-variant-numeric:tabular-nums;cursor:pointer;color:var(--text)}
+.kite-pag .pg:hover{background:var(--surface-hover)}
+.kite-pag .pg[aria-current]{background:var(--text);color:var(--text-inverse)}
+.kite-pag .ell{min-width:24px;text-align:center;color:var(--text-muted)}
+.kite-pag[data-size="sm"] .pg{min-width:32px;height:32px}
+.kite-stepper ol{display:flex;gap:0;list-style:none;margin:0;padding:0}
+.kite-stepper li{flex:1;display:flex;align-items:flex-start;gap:12px;min-width:0}
+.kite-stepper li:not(:last-child)::after{content:"";flex:1;height:2px;margin-top:15px;margin-right:12px;background:var(--border);min-width:16px}
+.kite-stepper li[data-state="complete"]::after{background:var(--text)}
+.kite-stepper .ind{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font:600 14px/20px var(--font-sans);flex:none;border:1px solid var(--border-strong);color:var(--text-muted);background:var(--surface)}
+.kite-stepper .ind .lucide{width:16px;height:16px;stroke-width:2.5}
+.kite-stepper .st{font:500 14px/20px var(--font-sans);color:var(--text-muted);white-space:nowrap}
+.kite-stepper .sd{font-size:12px;line-height:16px;color:var(--text-muted)}
+.kite-stepper [data-state="complete"] .ind{background:var(--text);border-color:var(--text);color:var(--text-inverse)}
+.kite-stepper [data-state="complete"] .st{color:var(--text)}
+.kite-stepper [data-state="current"] .ind{border:2px solid var(--primary);color:var(--text)}
+.kite-stepper [data-state="current"] .st{color:var(--text);font-weight:600}
+.kite-stepper [data-state="error"] .ind{background:var(--danger-solid);border-color:transparent;color:var(--danger-on)}
+.kite-stepper [data-state="error"] .st{color:var(--danger-text)}
+.kite-stepper.v ol{flex-direction:column;gap:0}
+.kite-stepper.v li{flex-direction:row;position:relative;padding-bottom:20px}
+.kite-stepper.v li::after{display:none}
+.kite-stepper.v li:not(:last-child)::before{content:"";position:absolute;left:15px;top:36px;bottom:4px;width:2px;background:var(--border)}
+.kite-stepper.v li[data-state="complete"]::before{background:var(--text)}
+.stepper-compact{display:grid;gap:8px}
+.stepper-compact .sc-t{font:500 14px/20px var(--font-sans)}
+.stepper-compact .sc-t span{color:var(--text-muted);font-weight:400}
+
+/* ---------- сайдбар / оболонка ---------- */
+.kite-sidebar{width:264px;flex:none;background:var(--bg-subtle);border-right:1px solid var(--border);display:grid;grid-template-rows:auto 1fr auto;min-height:100%}
+.kite-sidebar .sh{display:flex;align-items:center;gap:10px;height:64px;padding:0 16px;border-bottom:1px solid var(--border)}
+.kite-sidebar .sh b{font:600 16px/24px var(--font-display)}
+.kite-sidebar nav{padding:12px;display:grid;gap:16px;align-content:start}
+.kite-sidebar .sg{display:grid;gap:2px}
+.kite-sidebar .sgl{padding:4px 12px;font:600 12px/16px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted)}
+.kite-sidebar a{position:relative;display:flex;align-items:center;gap:12px;height:40px;padding:0 12px;border-radius:var(--r-sm);color:var(--text);text-decoration:none;font:500 14px/20px var(--font-sans)}
+.kite-sidebar a .lucide{color:var(--text-muted)}
+.kite-sidebar a:hover{background:var(--surface-hover)}
+.kite-sidebar a[aria-current]{background:var(--primary-subtle);color:var(--primary-text);font-weight:600}
+.kite-sidebar a[aria-current] .lucide{color:var(--primary-text)}
+.kite-sidebar a[aria-current]::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:var(--primary)}
+.kite-sidebar a .kite-badge{margin-left:auto}
+.kite-sidebar a.sub{padding-left:44px;height:36px;font-weight:400}
+.kite-sidebar .sf{border-top:1px solid var(--border);padding:12px;display:grid;gap:4px}
+.kite-sidebar .me{display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:var(--r-sm);font-size:14px;line-height:20px}
+.kite-sidebar .me small{display:block;color:var(--text-muted);font-size:12px;line-height:16px}
+.kite-sidebar.collapsed{width:64px}
+.kite-sidebar.collapsed .sh{justify-content:center;padding:0}
+.kite-sidebar.collapsed nav{padding:12px 8px}
+.kite-sidebar.collapsed a{justify-content:center;padding:0}
+.kite-sidebar.collapsed .sgl{height:1px;padding:0;margin:4px 8px;background:var(--border);font-size:0}
+.shell{display:flex;border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;min-height:520px;background:var(--bg)}
+.shell-main{flex:1;min-width:0;display:grid;grid-template-rows:auto 1fr}
+.shell-hd{display:flex;align-items:center;gap:12px;height:64px;padding:0 24px;background:var(--surface);border-bottom:1px solid var(--border)}
+.shell-hd .ctx{display:flex;align-items:center;gap:6px;font:600 14px/20px var(--font-sans);white-space:nowrap}
+.shell-hd .ctx small{font-weight:400;color:var(--text-muted)}
+.shell-hd .kite-input{flex:1;max-width:420px;margin-left:16px}
+.shell-hd .right{margin-left:auto;display:flex;align-items:center;gap:4px}
+.shell-body{padding:24px 32px;display:grid;gap:20px;align-content:start;min-width:0}
+.ph{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 24px}
+.ph h1{margin:4px 0 0;font:500 24px/32px var(--font-display)}
+.ph p{margin:2px 0 0;font-size:14px;line-height:20px;color:var(--text-muted)}
+.ph .acts{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.skip{display:inline-block;padding:8px 12px;background:var(--surface-inverse);color:var(--text-inverse);border-radius:var(--r-sm);font:600 14px/20px var(--font-sans);text-decoration:none}
+
+/* ---------- командна палітра ---------- */
+.cmd{width:min(640px,100%);background:var(--surface-raised);border:1px solid var(--raised-border);border-radius:var(--r-lg);box-shadow:var(--sh-xl);overflow:hidden;align-self:start}
+.cmd .cq{display:flex;align-items:center;gap:12px;height:56px;padding:0 16px;border-bottom:1px solid var(--border);font-size:16px}
+.cmd .cq input{flex:1;border:0;outline:0;background:none;font:400 16px/24px var(--font-sans);min-width:0}
+.cmd .kite-list{padding:4px}
+.cmd .cft{display:flex;flex-wrap:wrap;gap:16px;padding:10px 16px;border-top:1px solid var(--border);font-size:12px;line-height:16px;color:var(--text-muted)}
+.cmd .cft span{display:inline-flex;align-items:center;gap:6px}
+.cmd .kite-opt .ic{width:32px;height:32px;border-radius:var(--r-sm);background:var(--bg-subtle);display:grid;place-items:center;flex:none;color:var(--text-muted)}
+.cmd .kite-opt .ic .lucide{width:16px;height:16px}
+.cmd .kite-opt .ty{margin-left:auto;font-size:12px;color:var(--text-muted)}
+
+/* ---------- таймлайн ---------- */
+.kite-tl{list-style:none;margin:0;padding:0;display:grid}
+.kite-tl .day{font:600 12px/16px var(--font-sans);letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);padding:0 0 8px 28px}
+.kite-tl li.ev{position:relative;display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:0 0 20px 28px}
+.kite-tl li.ev::before{content:"";position:absolute;left:5px;top:16px;bottom:-4px;width:2px;background:var(--border)}
+.kite-tl li.ev:last-child::before{display:none}
+.kite-tl li.ev.fut::before{background:none;border-left:2px dashed var(--border)}
+.kite-tl .mk{position:absolute;left:0;top:6px;width:12px;height:12px;border-radius:50%;background:var(--border-strong)}
+.kite-tl .cur .mk{background:var(--success-solid);box-shadow:0 0 0 4px var(--success-subtle)}
+.kite-tl .cur.info .mk{background:var(--info-solid);box-shadow:0 0 0 4px var(--info-subtle)}
+.kite-tl .fut .mk{background:var(--surface);border:2px dashed var(--border-strong)}
+.kite-tl .et{font:400 16px/24px var(--font-sans)}
+.kite-tl .cur .et{font-weight:600}
+.kite-tl .fut .et{color:var(--text-muted)}
+.kite-tl time{font:400 12px/24px var(--font-sans);color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.kite-tl .ed{grid-column:1/-1;font-size:14px;line-height:20px;color:var(--text-muted)}
+.kite-tl.sm li.ev{padding-bottom:12px;padding-left:24px}
+.kite-tl.sm .mk{width:8px;height:8px;top:6px;left:2px}
+.kite-tl.sm li.ev::before{left:5px;top:12px}
+.kite-tl.sm .et{font-size:14px;line-height:20px}
+.kite-tl.ic li.ev{padding-left:40px;padding-bottom:16px}
+.kite-tl.ic li.ev::before{left:11px;top:28px}
+.kite-tl.ic .mk{width:24px;height:24px;top:0;display:grid;place-items:center;background:var(--bg-subtle);color:var(--text-muted)}
+.kite-tl.ic .mk .lucide{width:14px;height:14px}
+
+/* ---------- таблиці ---------- */
+.kite-table-wrap{border:1px solid var(--border);border-radius:var(--r-md);overflow:auto;background:var(--surface);min-width:0}
+.kite-table{width:100%;border-collapse:collapse;font:400 14px/20px var(--font-sans)}
+.kite-table caption{text-align:left;padding:12px 16px;font:600 14px/20px var(--font-sans);border-bottom:1px solid var(--border)}
+.kite-table th{height:40px;padding:0 12px;text-align:left;font:600 12px/16px var(--font-sans);color:var(--text-muted);background:var(--bg-subtle);border-bottom:1px solid var(--border);white-space:nowrap;position:sticky;top:0}
+.kite-table td{height:48px;padding:0 12px;border-bottom:1px solid var(--border);white-space:nowrap}
+.kite-table tr:last-child td{border-bottom:0}
+.kite-table th:first-child,.kite-table td:first-child{padding-left:16px}
+.kite-table th:last-child,.kite-table td:last-child{padding-right:16px}
+.kite-table .r{text-align:right;font-variant-numeric:tabular-nums}
+.kite-table tbody tr.ia:hover{background:var(--surface-hover)}
+.kite-table tr[data-selected] td{background:var(--selection)}
+.kite-table tr.new td{background:var(--info-subtle)}
+.kite-table.compact td{height:40px}
+.kite-table tfoot td{font-weight:600;background:var(--bg-subtle);border-top:1px solid var(--border)}
+.kite-table .w-ck{width:44px;padding-right:0}
+.kite-table .sortb{display:inline-flex;align-items:center;gap:4px;border:0;background:none;padding:0;font:inherit;color:inherit;cursor:pointer}
+.kite-table .sortb .lucide{width:14px;height:14px}
+.kite-table .sortb:hover{color:var(--text)}
+.kite-table th[aria-sort="descending"],.kite-table th[aria-sort="ascending"]{color:var(--text)}
+.dt{display:grid;gap:12px;min-width:0}
+.dt-bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.dt-bar .kite-input{width:280px;max-width:100%}
+.dt-bar .end{margin-left:auto;display:flex;gap:8px}
+.dt-chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.fchip{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 4px 0 10px;border-radius:var(--r-full);background:var(--bg-subtle);font:500 12px/16px var(--font-sans)}
+.fchip b{font-weight:600}
+.fchip button{width:20px;height:20px;border:0;background:none;border-radius:var(--r-full);display:grid;place-items:center;color:var(--text-muted);cursor:pointer}
+.fchip button:hover{background:var(--surface-active);color:var(--text)}
+.bulk{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-height:48px;padding:4px 8px 4px 16px;background:var(--surface-inverse);color:var(--text-inverse);border-radius:var(--r-md);font:600 14px/20px var(--font-sans)}
+.bulk .kite-btn{background:transparent;border-color:rgb(127 127 127 / .45);color:var(--text-inverse)}
+.bulk .kite-btn:hover{background:rgb(127 127 127 / .2)}
+.bulk .end{margin-left:auto}
+.bulk small{font-weight:400;opacity:.8}
+
+/* ---------- екрани ---------- */
+.screen{border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;background:var(--bg)}
+.screen-bar{display:flex;align-items:center;gap:8px;height:36px;padding:0 12px;background:var(--bg-subtle);border-bottom:1px solid var(--border);font:500 12px/16px var(--font-sans);color:var(--text-muted)}
+.screen-bar i{width:10px;height:10px;border-radius:50%;background:var(--border-strong)}
+.web-hd{display:flex;align-items:center;gap:24px;height:64px;padding:0 24px;background:var(--surface);border-bottom:1px solid var(--border)}
+.web-hd nav{display:flex;gap:4px}
+.web-hd nav a{padding:8px 12px;border-radius:var(--r-full);font:500 14px/20px var(--font-sans);color:var(--text-muted);text-decoration:none}
+.web-hd nav a[aria-current]{color:var(--text);font-weight:600}
+.web-hd .end{margin-left:auto;display:flex;gap:8px;align-items:center}
+.parcel{display:grid;gap:24px;grid-template-columns:minmax(0,1fr) 340px;padding:32px 24px;max-width:1100px;margin:0 auto}
+.parcel-hero{display:grid;gap:16px}
+.parcel-hero .route{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font:500 24px/32px var(--font-display)}
+.parcel-hero .route .lucide{color:var(--text-muted)}
+.eta{display:flex;flex-wrap:wrap;gap:24px}
+.eta div{display:grid}
+.eta small{font-size:12px;line-height:16px;color:var(--text-muted)}
+.eta b{font:600 16px/24px var(--font-sans);font-variant-numeric:tabular-nums}
+@media (max-width:899px){.parcel{grid-template-columns:1fr;padding:24px 16px}.web-hd nav{display:none}}
+.wiz{display:grid;gap:24px;max-width:720px;margin:0 auto;padding:32px 24px}
+.wiz-form{display:grid;gap:16px}
+.wiz-row{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.wiz-foot{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding-top:8px;border-top:1px solid var(--border)}
+.wiz-foot .sum{font-size:14px;color:var(--text-muted)}
+.wiz-foot .sum b{color:var(--text);font:700 20px/28px var(--font-sans);font-variant-numeric:tabular-nums}
+.ops-shell{min-height:640px}
+@media (max-width:767px){.side-demo>.shell:last-child{display:none}.side-demo .shell-main{display:none}.side-demo>.shell:first-child{flex:none}}
+@media (max-width:1023px){.ops-shell .kite-sidebar{display:none}.shell-hd .ctx small{display:none}}
+@media (max-width:639px){.stage{padding:16px}.shell-body{padding:16px}.shell-hd{padding:0 12px}.shell-hd .kite-input{display:none}.intro h1{font-size:32px;line-height:40px}.group>h2{font-size:24px;line-height:32px}.kite-pag .pages{margin-left:0}}
+</style>
+<header class="top">
+  <div class="top-in">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><path d="M16 1.5 L30.5 16 L16 30.5 L1.5 16 Z" fill="#FF5A36"/><path d="M16 1.5 V30.5 M1.5 16 H30.5" stroke="#0B1220" stroke-width="1.6" opacity=".55"/></svg>
+      <span>Kite UI <small>0.1 · дизайн</small></span>
+    </div>
+    <nav class="toc" aria-label="Розділи">
+      <a href="#osnovy">Основи</a><a href="#dii">Дії</a><a href="#formy">Форми</a><a href="#kite">Kite</a><a href="#vidobrazhennia">Відображення</a><a href="#vidguk">Зворотний зв’язок</a><a href="#overlei">Оверлеї</a><a href="#navigatsiia">Навігація</a><a href="#dani">Дані</a><a href="#ekrany">Екрани</a>
+    </nav>
+    <div class="theme-sw" role="group" aria-label="Тема">
+      <button type="button" data-t="light" aria-label="Світла тема" aria-pressed="false"><i data-lucide="sun" class="i16"></i></button>
+      <button type="button" data-t="system" aria-label="Як у системі" aria-pressed="true"><i data-lucide="monitor" class="i16"></i></button>
+      <button type="button" data-t="dark" aria-label="Темна тема" aria-pressed="false"><i data-lucide="moon" class="i16"></i></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <div class="intro">
+    <h1>Компоненти @kite-post/ui</h1>
+    <p>Дизайн усіх 60 компонентів кіта у варіантах і станах на справжніх токенах стайлгайду. Перемикач теми у шапці показує обидві теми. Кожен зразок посилається на свою специфікацію. Стани hover, focus й active намальовані статично, щоб їх було видно без курсора, і також працюють наживо.</p>
+  </div>
+
+  <!-- ===================== ОСНОВИ ===================== -->
+  <section class="group" id="osnovy">
+    <h2>Основи</h2>
+    <p>Шкали кольору в OKLCH (рамкою — значення з розділу 1.3 і новий danger), типографічні ролі й глибина. Повні правила — у стайлгайді.</p>
+    <div class="stage">
+      <div class="demo"><span class="lbl">Палітра</span>
+        <div class="scroll-x"><div class="sw-grid" id="swatches" style="min-width:640px"></div></div>
+      </div>
+      <div class="cols">
+        <div class="demo"><span class="lbl">Типографіка</span>
+          <div style="display:grid;gap:10px">
+            <div style="font:600 40px/48px var(--font-display);letter-spacing:-.02em">Доставка, що летить</div>
+            <div style="font:600 32px/40px var(--font-display);letter-spacing:-.015em">h1 · Відправлення</div>
+            <div style="font:600 24px/32px var(--font-display);letter-spacing:-.01em">h2 · Отримувач</div>
+            <div style="font:500 20px/28px var(--font-display)">h3 · Деталі посилки</div>
+            <div style="font:700 16px/24px var(--font-sans)">h4 · Оплата при отриманні</div>
+            <div>body 16/24 · Посилка їде до Львова і буде у відділенні завтра.</div>
+            <div style="font-size:14px;line-height:20px;color:var(--text-muted)">body-sm 14/20 · Другорядний текст і клітинки таблиць</div>
+            <div style="font-size:12px;line-height:16px;color:var(--text-muted)">caption 12/16 · 24 листопада, 09:12</div>
+            <div class="lbl">overline 12/16</div>
+            <div class="trk" data-size="lg"><span class="g"><span>KT</span><span>1234</span><span>5678</span><span>5</span><span>UA</span></span></div>
+          </div>
+        </div>
+        <div class="demo"><span class="lbl">Глибина</span>
+          <div class="cols c3" style="gap:16px">
+            <div class="kite-card" style="padding:16px;font-size:14px">0 · рамка</div>
+            <div class="kite-card" data-variant="elevated" style="padding:16px;font-size:14px">1 · sm</div>
+            <div class="kite-card" style="padding:16px;font-size:14px;box-shadow:var(--sh-md);border-color:var(--raised-border)">2 · md</div>
+            <div class="kite-card" style="padding:16px;font-size:14px;box-shadow:var(--sh-lg);border-color:var(--raised-border);background:var(--surface-raised)">3 · lg</div>
+            <div class="kite-card" style="padding:16px;font-size:14px;box-shadow:var(--sh-xl);border-color:var(--raised-border);background:var(--surface-raised)">4 · xl</div>
+          </div>
+          <span class="lbl" style="margin-top:16px">Радіуси</span>
+          <div class="row">
+            <span style="width:48px;height:32px;border:1px solid var(--border-input);border-radius:4px"></span>
+            <span style="width:48px;height:32px;border:1px solid var(--border-input);border-radius:8px"></span>
+            <span style="width:48px;height:32px;border:1px solid var(--border-input);border-radius:12px"></span>
+            <span style="width:48px;height:32px;border:1px solid var(--border-input);border-radius:16px"></span>
+            <span style="width:64px;height:32px;border:1px solid var(--border-input);border-radius:9999px"></span>
+            <span class="note">4 · 8 поля · 12 картки · 16 діалоги · таблетка</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ДІЇ ===================== -->
+  <section class="group" id="dii">
+    <h2>Дії</h2>
+    <p>Коралова — лише для однієї головної дії в секції, і на ній завжди темний текст. Ховер на кораловій світлішає, бо темніша коралова не тримає контраст.</p>
+
+    <div class="spec" id="button">
+      <div class="spec-h"><h3>KButton</h3><code>button.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/button.md">Специфікація</a><p>Запускає дію. 5 варіантів, 3 розміри, усі стани.</p></div>
+      <div class="stage">
+        <div class="demo"><span class="lbl">Варіанти</span>
+          <div class="row">
+            <button class="kite-btn" data-variant="primary"><i data-lucide="plus"></i>Створити накладну</button>
+            <button class="kite-btn" data-variant="secondary">Зберегти чернетку</button>
+            <button class="kite-btn" data-variant="ghost"><i data-lucide="printer"></i>Друкувати</button>
+            <button class="kite-btn" data-variant="danger">Скасувати накладну</button>
+            <button class="kite-btn" data-variant="link">Змінити отримувача</button>
+          </div>
+        </div>
+        <div class="demo"><span class="lbl">Розміри · sm 32 · md 40 · lg 48 · block</span>
+          <div class="row">
+            <button class="kite-btn" data-variant="primary" data-size="sm">Оплатити</button>
+            <button class="kite-btn" data-variant="primary">Оплатити</button>
+            <button class="kite-btn" data-variant="primary" data-size="lg">Оплатити 140 ₴</button>
+            <button class="kite-btn" data-variant="secondary" data-size="sm"><i data-lucide="download"></i>CSV</button>
+            <button class="kite-btn" data-variant="secondary">Далі<i data-lucide="arrow-right"></i></button>
+          </div>
+          <div style="max-width:360px"><button class="kite-btn" data-variant="primary" data-size="lg" data-block>Створити накладну</button></div>
+        </div>
+        <div class="demo"><span class="lbl">Стани · default · hover · active · focus · loading · disabled</span>
+          <div class="scroll-x"><div style="display:grid;grid-template-columns:repeat(6,max-content);gap:12px;align-items:center">
+            <button class="kite-btn" data-variant="primary">Оплатити</button>
+            <button class="kite-btn is-hover" data-variant="primary">Оплатити</button>
+            <button class="kite-btn is-active" data-variant="primary">Оплатити</button>
+            <button class="kite-btn is-focus" data-variant="primary">Оплатити</button>
+            <button class="kite-btn" data-variant="primary" aria-busy="true"><svg class="spin" viewBox="0 0 20 20" aria-hidden="true"><circle class="t" cx="10" cy="10" r="8"/><circle class="a" cx="10" cy="10" r="8"/></svg>Оплатити</button>
+            <button class="kite-btn" data-variant="primary" disabled>Оплатити</button>
+            <button class="kite-btn">Зберегти</button>
+            <button class="kite-btn is-hover">Зберегти</button>
+            <button class="kite-btn is-active">Зберегти</button>
+            <button class="kite-btn is-focus">Зберегти</button>
+            <button class="kite-btn" aria-busy="true"><svg class="spin" viewBox="0 0 20 20" aria-hidden="true"><circle class="t" cx="10" cy="10" r="8"/><circle class="a" cx="10" cy="10" r="8"/></svg>Зберегти</button>
+            <button class="kite-btn" disabled>Зберегти</button>
+            <button class="kite-btn" data-variant="ghost">Ще</button>
+            <button class="kite-btn is-hover" data-variant="ghost">Ще</button>
+            <button class="kite-btn is-active" data-variant="ghost">Ще</button>
+            <button class="kite-btn is-focus" data-variant="ghost">Ще</button>
+            <button class="kite-btn" data-variant="ghost" aria-busy="true"><svg class="spin" viewBox="0 0 20 20" aria-hidden="true"><circle class="t" cx="10" cy="10" r="8"/><circle class="a" cx="10" cy="10" r="8"/></svg>Ще</button>
+            <button class="kite-btn" data-variant="ghost" disabled>Ще</button>
+            <button class="kite-btn" data-variant="danger">Видалити ключ</button>
+            <button class="kite-btn is-hover" data-variant="danger">Видалити ключ</button>
+            <button class="kite-btn is-active" data-variant="danger">Видалити ключ</button>
+            <button class="kite-btn is-focus" data-variant="danger">Видалити ключ</button>
+            <button class="kite-btn" data-variant="danger" aria-busy="true"><svg class="spin" viewBox="0 0 20 20" aria-hidden="true"><circle class="t" cx="10" cy="10" r="8"/><circle class="a" cx="10" cy="10" r="8"/></svg>Видалити ключ</button>
+            <button class="kite-btn" data-variant="danger" disabled>Видалити ключ</button>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="icon-button">
+      <div class="spec-h"><h3>KIconButton</h3><code>icon-button.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/icon-button.md">Специфікація</a><p>Лише іконка, кругла, з обов’язковою назвою і тултіпом.</p></div>
+      <div class="stage">
+        <div class="row">
+          <button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Копіювати"><i data-lucide="copy"></i></button>
+          <button class="kite-btn kite-icon-btn" data-variant="ghost" aria-label="Ще дії"><i data-lucide="ellipsis"></i></button>
+          <button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="lg" aria-label="Закрити"><i data-lucide="x"></i></button>
+          <span class="kite-separator v"></span>
+          <button class="kite-btn kite-icon-btn" aria-label="Редагувати"><i data-lucide="pencil"></i></button>
+          <button class="kite-btn kite-icon-btn" data-variant="primary" aria-label="Створити"><i data-lucide="plus"></i></button>
+          <button class="kite-btn kite-icon-btn" data-variant="danger" aria-label="Видалити"><i data-lucide="trash-2"></i></button>
+          <span class="kite-separator v"></span>
+          <button class="kite-btn kite-icon-btn is-hover" data-variant="ghost" aria-label="Ховер"><i data-lucide="ellipsis"></i></button>
+          <button class="kite-btn kite-icon-btn is-focus" data-variant="ghost" aria-label="Фокус"><i data-lucide="ellipsis"></i></button>
+          <button class="kite-btn kite-icon-btn" data-variant="ghost" aria-label="Завантаження" aria-busy="true"><svg class="spin" viewBox="0 0 20 20" aria-hidden="true"><circle class="t" cx="10" cy="10" r="8"/><circle class="a" cx="10" cy="10" r="8"/></svg></button>
+          <button class="kite-btn kite-icon-btn" data-variant="ghost" aria-label="Вимкнено" disabled><i data-lucide="ellipsis"></i></button>
+          <div class="tip-demo"><span class="kite-tooltip">Копіювати номер</span><button class="kite-btn kite-icon-btn is-hover" data-variant="ghost" aria-label="Копіювати номер"><i data-lucide="copy"></i></button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="button-group">
+      <div class="spec-h"><h3>KButtonGroup</h3><code>button-group.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/button-group.md">Специфікація</a><p>З’єднані кнопки та split-кнопка «дія + меню».</p></div>
+      <div class="stage">
+        <div class="row">
+          <div class="kite-btn-group" role="group" aria-label="Друк"><button class="kite-btn"><i data-lucide="printer"></i>Друкувати етикетку</button><button class="kite-btn kite-icon-btn" aria-label="Інші формати"><i data-lucide="chevron-down"></i></button></div>
+          <div class="kite-btn-group" data-variant="primary" role="group" aria-label="Створити"><button class="kite-btn" data-variant="primary">Створити рейс</button><button class="kite-btn kite-icon-btn" data-variant="primary" aria-label="Інші варіанти"><i data-lucide="chevron-down"></i></button></div>
+          <div class="kite-btn-group" role="group" aria-label="Масштаб"><button class="kite-btn" data-size="sm"><i data-lucide="minus"></i></button><button class="kite-btn" data-size="sm">100 %</button><button class="kite-btn" data-size="sm"><i data-lucide="plus"></i></button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="link">
+      <div class="spec-h"><h3>KLink</h3><code>link.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/link.md">Специфікація</a><p>Inline підкреслене завжди; standalone і subtle — на ховер.</p></div>
+      <div class="stage">
+        <p style="margin:0;max-width:65ch">Безкоштовне зберігання у відділенні — 5 діб. Детальніше про <a class="kite-link" href="#link">тарифи зберігання</a> і <a class="kite-link" href="#link">повернення посилок</a>.</p>
+        <div class="row">
+          <a class="kite-link" data-variant="standalone" href="#link">Усі відправлення<i data-lucide="arrow-right" class="i16"></i></a>
+          <a class="kite-link" data-variant="standalone" href="#link">Документація API<i data-lucide="external-link" class="i16"></i></a>
+          <a class="kite-link" data-variant="subtle" href="#link">Умови використання</a>
+          <a class="kite-link" data-variant="subtle" href="#link">Конфіденційність</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="toggle">
+      <div class="spec-h"><h3>KToggle</h3><code>toggle.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/toggle.md">Специфікація</a><p>Кнопка-перемикач для вигляду й фільтрів. Увімкнений стан заливає весь контрол.</p></div>
+      <div class="stage">
+        <div class="row">
+          <button class="kite-btn kite-toggle js-toggle" data-variant="ghost" aria-pressed="false"><i data-lucide="user"></i>Лише мої</button>
+          <button class="kite-btn kite-toggle js-toggle" data-variant="ghost" aria-pressed="true"><i data-lucide="user"></i>Лише мої</button>
+          <button class="kite-btn kite-toggle js-toggle" data-variant="secondary" aria-pressed="false"><i data-lucide="map"></i>На карті</button>
+          <button class="kite-btn kite-toggle js-toggle" data-variant="secondary" aria-pressed="true"><i data-lucide="map"></i>На карті</button>
+          <button class="kite-btn kite-icon-btn kite-toggle js-toggle" data-variant="ghost" aria-pressed="true" aria-label="Закріпити"><i data-lucide="pin"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="toggle-group">
+      <div class="spec-h"><h3>KToggleGroup</h3><code>toggle-group.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/toggle-group.md">Специфікація</a><p>Сегментований контрол на 2–5 варіантів.</p></div>
+      <div class="stage">
+        <div class="row">
+          <div class="kite-tg js-tg" role="group" aria-label="Тип відправлення"><button aria-pressed="false">Документи</button><button aria-pressed="true">Посилка</button><button aria-pressed="false">Вантаж</button></div>
+          <div class="kite-tg js-tg" role="group" aria-label="Період"><button aria-pressed="true">День</button><button aria-pressed="false">Тиждень</button><button aria-pressed="false">Місяць</button></div>
+          <div class="kite-tg js-tg" role="group" aria-label="Вигляд"><button aria-pressed="true" aria-label="Таблиця"><i data-lucide="table-2" class="i16"></i></button><button aria-pressed="false" aria-label="Картки"><i data-lucide="layout-grid" class="i16"></i></button></div>
+        </div>
+        <div style="max-width:420px"><div class="kite-tg js-tg" data-block data-size="lg" role="group" aria-label="Тип"><button aria-pressed="false">Документи</button><button aria-pressed="true">Посилка</button><button aria-pressed="false">Вантаж</button></div></div>
+      </div>
+    </div>
+  </section>
+  <!-- ===================== ФОРМИ ===================== -->
+  <section class="group" id="formy">
+    <h2>Форми</h2>
+    <p>Підпис завжди над полем, плейсхолдер — лише приклад формату. Помилка з’являється під полем текстом з іконкою. Рамка поля — slate-500, бо їй потрібно 3:1.</p>
+
+    <div class="spec" id="field">
+      <div class="spec-h"><h3>KField · KLabel · KInput</h3><code>field.md · label.md · input.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/field.md">Специфікація</a><p>Обгортка поля і текстове поле з префіксом, суфіксом, очищенням.</p></div>
+      <div class="stage">
+        <div class="cols">
+          <div class="kite-field"><label for="f1">Ім’я отримувача</label><div class="kite-input"><input id="f1" placeholder="Ольга Ковальчук" autocomplete="name"></div><div class="hint">Як у документі — його перевірять при видачі</div></div>
+          <div class="kite-field"><label for="f2">Email <span class="opt">(необов’язково)</span></label><div class="kite-input"><i data-lucide="mail"></i><input id="f2" type="email" value="olha@example.com"><button class="clr" aria-label="Очистити"><i data-lucide="x" class="i16"></i></button></div></div>
+          <div class="kite-field"><label for="f3">Оголошена вартість</label><div class="kite-input"><input id="f3" value="1 250" class="num" style="text-align:right"><span class="suf">₴</span></div><div class="hint">Страхування — 0,5 % від суми</div></div>
+        </div>
+        <div class="cols">
+          <div class="demo"><span class="lbl">Стани поля</span>
+            <div style="display:grid;gap:12px">
+              <div class="kite-input"><input placeholder="default" aria-label="default"></div>
+              <div class="kite-input is-focus"><input value="focus" aria-label="focus"></div>
+              <div class="kite-field"><div class="kite-input" data-invalid><input value="35" aria-label="Вага" aria-invalid="true"><span class="suf">кг</span></div><div class="err"><i data-lucide="circle-alert"></i>Посилка — до 30 кг. Для більшої ваги оберіть тип «Вантаж»</div></div>
+              <div class="kite-input" data-disabled><input value="disabled" disabled aria-label="disabled"></div>
+              <div class="kite-input" data-readonly><input value="readonly · Київ, відділення №1" readonly aria-label="readonly"></div>
+            </div>
+          </div>
+          <div class="demo"><span class="lbl">Розміри · sm · md · lg</span>
+            <div style="display:grid;gap:12px">
+              <div class="kite-input" data-size="sm"><i data-lucide="search" class="i16"></i><input placeholder="Пошук у таблиці" aria-label="sm"></div>
+              <div class="kite-input"><i data-lucide="map-pin"></i><input placeholder="Місто" aria-label="md"></div>
+              <div class="kite-input" data-size="lg"><input placeholder="Номер відправлення" aria-label="lg"></div>
+            </div>
+            <span class="lbl" style="margin-top:12px">Горизонтальний KField (налаштування)</span>
+            <div class="kite-field h"><label for="f9">Назва магазину</label><div class="kite-input"><input id="f9" value="Чайна лавка"></div><div class="hint">Її бачать отримувачі в SMS</div></div>
+            <span class="lbl" style="margin-top:12px">KLabel поза полем</span>
+            <label class="kite-check" data-state="checked"><span class="box"><i data-lucide="check"></i></span>Запам’ятати цей пристрій</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="textarea">
+      <div class="spec-h"><h3>KTextarea</h3><code>textarea.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/textarea.md">Специфікація</a><p>Росте з вмістом, лічильник символів.</p></div>
+      <div class="stage">
+        <div class="kite-field" style="max-width:560px"><label for="ta">Коментар для відділення <span class="opt">(необов’язково)</span></label><div class="kite-input ta"><textarea id="ta" rows="3">Крихке: всередині скляна банка з медом. Будь ласка, не ставте зверху важке.</textarea></div><div class="hint"><span>Побачить працівник при прийомі</span><span class="num">74 з 200</span></div></div>
+      </div>
+    </div>
+
+    <div class="spec" id="search-input">
+      <div class="spec-h"><h3>KSearchInput</h3><code>search-input.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/search-input.md">Специфікація</a><p>Пошук з гарячою клавішею; filled — для шапки робочих застосунків.</p></div>
+      <div class="stage">
+        <div class="cols">
+          <div class="kite-input" role="search"><i data-lucide="search"></i><input type="search" placeholder="Номер накладної або телефон" aria-label="Пошук відправлень"><span class="kbds"><span class="kbd">/</span></span></div>
+          <div class="kite-input filled" role="search"><i data-lucide="search"></i><input type="search" placeholder="Пошук" aria-label="Пошук"><span class="kbds"><span class="kbd">⌘</span><span class="kbd">K</span></span></div>
+          <div class="kite-input is-focus" role="search"><svg class="spin" viewBox="0 0 20 20" aria-hidden="true" style="color:var(--text-muted)"><circle class="t" cx="10" cy="10" r="8"/><circle class="a" cx="10" cy="10" r="8"/></svg><input type="search" value="0671234" aria-label="Пошук"><button class="clr" aria-label="Очистити"><i data-lucide="x" class="i16"></i></button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="select">
+      <div class="spec-h"><h3>KSelect</h3><code>select.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/select.md">Специфікація</a><p>5–15 варіантів. Тригер виглядає як поле, список — на піднятій поверхні.</p></div>
+      <div class="stage">
+        <div class="cols">
+          <div class="demo">
+            <div class="kite-field"><span class="fl">Причина повернення</span><button class="kite-input kite-trigger"><span class="val ph">Оберіть</span><i data-lucide="chevron-down" class="chev"></i></button></div>
+            <div class="kite-field" style="margin-top:12px"><span class="fl">Хто платить</span><button class="kite-input kite-trigger" data-invalid><span class="val ph">Оберіть</span><i data-lucide="chevron-down" class="chev"></i></button><div class="err"><i data-lucide="circle-alert"></i>Оберіть, хто платить за доставку</div></div>
+            <div class="kite-field" style="margin-top:12px"><span class="fl" style="color:var(--text-disabled)">Валюта</span><button class="kite-input kite-trigger" data-disabled disabled><span class="val">Гривня, ₴</span><i data-lucide="chevron-down" class="chev"></i></button></div>
+          </div>
+          <div class="demo">
+            <div class="kite-field"><span class="fl">Причина повернення</span><button class="kite-input kite-trigger" data-open aria-expanded="true"><span class="val">Не підійшов розмір</span><i data-lucide="chevron-down" class="chev"></i></button></div>
+            <div class="kite-pop" role="listbox" aria-label="Причина повернення">
+              <div class="kite-list">
+                <div class="kite-opt" role="option"><span class="txt">Передумав</span><i data-lucide="check" class="ck"></i></div>
+                <div class="kite-opt" role="option" data-selected aria-selected="true"><span class="txt">Не підійшов розмір</span><i data-lucide="check" class="ck"></i></div>
+                <div class="kite-opt" role="option" data-highlighted><span class="txt">Товар пошкоджений<span class="d">Додайте фото до претензії</span></span><i data-lucide="check" class="ck"></i></div>
+                <div class="kite-opt" role="option"><span class="txt">Не те, що замовляв</span><i data-lucide="check" class="ck"></i></div>
+                <div class="kite-opt" role="option" data-disabled aria-disabled="true"><span class="txt">Прострочено (лише для продуктів)</span><i data-lucide="check" class="ck"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="combobox">
+      <div class="spec-h"><h3>KCombobox</h3><code>combobox.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/combobox.md">Специфікація</a><p>Пошук і вибір: відділення, місто, отримувач. Асинхронно, з групами, мультивибір.</p></div>
+      <div class="stage">
+        <div class="cols">
+          <div class="demo">
+            <div class="kite-field"><span class="fl">Відділення або Kite Box</span><div class="kite-input is-focus"><i data-lucide="search"></i><input value="Львів, Городо" aria-label="Відділення"><button class="clr" aria-label="Очистити"><i data-lucide="x" class="i16"></i></button></div></div>
+            <div class="kite-pop">
+              <div class="kite-grp">Відділення</div>
+              <div class="kite-opt" data-highlighted><i data-lucide="store" class="i16"></i><span class="txt">№12 · вул. <mark>Городо</mark>цька, 10<span class="d">Пн–Сб 08:00–20:00 · до 30 кг</span></span></div>
+              <div class="kite-opt"><i data-lucide="store" class="i16"></i><span class="txt">№27 · вул. <mark>Городо</mark>цька, 174<span class="d">Пн–Нд 09:00–21:00 · до 30 кг</span></span></div>
+              <div class="kite-grp">Kite Box</div>
+              <div class="kite-opt"><i data-lucide="box" class="i16"></i><span class="txt">Kite Box №4410 · <mark>Городо</mark>цька, 36<span class="d">Цілодобово · комірки до 15 кг</span></span></div>
+              <div class="kite-status-row" style="justify-content:center;border-top:1px solid var(--border);margin-top:4px"><a class="kite-link" data-variant="standalone" href="#combobox" style="font-size:14px"><i data-lucide="map" class="i16"></i>Показати на карті</a></div>
+            </div>
+          </div>
+          <div class="demo">
+            <div class="kite-field"><span class="fl">Місто</span><div class="kite-input"><i data-lucide="search"></i><input value="Ужг" aria-label="Місто"></div></div>
+            <div class="kite-pop"><div class="kite-status-row"><svg class="spin" viewBox="0 0 20 20" aria-hidden="true"><circle class="t" cx="10" cy="10" r="8"/><circle class="a" cx="10" cy="10" r="8"/></svg>Шукаємо…</div></div>
+            <div class="kite-pop" style="margin-top:8px"><div class="kite-status-row"><i data-lucide="search-x" class="i16"></i>Нічого не знайдено</div></div>
+            <div class="kite-field" style="margin-top:12px"><span class="fl">Міста в фільтрі</span><div class="kite-input multi"><div class="chips"><span class="chip">Київ<button aria-label="Прибрати «Київ»"><i data-lucide="x" class="i12"></i></button></span><span class="chip">Львів<button aria-label="Прибрати «Львів»"><i data-lucide="x" class="i12"></i></button></span><span class="chip">Одеса<button aria-label="Прибрати «Одеса»"><i data-lucide="x" class="i12"></i></button></span><span class="chip">+2</span><input class="ghost-in" aria-label="Додати місто" style="border:0;outline:0;background:none;flex:1;height:28px"></div><i data-lucide="chevron-down" class="chev"></i></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="checkbox">
+      <div class="spec-h"><h3>KCheckbox · KCheckboxGroup</h3><code>checkbox.md · checkbox-group.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/checkbox.md">Специфікація</a><p>Обраний стан — темна заливка, не коралова: це стан, а не дія.</p></div>
+      <div class="stage">
+        <div class="cols">
+          <div class="demo"><span class="lbl">Стани</span>
+            <div style="display:grid;gap:12px">
+              <label class="kite-check js-check" data-state="unchecked"><span class="box"><i data-lucide="check"></i></span><span>Застрахувати посилку<span class="d">0,5 % від оголошеної вартості — 7 ₴</span></span></label>
+              <label class="kite-check js-check" data-state="checked"><span class="box"><i data-lucide="check"></i></span>Повідомити отримувача SMS</label>
+              <label class="kite-check" data-state="indeterminate"><span class="box"><i data-lucide="minus"></i></span>Обрати всі на сторінці</label>
+              <label class="kite-check is-focus" data-state="unchecked"><span class="box"><i data-lucide="check"></i></span>Фокус з клавіатури</label>
+              <label class="kite-check" data-state="unchecked" data-invalid><span class="box"><i data-lucide="check"></i></span>Я погоджуюся з умовами доставки</label>
+              <label class="kite-check" data-state="unchecked" data-disabled><span class="box"><i data-lucide="check"></i></span>Післяплата (недоступна для Kite Box)</label>
+              <label class="kite-check" data-state="checked" data-disabled><span class="box"><i data-lucide="check"></i></span>Вимкнено й обрано</label>
+            </div>
+          </div>
+          <div class="demo"><span class="lbl">Група</span>
+            <fieldset class="fs"><legend>Куди надсилати сповіщення</legend>
+              <div class="opts">
+                <label class="kite-check js-check" data-state="checked"><span class="box"><i data-lucide="check"></i></span>Push у застосунку</label>
+                <label class="kite-check js-check" data-state="checked"><span class="box"><i data-lucide="check"></i></span>Email</label>
+                <label class="kite-check js-check" data-state="unchecked"><span class="box"><i data-lucide="check"></i></span>SMS</label>
+              </div>
+              <div class="note">Хоча б один канал</div>
+            </fieldset>
+            <fieldset class="fs hz" style="margin-top:16px"><legend>Типи відправлень</legend>
+              <div class="opts">
+                <label class="kite-check js-check" data-size="sm" data-state="checked"><span class="box"><i data-lucide="check"></i></span>Документи</label>
+                <label class="kite-check js-check" data-size="sm" data-state="checked"><span class="box"><i data-lucide="check"></i></span>Посилки</label>
+                <label class="kite-check js-check" data-size="sm" data-state="unchecked"><span class="box"><i data-lucide="check"></i></span>Вантаж</label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="radio-group">
+      <div class="spec-h"><h3>KRadioGroup</h3><code>radio-group.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/radio-group.md">Специфікація</a><p>Один з кількох. Варіант «картки» — для тарифів і способів оплати.</p></div>
+      <div class="stage">
+        <fieldset class="fs hz"><legend>Хто платить за доставку</legend>
+          <div class="opts js-radio">
+            <label class="kite-check kite-radio" data-state="checked"><span class="box"></span>Відправник</label>
+            <label class="kite-check kite-radio" data-state="unchecked"><span class="box"></span>Отримувач</label>
+            <label class="kite-check kite-radio" data-state="unchecked" data-disabled><span class="box"></span>Бізнес-рахунок <span class="muted">(немає договору)</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="fs"><legend>Тариф</legend>
+          <div class="rcards js-radio">
+            <label class="rcard kite-radio kite-check" data-state="checked"><span class="box"></span><span><span class="t">Стандарт</span><span class="d" style="display:block">До відділення, 2–3 дні</span></span><span class="aside">80 ₴<small>26 листопада</small></span></label>
+            <label class="rcard kite-radio kite-check" data-state="unchecked"><span class="box"></span><span><span class="t">Експрес</span><span class="d" style="display:block">До відділення завтра до 18:00</span></span><span class="aside">140 ₴<small>завтра</small></span></label>
+            <label class="rcard kite-radio kite-check" data-state="unchecked"><span class="box"></span><span><span class="t">Kite Box</span><span class="d" style="display:block">У поштомат, 2–3 дні</span></span><span class="aside">65 ₴<small>26 листопада</small></span></label>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="spec" id="switch">
+      <div class="spec-h"><h3>KSwitch</h3><code>switch.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/switch.md">Специфікація</a><p>Налаштування, що зберігається одразу. «Увімкнено» — зелений стан, трек «вимкнено» тримає 3:1.</p></div>
+      <div class="stage" style="max-width:560px">
+        <label class="kite-switch js-switch" data-state="checked"><span><span class="t">Сповіщення email</span><span class="d">Статуси ваших посилок</span></span><span class="track"><span class="thumb"></span></span></label>
+        <label class="kite-switch js-switch" data-state="unchecked"><span><span class="t">Режим відпустки</span><span class="d">Посилки чекатимуть у відділенні до 14 днів</span></span><span class="track"><span class="thumb"></span></span></label>
+        <label class="kite-switch" data-state="checked"><span><span class="t">Вебхук активний</span><span class="d">Зберігається…</span></span><span class="track"><span class="thumb"><svg class="spin" viewBox="0 0 20 20" aria-hidden="true"><circle class="t" cx="10" cy="10" r="8"/><circle class="a" cx="10" cy="10" r="8"/></svg></span></span></label>
+        <label class="kite-switch" data-state="unchecked" data-disabled><span><span class="t">Двофакторний вхід</span><span class="d">Налаштовує адміністратор організації</span></span><span class="track"><span class="thumb"></span></span></label>
+      </div>
+    </div>
+
+    <div class="spec" id="number-field">
+      <div class="spec-h"><h3>KNumberField</h3><code>number-field.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/number-field.md">Специфікація</a><p>Число з межами, кроком і одиницями; табличні цифри праворуч.</p></div>
+      <div class="stage">
+        <div class="cols c3">
+          <div class="kite-field"><label for="n1">Вага</label><div class="kite-input num-in"><input id="n1" value="2,4"><span class="suf">кг</span><span class="step"><button aria-label="Зменшити"><i data-lucide="minus" class="i16"></i></button><button aria-label="Збільшити"><i data-lucide="plus" class="i16"></i></button></span></div><div class="hint">До 30 кг на місце</div></div>
+          <div class="kite-field"><label for="n2">Кількість місць</label><div class="kite-input num-in"><input id="n2" value="1"><span class="suf">шт.</span><span class="step"><button aria-label="Зменшити" disabled><i data-lucide="minus" class="i16"></i></button><button aria-label="Збільшити"><i data-lucide="plus" class="i16"></i></button></span></div></div>
+          <div class="kite-field"><label for="n3">Післяплата</label><div class="kite-input num-in"><input id="n3" value="1 250,00"><span class="suf">₴</span></div></div>
+        </div>
+        <div class="kite-field" style="max-width:420px"><span class="fl">Габарити, см</span>
+          <div class="row" style="gap:8px;flex-wrap:nowrap">
+            <div class="kite-input num-in"><input value="40" aria-label="Довжина"></div><span class="muted">×</span>
+            <div class="kite-input num-in"><input value="30" aria-label="Ширина"></div><span class="muted">×</span>
+            <div class="kite-input num-in"><input value="20" aria-label="Висота"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="pin-input">
+      <div class="spec-h"><h3>KPinInput</h3><code>pin-input.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/pin-input.md">Специфікація</a><p>Код отримання і код із SMS. Вставка заповнює всі комірки.</p></div>
+      <div class="stage">
+        <div class="cols">
+          <div class="kite-field"><span class="fl">Код отримання</span><div class="kite-pin" role="group" aria-label="Код отримання"><span>4</span><span>8</span><span>2</span><i class="gap"></i><span class="f"></span><span></span><span></span></div><div class="hint">Прийшов у SMS на +380 67 *** ** 67</div></div>
+          <div class="kite-field"><span class="fl">Код отримання</span><div class="kite-pin" data-invalid role="group" aria-label="Код отримання"><span>4</span><span>8</span><span>2</span><i class="gap"></i><span>9</span><span>1</span><span>4</span></div><div class="err"><i data-lucide="circle-alert"></i>Код не підходить. Перевірте SMS або надішліть код ще раз</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="date-picker">
+      <div class="spec-h"><h3>KDatePicker · KDateRangePicker</h3><code>date-picker.md · date-range-picker.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/date-picker.md">Специфікація</a><p>Сегменти дд.мм.рррр з ручним вводом і календар з понеділка. Діапазон — з пресетами.</p></div>
+      <div class="stage">
+        <div class="cols">
+          <div class="demo">
+            <div class="kite-field"><span class="fl">Тримати посилку до</span><div class="kite-input is-focus"><input value="28.11.2026" class="num" aria-label="Дата"><button class="clr" aria-label="Відкрити календар"><i data-lucide="calendar" class="i16"></i></button></div><div class="hint">До 14 днів, з завтрашнього дня</div></div>
+            <div class="kite-pop cal" role="dialog" aria-label="Оберіть дату">
+              <div class="cal-h"><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Попередній місяць"><i data-lucide="chevron-left"></i></button>Листопад 2026<button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Наступний місяць"><i data-lucide="chevron-right"></i></button></div>
+              <div class="cal-g" id="cal1"></div>
+            </div>
+          </div>
+          <div class="demo">
+            <div class="kite-field"><span class="fl">Період реєстру</span><div class="kite-input"><input value="01.11.2026 — 24.11.2026" class="num" aria-label="Період"><button class="clr" aria-label="Відкрити календар"><i data-lucide="calendar" class="i16"></i></button></div></div>
+            <div class="kite-pop range-pop" style="padding:0">
+              <div class="presets">
+                <div class="kite-opt">Сьогодні</div><div class="kite-opt">Вчора</div><div class="kite-opt">Останні 7 днів</div><div class="kite-opt">Останні 30 днів</div><div class="kite-opt" data-selected>Цей місяць</div><div class="kite-opt">Минулий місяць</div>
+              </div>
+              <div class="cal"><div class="cal-h"><span></span>Листопад 2026<span></span></div><div class="cal-g" id="cal2"></div></div>
+              <div class="range-foot"><button class="kite-btn" data-variant="ghost" data-size="sm">Скинути</button><button class="kite-btn" data-variant="primary" data-size="sm">Застосувати</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="file-upload">
+      <div class="spec-h"><h3>KFileUpload</h3><code>file-upload.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/file-upload.md">Специфікація</a><p>Зона скидання з кнопкою, список файлів з прогресом і помилками.</p></div>
+      <div class="stage">
+        <div class="cols">
+          <div class="demo"><span class="lbl">Імпорт CSV</span>
+            <div class="drop" role="button" tabindex="0"><i data-lucide="upload"></i><span>Перетягніть файл сюди або <b class="kite-link">оберіть на пристрої</b></span><span class="note">CSV, до 10 МБ · <a class="kite-link" href="#file-upload">Завантажити шаблон</a></span></div>
+            <ul class="files">
+              <li class="file"><i data-lucide="file-text" class="i16"></i><span>vidpravky-lystopad-2026.csv<span class="meta" style="display:block">1,2 МБ · 640 з 1 000 рядків</span></span><button class="kite-btn" data-variant="ghost" data-size="sm">Скасувати</button><div class="bar"><div class="kite-progress" data-size="sm"><div class="tr"><div class="fl" style="transform:scaleX(.64)"></div></div></div></div></li>
+              <li class="file"><i data-lucide="circle-check" class="i16" style="color:var(--success-text)"></i><span>povernennia.csv<span class="meta" style="display:block">84 КБ · завантажено</span></span><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Прибрати povernennia.csv"><i data-lucide="x"></i></button></li>
+              <li class="file" data-status="error"><i data-lucide="circle-x" class="i16" style="color:var(--danger-text)"></i><span>zvit.xlsx<span class="meta" style="display:block">Цей тип файлу не підходить. Потрібен CSV</span></span><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Прибрати zvit.xlsx"><i data-lucide="x"></i></button></li>
+            </ul>
+          </div>
+          <div class="demo"><span class="lbl">Перетягування · кнопка</span>
+            <div class="drop" data-over><i data-lucide="upload"></i><span><b>Відпустіть, щоб додати 3 фото</b></span><span class="note">JPG, PNG, PDF, до 10 МБ кожен</span></div>
+            <div class="row"><button class="kite-btn"><i data-lucide="paperclip"></i>Обрати файл</button><span class="note">Фото пошкодження, до 5 файлів</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="tags-input">
+      <div class="spec-h"><h3>KTagsInput</h3><code>tags-input.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/tags-input.md">Специфікація</a><p>Кілька значень чіпами; вставка стовпця з Excel створює всі одразу.</p></div>
+      <div class="stage">
+        <div class="kite-field"><span class="fl">Номери накладних</span>
+          <div class="kite-input multi is-focus"><div class="chips">
+            <span class="chip mono">KT123456785UA<button aria-label="Прибрати"><i data-lucide="x" class="i12"></i></button></span>
+            <span class="chip mono">KT987654326UA<button aria-label="Прибрати"><i data-lucide="x" class="i12"></i></button></span>
+            <span class="chip mono" data-tone="danger">KT555000117UA<button aria-label="Прибрати"><i data-lucide="x" class="i12"></i></button></span>
+            <span class="chip mono">KT401122338UA<button aria-label="Прибрати"><i data-lucide="x" class="i12"></i></button></span>
+            <input aria-label="Додати номер" style="border:0;outline:0;background:none;flex:1;height:28px;font-family:var(--font-mono)">
+          </div><span class="note num" style="white-space:nowrap">4</span><button class="clr" aria-label="Очистити все"><i data-lucide="x" class="i16"></i></button></div>
+          <div class="err"><i data-lucide="circle-alert"></i>KT555000117UA — схоже, у номері помилка. Пропущено повторів: 2</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== KITE ===================== -->
+  <section class="group" id="kite">
+    <h2>Kite</h2>
+    <p>Доменні компоненти, спільні для кількох застосунків: телефон, номер відправлення, статус посилки й історія подій.</p>
+
+    <div class="spec" id="phone-input">
+      <div class="spec-h"><h3>KPhoneInput</h3><code>phone-input.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/phone-input.md">Специфікація</a><p>Префікс +380, м’яка маска, будь-який формат вставки, значення в E.164.</p></div>
+      <div class="stage">
+        <div class="cols">
+          <div class="kite-field"><label for="ph1">Телефон отримувача</label><div class="kite-input"><span class="pre div">+380</span><input id="ph1" type="tel" value="67 123 45 67" class="num"></div><div class="hint">На нього прийде код отримання · значення <span class="mono">+380671234567</span></div></div>
+          <div class="kite-field"><label for="ph2">Телефон відправника</label><div class="kite-input" data-invalid><span class="pre div">+380</span><input id="ph2" type="tel" value="67 123 4" class="num"></div><div class="err"><i data-lucide="circle-alert"></i>Номер має містити 9 цифр після +380</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="tracking-number-input">
+      <div class="spec-h"><h3>KTrackingNumberInput</h3><code>tracking-number-input.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/tracking-number-input.md">Специфікація</a><p>Номер S10 моноширинним, групами, з перевіркою контрольної цифри.</p></div>
+      <div class="stage">
+        <div class="cols">
+          <div class="kite-field"><label for="t1">Номер відправлення</label><div class="kite-input trk" data-size="lg"><input id="t1" value="KT 1234 5678 5 UA"><i data-lucide="circle-check" style="color:var(--success-text)" aria-label="Номер правильний"></i><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Сканувати"><i data-lucide="scan-line"></i></button></div></div>
+          <div class="kite-field"><label for="t2">Номер відправлення</label><div class="kite-input trk" data-invalid><input id="t2" value="KT 1234 5678 9 UA"></div><div class="err"><i data-lucide="circle-alert"></i>Схоже, у номері помилка. Перевірте цифри</div></div>
+          <div class="kite-field"><label for="t3">Номер відправлення</label><div class="kite-input trk"><input id="t3" placeholder="KT 1234 5678 5 UA"></div><div class="hint">13 символів: 2 літери, 9 цифр, 2 літери</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="tracking-number">
+      <div class="spec-h"><h3>KTrackingNumber</h3><code>tracking-number.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/tracking-number.md">Специфікація</a><p>Показ номера: групи через відступ, копіюється без пробілів.</p></div>
+      <div class="stage">
+        <div class="row" style="gap:32px">
+          <span class="trk" data-size="sm"><span class="g"><span>KT</span><span>1234</span><span>5678</span><span>5</span><span>UA</span></span><button class="kite-btn kite-icon-btn js-copy" data-variant="ghost" data-size="sm" aria-label="Копіювати номер" data-v="KT123456785UA"><i data-lucide="copy"></i></button></span>
+          <span class="trk"><a href="#tracking-number" class="g"><span>KT</span><span>1234</span><span>5678</span><span>5</span><span>UA</span></a><button class="kite-btn kite-icon-btn js-copy" data-variant="ghost" data-size="sm" aria-label="Копіювати номер" data-v="KT123456785UA"><i data-lucide="copy"></i></button></span>
+          <span class="trk" data-size="lg"><span class="g"><span>KT</span><span>1234</span><span><b>5678</b></span><span>5</span><span>UA</span></span><button class="kite-btn kite-icon-btn js-copy" data-variant="ghost" data-size="sm" aria-label="Копіювати номер" data-v="KT123456785UA"><i data-lucide="copy"></i></button></span>
+        </div>
+        <div class="note">sm у таблицях · md посилання в картках · lg з виділенням останніх 4 цифр (для операторів)</div>
+      </div>
+    </div>
+
+    <div class="spec" id="parcel-status">
+      <div class="spec-h"><h3>KParcelStatus</h3><code>parcel-status.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/parcel-status.md">Специфікація</a><p>Усі 12 станів стейт-машини (7.1) з тоном, іконкою і клієнтським текстом.</p></div>
+      <div class="stage">
+        <div class="row" id="statuses"></div>
+        <div class="cols">
+          <div class="demo"><span class="lbl">detailed · клієнт</span>
+            <div class="row top-al" style="gap:12px;flex-wrap:nowrap"><span style="width:48px;height:48px;border-radius:50%;background:var(--info-subtle);color:var(--info-text);display:grid;place-items:center;flex:none"><i data-lucide="truck" class="i24"></i></span><span><b style="font:600 16px/24px var(--font-sans)">Їде до Львова</b><br><span style="font-size:14px;line-height:20px;color:var(--text-muted)">Виїхала з Kite Hub Київ о 18:40. Будете у відділенні завтра.</span></span></div>
+          </div>
+          <div class="demo"><span class="lbl">staff · оператори · частково</span>
+            <div class="row"><span class="kite-badge" data-tone="info"><i data-lucide="warehouse"></i>У хабі Львів</span><span class="kite-badge" data-tone="info"><i data-lucide="package"></i>Відсортовано</span><span class="kite-badge" data-tone="success"><i data-lucide="circle-check"></i>Отримано · частково</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="timeline">
+      <div class="spec-h"><h3>KTimeline</h3><code>timeline.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/timeline.md">Специфікація</a><p>Історія подій: поточний крок виділено, майбутній — пунктиром.</p></div>
+      <div class="stage">
+        <div class="cols">
+          <div class="demo"><span class="lbl">Відстеження</span>
+            <ol class="kite-tl">
+              <li class="ev fut"><span class="mk"></span><span class="et"><span class="sr">Очікується: </span>Отримання</span><time>очікується 25 лист.</time></li>
+              <li class="day">Сьогодні</li>
+              <li class="ev cur" aria-current="step"><span class="mk"></span><span class="et">Можна забирати</span><time datetime="2026-11-24T09:12">09:12</time><span class="ed">Відділення №12, Львів, вул. Городоцька, 10 · безкоштовно до 29 листопада</span></li>
+              <li class="ev"><span class="mk"></span><span class="et">У сортувальному центрі Львів</span><time datetime="2026-11-24T04:30">04:30</time><span class="ed">Kite Hub Львів</span></li>
+              <li class="day">Вчора</li>
+              <li class="ev"><span class="mk"></span><span class="et">Їде до Львова</span><time datetime="2026-11-23T18:40">18:40</time><span class="ed">Kite Hub Київ</span></li>
+              <li class="ev"><span class="mk"></span><span class="et">Прийнято</span><time datetime="2026-11-23T11:05">11:05</time><span class="ed">Відділення №1, Київ</span></li>
+            </ol>
+            <button class="kite-btn" data-variant="link" style="justify-self:start;font-size:14px">Показати всі (7)</button>
+          </div>
+          <div class="demo"><span class="lbl">Журнал дій · з іконками · sm</span>
+            <ol class="kite-tl ic">
+              <li class="ev"><span class="mk"><i data-lucide="pencil"></i></span><span class="et" style="font-size:14px;line-height:24px">Змінено отримувача</span><time>24 лист., 10:02</time><span class="ed">Ольга Ковальчук, клієнт</span></li>
+              <li class="ev"><span class="mk"><i data-lucide="route"></i></span><span class="et" style="font-size:14px;line-height:24px">Переадресовано у відділення №27</span><time>23 лист., 20:15</time><span class="ed">Підтримка · Андрій М.</span></li>
+              <li class="ev"><span class="mk"><i data-lucide="credit-card"></i></span><span class="et" style="font-size:14px;line-height:24px">Оплачено 140 ₴</span><time>23 лист., 10:58</time><span class="ed">Картка •• 4421</span></li>
+            </ol>
+            <ol class="kite-tl sm" style="margin-top:8px">
+              <li class="ev"><span class="mk"></span><span class="et">Скан UNLOAD · лінія 7</span><time>04:30</time></li>
+              <li class="ev"><span class="mk"></span><span class="et">Скан SORT · мішок M-2231</span><time>04:41</time></li>
+              <li class="ev"><span class="mk"></span><span class="et">Скан LOAD · рейс R-118</span><time>05:10</time></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===================== ВІДОБРАЖЕННЯ ===================== -->
+  <section class="group" id="vidobrazhennia">
+    <h2>Відображення</h2>
+    <p>Мітки, поверхні та пари «ключ — значення». Тон статусу завжди йде з текстом і іконкою; коралової серед статусів немає.</p>
+
+    <div class="spec" id="icon">
+      <div class="spec-h"><h3>KIcon</h3><code>icon.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/icon.md">Специфікація</a><p>Lucide, контур 1,5 на всіх розмірах. Колір — від тексту поруч.</p></div>
+      <div class="stage">
+        <div class="row" style="gap:24px;align-items:flex-end">
+          <span style="display:grid;gap:6px;justify-items:center"><i data-lucide="truck" class="i12"></i><span class="note">12</span></span>
+          <span style="display:grid;gap:6px;justify-items:center"><i data-lucide="truck" class="i16"></i><span class="note">16</span></span>
+          <span style="display:grid;gap:6px;justify-items:center"><i data-lucide="truck"></i><span class="note">20</span></span>
+          <span style="display:grid;gap:6px;justify-items:center"><i data-lucide="truck" class="i24"></i><span class="note">24</span></span>
+          <span style="display:grid;gap:6px;justify-items:center"><i data-lucide="truck" class="i32"></i><span class="note">32</span></span>
+          <span style="display:grid;gap:6px;justify-items:center"><i data-lucide="truck" class="i48"></i><span class="note">48</span></span>
+        </div>
+        <div class="demo"><span class="lbl">Словник значень</span>
+          <div class="row" id="iconset" style="gap:8px"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="badge">
+      <div class="spec-h"><h3>KBadge</h3><code>badge.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/badge.md">Специфікація</a><p>5 тонів × subtle, solid, outline; крапка; лічильник.</p></div>
+      <div class="stage">
+        <div class="demo"><span class="lbl">subtle</span><div class="row">
+          <span class="kite-badge" data-tone="neutral"><i data-lucide="file-pen"></i>Чернетка</span>
+          <span class="kite-badge" data-tone="info"><i data-lucide="info"></i>Нова</span>
+          <span class="kite-badge" data-tone="success"><i data-lucide="circle-check"></i>Оплачено</span>
+          <span class="kite-badge" data-tone="warning"><i data-lucide="triangle-alert"></i>Очікує оплати</span>
+          <span class="kite-badge" data-tone="danger"><i data-lucide="circle-x"></i>Пошкоджено</span>
+        </div></div>
+        <div class="demo"><span class="lbl">solid</span><div class="row">
+          <span class="kite-badge" data-variant="solid" data-tone="neutral">Архів</span>
+          <span class="kite-badge" data-variant="solid" data-tone="info">Нова</span>
+          <span class="kite-badge" data-variant="solid" data-tone="success">Активний</span>
+          <span class="kite-badge" data-variant="solid" data-tone="warning">Затримка</span>
+          <span class="kite-badge" data-variant="solid" data-tone="danger">Втрачено</span>
+        </div></div>
+        <div class="demo"><span class="lbl">outline · крапка · розміри · лічильник</span><div class="row">
+          <span class="kite-badge" data-variant="outline">Kite Business</span>
+          <span class="kite-badge" data-variant="outline" data-tone="info"><span class="dot"></span>Онлайн</span>
+          <span class="kite-badge" data-tone="success" data-size="sm">sm</span>
+          <span class="kite-badge" data-tone="success">md</span>
+          <span class="kite-badge" data-tone="success" data-size="lg">lg</span>
+          <span class="kite-badge count" data-variant="solid" data-tone="danger" data-size="sm">3</span>
+          <span class="kite-badge count" data-variant="solid" data-tone="info">12</span>
+          <span class="kite-badge count" data-variant="solid" data-tone="neutral">99+</span>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="spec" id="avatar">
+      <div class="spec-h"><h3>KAvatar</h3><code>avatar.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/avatar.md">Специфікація</a><p>Фото або ініціали; колір — стабільний хеш імені. Організації — квадрат.</p></div>
+      <div class="stage">
+        <div class="row">
+          <span class="kite-avatar av-sky" data-size="sm" aria-hidden="true">ОК</span>
+          <span class="kite-avatar av-green" aria-hidden="true">АМ</span>
+          <span class="kite-avatar av-amber" data-size="lg" aria-hidden="true">ІП</span>
+          <span class="kite-avatar av-coral" aria-hidden="true">ДС</span>
+          <span class="kite-avatar av-slate" aria-hidden="true">ТБ</span>
+          <span class="kite-avatar av-icon" aria-hidden="true"><i data-lucide="user" class="i16"></i></span>
+          <span class="kite-avatar av-photo" data-size="lg" aria-hidden="true"><i data-lucide="image" class="i24"></i></span>
+          <span class="kite-avatar av-sky" data-shape="square" data-size="lg" aria-hidden="true">ЧЛ</span>
+          <span style="display:flex;align-items:center;gap:10px;font-size:14px;line-height:20px"><span class="kite-avatar av-sky" aria-hidden="true">ОК</span><span>Ольга Ковальчук<br><span class="muted">оператор, Київ №1</span></span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="card">
+      <div class="spec-h"><h3>KCard</h3><code>card.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/card.md">Специфікація</a><p>outline, elevated, subtle; інтерактивна (розтягнуте посилання) і обрана.</p></div>
+      <div class="stage sunk">
+        <div class="cols">
+          <article class="kite-card">
+            <div class="ch"><div><h4>Адреса доставки</h4><p>Відділення №12, Львів</p></div><div class="act"><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Редагувати"><i data-lucide="pencil"></i></button></div></div>
+            <div class="cc" style="font-size:14px;line-height:20px">вул. Городоцька, 10 · Пн–Сб 08:00–20:00</div>
+            <div class="cf"><button class="kite-btn" data-size="sm">Змінити</button><button class="kite-btn" data-variant="primary" data-size="sm">Підтвердити</button></div>
+          </article>
+          <article class="kite-card" data-variant="elevated" data-interactive>
+            <div class="ch"><div><h4><a href="#card" class="stretch" style="color:inherit;text-decoration:none">KT 1234 5678 5 UA</a></h4><p>Київ → Львів · 2,4 кг</p></div></div>
+            <div class="cc row" style="justify-content:space-between"><span class="kite-badge" data-tone="success"><i data-lucide="package-open"></i>Можна забирати</span><span class="note num">до 29 листопада</span></div>
+          </article>
+          <article class="kite-card" data-variant="subtle" data-padding="sm">
+            <div class="ch"><div><h4 style="font:700 16px/24px var(--font-sans)">Підказка</h4><p>Посилку може забрати інша людина за кодом отримання.</p></div></div>
+            <div class="cc"><a class="kite-link" data-variant="standalone" href="#card" style="font-size:14px">Як передати код<i data-lucide="arrow-right" class="i16"></i></a></div>
+          </article>
+          <article class="kite-card" data-interactive data-selected>
+            <span class="sel-mark" aria-hidden="true"><i data-lucide="check"></i></span>
+            <div class="ch"><div><h4>Експрес</h4><p>До відділення завтра до 18:00</p></div></div>
+            <div class="cc num" style="font:700 20px/28px var(--font-sans)">140 ₴</div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="separator">
+      <div class="spec-h"><h3>KSeparator · KKbd</h3><code>separator.md · kbd.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/separator.md">Специфікація</a><p>Роздільники лише там, де відступу мало. Гарячі клавіші — під платформу.</p></div>
+      <div class="stage">
+        <div class="cols">
+          <div class="demo" style="gap:16px">
+            <hr class="kite-separator">
+            <div class="kite-separator lb" role="separator">або</div>
+            <div class="row"><button class="kite-btn" data-variant="ghost" data-size="sm">Друкувати</button><span class="kite-separator v"></span><button class="kite-btn" data-variant="ghost" data-size="sm">Експорт</button><span class="kite-separator v"></span><button class="kite-btn" data-variant="ghost" data-size="sm">Архів</button></div>
+          </div>
+          <div class="row"><span class="kbds"><span class="kbd">⌘</span><span class="kbd">K</span></span><span class="kbds"><span class="kbd">Ctrl</span><span class="kbd">K</span></span><span class="kbd">Esc</span><span class="kbd" data-size="md">/</span><span class="kbds"><span class="kbd">Shift</span><span class="note">+ клік</span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="copy-button">
+      <div class="spec-h"><h3>KCopyButton</h3><code>copy-button.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/copy-button.md">Специфікація</a><p>Іконка змінюється на ✓ на 2 секунди. Натисніть — працює наживо.</p></div>
+      <div class="stage">
+        <div class="row">
+          <button class="kite-btn kite-icon-btn js-copy" data-variant="ghost" data-size="sm" aria-label="Копіювати номер" data-v="KT123456785UA"><i data-lucide="copy"></i></button>
+          <button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Скопійовано" style="color:var(--success-text)"><i data-lucide="check"></i></button>
+          <button class="kite-btn js-copy" data-size="sm" data-v="https://kite.ua/track/KT123456785UA"><i data-lucide="link"></i>Копіювати посилання</button>
+          <span class="kite-input" style="width:min(340px,100%)"><input class="mono" value="kp_live_8f2c…a91d" readonly aria-label="Ключ API" style="font-family:var(--font-mono);font-size:14px"><button class="kite-btn kite-icon-btn js-copy" data-variant="ghost" data-size="sm" aria-label="Копіювати ключ" data-v="kp_live_8f2c_a91d" style="margin-right:-8px"><i data-lucide="copy"></i></button></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="description-list">
+      <div class="spec-h"><h3>KDescriptionList</h3><code>description-list.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/description-list.md">Специфікація</a><p>stacked у сітці або inline з роздільниками; відсутнє значення — «—».</p></div>
+      <div class="stage">
+        <div class="cols">
+          <dl class="kite-dl">
+            <div><dt>Вага</dt><dd>2,4 кг</dd></div>
+            <div><dt>Габарити</dt><dd>40 × 30 × 20 см</dd></div>
+            <div><dt>Оголошена вартість</dt><dd>1 250 ₴</dd></div>
+            <div><dt>Опис</dt><dd>Мед, 3 банки</dd></div>
+            <div><dt>Післяплата</dt><dd class="muted">—<span class="sr">не вказано</span></dd></div>
+            <div><dt>Місць</dt><dd>1</dd></div>
+          </dl>
+          <dl class="kite-dl inline">
+            <div><dt>Отримувач</dt><dd>Ольга Ковальчук</dd></div>
+            <div><dt>Телефон</dt><dd class="num">+380 67 123 45 67</dd></div>
+            <div><dt>Хто платить</dt><dd>Відправник</dd></div>
+            <div><dt>Статус оплати</dt><dd><span class="kite-badge" data-tone="success" data-size="sm"><i data-lucide="circle-check"></i>Оплачено</span></dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="accordion">
+      <div class="spec-h"><h3>KAccordion · KCollapsible</h3><code>accordion.md · collapsible.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/accordion.md">Специфікація</a><p>Секції FAQ і «показати більше». Розгортання працює наживо.</p></div>
+      <div class="stage">
+        <div class="cols">
+          <div class="js-acc" style="display:grid">
+            <div class="acc-i" data-open style="border-bottom:1px solid var(--border)"><h4 style="margin:0"><button class="acc-t" aria-expanded="true" style="width:100%;min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:12px;border:0;background:none;font:600 16px/24px var(--font-sans);padding:12px 0;cursor:pointer;text-align:left">Скільки зберігається посилка?<i data-lucide="chevron-down" class="chev" style="transform:rotate(180deg)"></i></button></h4><div class="acc-c" style="padding:0 0 16px;font-size:14px;line-height:20px;color:var(--text-muted)">У відділенні — 5 діб безкоштовно, далі платно. У Kite Box — 3 доби, можна продовжити на добу. Через 14 днів посилка повертається відправнику.</div></div>
+            <div class="acc-i" style="border-bottom:1px solid var(--border)"><h4 style="margin:0"><button class="acc-t" aria-expanded="false" style="width:100%;min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:12px;border:0;background:none;font:600 16px/24px var(--font-sans);padding:12px 0;cursor:pointer;text-align:left">Чи може забрати посилку інша людина?<i data-lucide="chevron-down" class="chev"></i></button></h4><div class="acc-c" hidden style="padding:0 0 16px;font-size:14px;line-height:20px;color:var(--text-muted)">Так, за кодом отримання. Передайте код людині, яка забиратиме посилку.</div></div>
+            <div class="acc-i"><h4 style="margin:0"><button class="acc-t" aria-expanded="false" style="width:100%;min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:12px;border:0;background:none;font:600 16px/24px var(--font-sans);padding:12px 0;cursor:pointer;text-align:left">Як переадресувати посилку?<i data-lucide="chevron-down" class="chev"></i></button></h4><div class="acc-c" hidden style="padding:0 0 16px;font-size:14px;line-height:20px;color:var(--text-muted)">Безкоштовно, поки посилка в дорозі. Після прибуття у відділення — 50 ₴.</div></div>
+          </div>
+          <div class="demo">
+            <span class="lbl">KCollapsible</span>
+            <button class="kite-btn js-coll" data-variant="link" aria-expanded="false" style="justify-self:start">Додаткові параметри<i data-lucide="chevron-down" class="i16 chev"></i></button>
+            <div class="coll-c" hidden style="display:grid;gap:12px">
+              <label class="kite-check" data-state="unchecked"><span class="box"><i data-lucide="check"></i></span>Застрахувати посилку</label>
+              <label class="kite-check" data-state="unchecked"><span class="box"><i data-lucide="check"></i></span>Пакування у відділенні (+25 ₴)</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ЗВОРОТНИЙ ЗВ’ЯЗОК ===================== -->
+  <section class="group" id="vidguk">
+    <h2>Зворотний зв’язок</h2>
+    <p>Алерт — у потоці сторінки, поки ситуація актуальна. Тост — коротко про дію, яку людина щойно зробила. Помилки полів — не в тостах.</p>
+
+    <div class="spec" id="alert">
+      <div class="spec-h"><h3>KAlert</h3><code>alert.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/alert.md">Специфікація</a><p>5 тонів, md з заголовком і діями, sm в рядок, банер на всю ширину.</p></div>
+      <div class="stage">
+        <div class="kite-alert" data-tone="info" role="status"><i data-lucide="info"></i><div class="bd"><div class="tt">Відділення працює за скороченим графіком</div><div>24–26 листопада відділення №12 працює з 10:00 до 16:00.</div></div></div>
+        <div class="kite-alert" data-tone="warning"><i data-lucide="triangle-alert"></i><div class="bd"><div class="tt">Посилка затримується</div><div>Через негоду доставка до Львова займе на день більше. Нова дата — 26 листопада.</div><div class="acts"><button class="kite-btn" data-size="sm">Переадресувати</button><a class="kite-link" data-variant="standalone" href="#alert" style="font-size:14px">Деталі</a></div></div><button class="kite-btn kite-icon-btn x" data-variant="ghost" data-size="sm" aria-label="Закрити"><i data-lucide="x"></i></button></div>
+        <div class="kite-alert" data-tone="danger" role="alert"><i data-lucide="circle-x"></i><div class="bd"><div class="tt">Не вдалося оплатити</div><div>Банк відхилив платіж. Спробуйте іншу картку або оплатіть у відділенні.</div><div class="acts"><button class="kite-btn" data-size="sm">Спробувати ще</button></div></div></div>
+        <div class="kite-alert" data-tone="danger"><i data-lucide="circle-alert"></i><div class="bd"><div class="tt">Виправте 2 поля</div><div><a class="kite-link" href="#field">Вага: посилка — до 30 кг</a><br><a class="kite-link" href="#phone-input">Телефон отримувача: 9 цифр після +380</a></div></div></div>
+        <div class="cols">
+          <div class="kite-alert" data-tone="success" data-size="sm"><i data-lucide="circle-check" class="i16"></i>Адресу збережено в адресній книзі</div>
+          <div class="kite-alert" data-tone="neutral" data-size="sm"><i data-lucide="info" class="i16"></i>Ціну розраховано на 24 листопада</div>
+        </div>
+        <div class="kite-alert" data-variant="banner" data-tone="info"><i data-lucide="wrench"></i><div class="bd">Сьогодні з 02:00 до 03:00 ведуться технічні роботи. Відстеження може оновлюватися із затримкою.</div></div>
+      </div>
+    </div>
+
+    <div class="spec" id="toast">
+      <div class="spec-h"><h3>KToast</h3><code>toast.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/toast.md">Специфікація</a><p>Інверсна поверхня; іконка тону бере колір протилежної теми. Кнопка нижче показує тост наживо.</p></div>
+      <div class="stage">
+        <div class="cols">
+          <div class="demo" style="gap:12px">
+            <div class="kite-toast" role="status"><div class="bd"><div class="tt">Номер скопійовано</div></div><button class="tb tx" aria-label="Закрити"><i data-lucide="x" class="i16"></i></button></div>
+            <div class="kite-toast" data-tone="success" role="status"><i data-lucide="circle-check"></i><div class="bd"><div class="tt">Адресу збережено</div></div><button class="tb tx" aria-label="Закрити"><i data-lucide="x" class="i16"></i></button></div>
+            <div class="kite-toast" role="status"><i data-lucide="trash-2"></i><div class="bd"><div class="tt">Чернетку видалено</div><div class="ds">KT 1234 5678 5 UA</div></div><button class="tb">Скасувати</button><button class="tb tx" aria-label="Закрити"><i data-lucide="x" class="i16"></i></button></div>
+          </div>
+          <div class="demo" style="gap:12px">
+            <div class="kite-toast" data-tone="info" role="status"><i data-lucide="info"></i><div class="bd"><div class="tt">Маніфест формується</div><div class="ds">Повідомимо, коли файл буде готовий</div></div><button class="tb tx" aria-label="Закрити"><i data-lucide="x" class="i16"></i></button></div>
+            <div class="kite-toast" data-tone="warning" role="status"><i data-lucide="triangle-alert"></i><div class="bd"><div class="tt">Імпортовано 998 з 1 000</div><div class="ds">2 рядки пропущено</div></div><button class="tb">Показати</button></div>
+            <div class="kite-toast" data-tone="danger" role="alert"><i data-lucide="circle-x"></i><div class="bd"><div class="tt">Не вдалося зберегти</div><div class="ds">Перевірте з’єднання і спробуйте ще</div></div><button class="tb tx" aria-label="Закрити"><i data-lucide="x" class="i16"></i></button></div>
+            <button class="kite-btn js-toast" style="justify-self:start">Показати тост</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="spinner">
+      <div class="spec-h"><h3>KSpinner · KSkeleton · KProgress</h3><code>spinner.md · skeleton.md · progress.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/progress.md">Специфікація</a><p>Спінер — для дій, скелетон — для вмісту відомої форми, прогрес — коли частка відома.</p></div>
+      <div class="stage">
+        <div class="row" style="gap:24px">
+          <svg class="spin" style="width:16px;height:16px" viewBox="0 0 20 20" role="status" aria-label="Завантаження"><circle class="t" cx="10" cy="10" r="8"/><circle class="a" cx="10" cy="10" r="8"/></svg>
+          <svg class="spin" viewBox="0 0 20 20" aria-hidden="true"><circle class="t" cx="10" cy="10" r="8"/><circle class="a" cx="10" cy="10" r="8"/></svg>
+          <svg class="spin" style="width:24px;height:24px" viewBox="0 0 20 20" aria-hidden="true"><circle class="t" cx="10" cy="10" r="8"/><circle class="a" cx="10" cy="10" r="8"/></svg>
+          <svg class="spin" style="width:32px;height:32px;color:var(--link)" viewBox="0 0 20 20" aria-hidden="true"><circle class="t" cx="10" cy="10" r="8"/><circle class="a" cx="10" cy="10" r="8"/></svg>
+        </div>
+        <div class="cols">
+          <div class="demo" aria-busy="true"><span class="lbl">Скелетон картки й рядків</span>
+            <div class="kite-card" style="padding:16px;display:grid;gap:10px"><div class="row" style="flex-wrap:nowrap"><div class="sk c" style="width:40px;height:40px"></div><div style="flex:1;display:grid;gap:8px"><div class="sk" style="height:12px;width:60%"></div><div class="sk" style="height:10px;width:40%"></div></div></div><div class="sk r" style="height:56px"></div></div>
+            <div style="display:grid;gap:10px;margin-top:8px"><div class="sk" style="height:12px"></div><div class="sk" style="height:12px"></div><div class="sk" style="height:12px;width:60%"></div></div>
+          </div>
+          <div class="demo" style="gap:20px"><span class="lbl">Прогрес</span>
+            <div class="kite-progress"><div class="pl"><span>Імпорт відправлень</span><span>240 з 1 000</span></div><div class="tr" role="progressbar" aria-valuenow="24" aria-valuemin="0" aria-valuemax="100"><div class="fl" style="transform:scaleX(.24)"></div></div></div>
+            <div class="kite-progress" data-tone="success"><div class="pl"><span>Безкоштовне зберігання</span><span>залишилось 3 дні з 5</span></div><div class="tr"><div class="fl" style="transform:scaleX(.6)"></div></div></div>
+            <div class="kite-progress" data-tone="warning"><div class="pl"><span>Kite Box · комірка 14</span><span>залишилось 18 год</span></div><div class="tr"><div class="fl" style="transform:scaleX(.25)"></div></div></div>
+            <div class="kite-progress" data-size="sm"><div class="pl"><span>Формуємо маніфест</span><span></span></div><div class="tr"><div class="fl ind"></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="empty-state">
+      <div class="spec-h"><h3>KEmptyState</h3><code>empty-state.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/empty-state.md">Специфікація</a><p>Три різні сценарії — три різні тексти.</p></div>
+      <div class="stage">
+        <div class="cols c3">
+          <div class="kite-empty"><div class="ic"><i data-lucide="package"></i></div><h4>Тут з’являться ваші відправлення</h4><p>Створіть першу накладну — це займе 2 хвилини.</p><div class="acts"><button class="kite-btn" data-variant="primary">Створити накладну</button></div></div>
+          <div class="kite-empty"><div class="ic"><i data-lucide="search-x"></i></div><h4>Нічого не знайшли</h4><p>Спробуйте змінити запит або скинути фільтри.</p><div class="acts"><button class="kite-btn">Скинути фільтри</button></div></div>
+          <div class="kite-empty"><div class="ic"><i data-lucide="cloud-off"></i></div><h4>Не вдалося завантажити</h4><p>Перевірте з’єднання і спробуйте ще.</p><div class="acts"><button class="kite-btn"><i data-lucide="rotate-cw"></i>Спробувати ще</button></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ОВЕРЛЕЇ ===================== -->
+  <section class="group" id="overlei">
+    <h2>Оверлеї</h2>
+    <p>Оверлеї показано в рамці зі скрімом. Діалоги, шторка й меню відкриваються й наживо — кнопками нижче.</p>
+
+    <div class="spec" id="dialog">
+      <div class="spec-h"><h3>KDialog</h3><code>dialog.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/dialog.md">Специфікація</a><p>Коротка задача в контексті сторінки. Фокус — на перше поле, не на ×.</p></div>
+      <div class="faux"><div class="faux-page"></div>
+        <div class="kite-dialog" role="dialog" aria-labelledby="dlg1t">
+          <div class="dh"><div><h4 id="dlg1t">Змінити отримувача</h4><p>KT 1234 5678 5 UA · отримувач дізнається про зміну в SMS</p></div><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Закрити"><i data-lucide="x"></i></button></div>
+          <div class="db">
+            <div class="kite-field"><label for="d1">Ім’я та прізвище</label><div class="kite-input is-focus"><input id="d1" value="Ірина Петренко"></div></div>
+            <div class="kite-field"><label for="d2">Телефон</label><div class="kite-input"><span class="pre div">+380</span><input id="d2" value="50 765 43 21" class="num"></div></div>
+          </div>
+          <div class="df"><button class="kite-btn">Скасувати</button><button class="kite-btn" data-variant="primary">Зберегти</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="alert-dialog">
+      <div class="spec-h"><h3>KAlertDialog</h3><code>alert-dialog.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/alert-dialog.md">Специфікація</a><p>Незворотне: питання з дією, наслідки, фокус на безпечній кнопці.</p></div>
+      <div class="cols">
+        <div class="faux"><div class="faux-page"></div>
+          <div class="kite-dialog" data-size="sm" role="alertdialog" aria-labelledby="ad1">
+            <div class="dh"><span class="aic"><i data-lucide="triangle-alert"></i></span></div>
+            <div class="dh" style="padding-top:16px"><div><h4 id="ad1">Скасувати накладну KT 1234 5678 5 UA?</h4><p>Кошти — 140 ₴ — повернуться на картку за 3 дні. Посилку не приймуть у відділенні.</p></div></div>
+            <div class="df" style="padding-top:24px"><button class="kite-btn is-focus">Залишити</button><button class="kite-btn" data-variant="danger">Скасувати накладну</button></div>
+          </div>
+        </div>
+        <div class="faux"><div class="faux-page"></div>
+          <div class="kite-dialog" data-size="sm" role="alertdialog" aria-labelledby="ad2">
+            <div class="dh"><div><h4 id="ad2">Видалити ключ API «Магазин-1»?</h4><p>Інтеграції з цим ключем перестануть працювати одразу.</p></div></div>
+            <div class="db"><div class="kite-field"><label for="ad2i">Введіть «Магазин-1», щоб підтвердити</label><div class="kite-input is-focus"><input id="ad2i" value="Магазин-"></div></div></div>
+            <div class="df"><button class="kite-btn">Залишити</button><button class="kite-btn" data-variant="danger" disabled>Видалити ключ</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="sheet">
+      <div class="spec-h"><h3>KSheet · KDrawer</h3><code>sheet.md · drawer.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/sheet.md">Специфікація</a><p>Панель збоку для деталей; нижня шторка з ручкою на мобільному (Drawer — Alpha).</p></div>
+      <div class="cols">
+        <div class="faux sheet"><div class="faux-page"></div>
+          <aside class="kite-sheet" role="dialog" aria-labelledby="sh1">
+            <div class="dh"><div style="display:grid;gap:4px"><h4 id="sh1" class="mono" style="font:500 20px/28px var(--font-mono)">KT 1234 5678 5 UA</h4><span class="kite-badge" data-tone="info"><i data-lucide="truck"></i>Їде до Львова</span></div><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Закрити" style="margin-left:auto"><i data-lucide="x"></i></button></div>
+            <div class="db">
+              <dl class="kite-dl inline"><div><dt>Маршрут</dt><dd>Київ №1 → Львів №12</dd></div><div><dt>Вага</dt><dd>2,4 кг</dd></div><div><dt>Мішок</dt><dd class="mono">M-2231</dd></div><div><dt>Рейс</dt><dd class="mono">R-118 · 18:40</dd></div></dl>
+            </div>
+            <div class="df"><button class="kite-btn" data-size="sm"><i data-lucide="printer"></i>Етикетка</button><button class="kite-btn" data-variant="primary" data-size="sm">Відкрити</button></div>
+          </aside>
+        </div>
+        <div class="faux drawer"><div class="map-faux"></div><span class="pin-m" style="left:30%;top:22%"></span><span class="pin-m" style="left:62%;top:34%"></span>
+          <div class="kite-drawer" role="dialog" aria-labelledby="dr1" style="position:relative">
+            <button class="handle" aria-label="Розгорнути" aria-expanded="false"></button>
+            <div class="row" style="justify-content:space-between"><h4 id="dr1" style="margin:0;font:500 20px/28px var(--font-display)">Поруч з вами</h4><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Закрити"><i data-lucide="x"></i></button></div>
+            <div class="kite-opt" data-highlighted style="padding:8px"><i data-lucide="store" class="i16"></i><span class="txt">№12 · вул. Городоцька, 10<span class="d">350 м · до 20:00</span></span></div>
+            <div class="kite-opt" style="padding:8px"><i data-lucide="box" class="i16"></i><span class="txt">Kite Box №4410<span class="d">600 м · цілодобово</span></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="row"><button class="kite-btn js-open" data-target="live-sheet">Відкрити панель наживо</button><button class="kite-btn js-open" data-target="live-dialog">Відкрити діалог наживо</button></div>
+    </div>
+
+    <div class="spec" id="popover">
+      <div class="spec-h"><h3>KPopover · KTooltip</h3><code>popover.md · tooltip.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/popover.md">Специфікація</a><p>Поповер — з інтерактивом, відкривається кліком. Тултіп — лише текст, на ховер і фокус.</p></div>
+      <div class="stage">
+        <div class="cols">
+          <div class="anchor-demo">
+            <button class="kite-btn" data-variant="link" style="font-size:14px">Як рахується ціна?</button>
+            <div class="kite-pop kite-popover" role="dialog" aria-label="Розрахунок ціни">
+              <div class="pt">Розрахунок ціни</div>
+              <div class="price-rows num"><div><span>Тариф «Стандарт», до 5 кг</span><span>80 ₴</span></div><div><span>Страхування 0,5 %</span><span>7 ₴</span></div><div><span>Пакування</span><span>25 ₴</span></div><div class="tot"><span>Разом</span><span>112 ₴</span></div></div>
+            </div>
+          </div>
+          <div class="row" style="gap:32px;align-items:flex-end">
+            <div class="tip-demo"><span class="kite-tooltip">Копіювати номер</span><button class="kite-btn kite-icon-btn is-hover" data-variant="ghost" aria-label="Копіювати номер"><i data-lucide="copy"></i></button></div>
+            <div class="tip-demo"><span class="kite-tooltip">Пошук <span class="kbds"><span class="kbd">⌘</span><span class="kbd">K</span></span></span><button class="kite-btn kite-icon-btn is-focus" data-variant="ghost" aria-label="Пошук"><i data-lucide="search"></i></button></div>
+            <div class="tip-demo"><span class="kite-tooltip">Відділення №12, Львів, вул. Городоцька, 10</span><span style="max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px">Відділення №12, Львів, вул. Городоцька, 10</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="dropdown-menu">
+      <div class="spec-h"><h3>KDropdownMenu</h3><code>dropdown-menu.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/dropdown-menu.md">Специфікація</a><p>Дії рядка, чекбокси стовпців, підменю. Небезпечний пункт — останній, після роздільника.</p></div>
+      <div class="stage">
+        <div class="cols">
+          <div class="anchor-demo">
+            <button class="kite-btn kite-icon-btn is-active" data-variant="ghost" aria-label="Ще дії" aria-expanded="true"><i data-lucide="ellipsis"></i></button>
+            <div class="kite-pop" role="menu" style="width:260px">
+              <div class="kite-opt" role="menuitem"><i data-lucide="external-link" class="i16"></i><span class="txt">Відкрити</span></div>
+              <div class="kite-opt" role="menuitem" data-highlighted><i data-lucide="printer" class="i16"></i><span class="txt">Друкувати етикетку</span><span class="kbds sc"><span class="kbd">⌘</span><span class="kbd">P</span></span></div>
+              <div class="kite-opt" role="menuitem"><i data-lucide="route" class="i16"></i><span class="txt">Переадресувати</span><i data-lucide="chevron-right" class="i16" style="margin-left:auto"></i></div>
+              <div class="kite-opt" role="menuitem" data-disabled><i data-lucide="pause" class="i16"></i><span class="txt">Утримати (вже в точці)</span></div>
+              <hr class="kite-sep">
+              <div class="kite-opt" role="menuitem" data-danger><i data-lucide="ban" class="i16"></i><span class="txt">Скасувати накладну</span></div>
+            </div>
+          </div>
+          <div class="anchor-demo">
+            <button class="kite-btn" data-size="sm" aria-expanded="true"><i data-lucide="columns-3"></i>Стовпці</button>
+            <div class="kite-pop" role="menu" style="width:240px">
+              <div class="kite-grp">Показувати</div>
+              <div class="kite-opt" role="menuitemcheckbox" aria-checked="true"><i data-lucide="check" class="i16"></i><span class="txt">Отримувач</span></div>
+              <div class="kite-opt" role="menuitemcheckbox" aria-checked="true"><i data-lucide="check" class="i16"></i><span class="txt">Статус</span></div>
+              <div class="kite-opt" role="menuitemcheckbox" aria-checked="false"><i data-lucide="check" class="i16" style="color:transparent"></i><span class="txt">Габарити</span></div>
+              <hr class="kite-sep">
+              <div class="kite-grp">Щільність</div>
+              <div class="kite-opt" role="menuitemradio" aria-checked="true"><span style="width:16px;display:grid;place-items:center"><span style="width:6px;height:6px;border-radius:50%;background:var(--text)"></span></span><span class="txt">Звичайна</span></div>
+              <div class="kite-opt" role="menuitemradio" aria-checked="false"><span style="width:16px"></span><span class="txt">Компактна</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===================== НАВІГАЦІЯ ===================== -->
+  <section class="group" id="navigatsiia">
+    <h2>Навігація й каркаси</h2>
+    <p>Активний пункт видно не лише кольором: смужка, вага шрифту, aria-current. Вкладки й кроки перемикаються наживо.</p>
+
+    <div class="spec" id="tabs">
+      <div class="spec-h"><h3>KTabs</h3><code>tabs.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/tabs.md">Специфікація</a><p>line — над сторінкою, pills — усередині карток. Лічильник і вимкнена вкладка.</p></div>
+      <div class="stage">
+        <div class="js-tabs">
+          <div class="kite-tabs" role="tablist" aria-label="Посилка">
+            <button role="tab" aria-selected="true" data-p="Номер, маршрут, вага, отримувач і оплата.">Деталі</button>
+            <button role="tab" aria-selected="false" data-p="Сім подій від прийому до видачі.">Історія <span class="kite-badge count" data-size="sm">7</span></button>
+            <button role="tab" aria-selected="false" data-p="Етикетка, квитанція, акт.">Документи</button>
+            <button role="tab" aria-selected="false" disabled>Претензія</button>
+          </div>
+          <div class="tab-panel" role="tabpanel">Номер, маршрут, вага, отримувач і оплата.</div>
+        </div>
+        <div class="kite-tabs pills js-tabs-pills" role="tablist" aria-label="Відправлення"><button role="tab" aria-selected="true">Активні</button><button role="tab" aria-selected="false">Чернетки</button><button role="tab" aria-selected="false">Архів</button></div>
+      </div>
+    </div>
+
+    <div class="spec" id="breadcrumbs">
+      <div class="spec-h"><h3>KBreadcrumbs · KPagination</h3><code>breadcrumbs.md · pagination.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/pagination.md">Специфікація</a><p>Шлях у робочих застосунках; сторінки з діапазоном рядків і розміром сторінки.</p></div>
+      <div class="stage">
+        <nav class="kite-crumbs" aria-label="Навігаційний ланцюжок"><ol>
+          <li><a href="#breadcrumbs">Відправлення</a><i data-lucide="chevron-right"></i></li>
+          <li><button class="more" aria-label="Показати шлях">…</button><i data-lucide="chevron-right"></i></li>
+          <li><a href="#breadcrumbs">Реєстр 24.11</a><i data-lucide="chevron-right"></i></li>
+          <li><span aria-current="page" class="mono">KT 1234 5678 5 UA</span></li>
+        </ol></nav>
+        <nav class="kite-pag" aria-label="Сторінки">
+          <span class="rng" aria-live="polite">Рядки 201–250 з 1 240</span>
+          <span class="ps">Рядків на сторінці <button class="kite-input kite-trigger" data-size="sm" style="width:84px"><span class="val num">50</span><i data-lucide="chevron-down" class="chev i16"></i></button></span>
+          <span class="pages">
+            <button class="kite-btn kite-icon-btn" data-variant="ghost" aria-label="Попередня сторінка"><i data-lucide="chevron-left"></i></button>
+            <button class="pg">1</button><span class="ell">…</span><button class="pg">4</button><button class="pg" aria-current="page">5</button><button class="pg">6</button><span class="ell">…</span><button class="pg">25</button>
+            <button class="kite-btn kite-icon-btn" data-variant="ghost" aria-label="Наступна сторінка"><i data-lucide="chevron-right"></i></button>
+          </span>
+        </nav>
+        <nav class="kite-pag" data-size="sm" aria-label="Сторінки">
+          <span class="pages" style="margin-left:0"><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Попередня сторінка"><i data-lucide="chevron-left"></i></button><span class="num" style="font-size:14px">Сторінка 5 з 25</span><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Наступна сторінка"><i data-lucide="chevron-right"></i></button></span>
+          <span class="note">simple — для вузьких місць і мобільного</span>
+        </nav>
+      </div>
+    </div>
+
+    <div class="spec" id="stepper">
+      <div class="spec-h"><h3>KStepper</h3><code>stepper.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/stepper.md">Специфікація</a><p>Кроки майстра: завершено, поточний, майбутній, помилка; горизонтально, вертикально й компактно.</p></div>
+      <div class="stage">
+        <div class="scroll-x"><nav class="kite-stepper" aria-label="Кроки" style="min-width:640px"><ol>
+          <li data-state="complete"><span class="ind"><i data-lucide="check"></i></span><span><span class="st">Відправник</span><span class="sd" style="display:block">Київ №1</span></span></li>
+          <li data-state="complete"><span class="ind"><i data-lucide="check"></i></span><span><span class="st">Отримувач</span><span class="sd" style="display:block">Львів №12</span></span></li>
+          <li data-state="current" aria-current="step"><span class="ind">3</span><span><span class="st">Посилка</span><span class="sd" style="display:block">Вага і габарити</span></span></li>
+          <li data-state="upcoming"><span class="ind">4</span><span><span class="st">Оплата</span></span></li>
+        </ol></nav></div>
+        <div class="cols">
+          <nav class="kite-stepper v" aria-label="Кроки"><ol>
+            <li data-state="complete"><span class="ind"><i data-lucide="check"></i></span><span><span class="st">Ключ API</span><span class="sd" style="display:block">Створено 24.11</span></span></li>
+            <li data-state="error"><span class="ind"><i data-lucide="minus"></i></span><span><span class="st">Вебхук</span><span class="sd" style="display:block">Адреса не відповідає</span></span></li>
+            <li data-state="upcoming"><span class="ind">3</span><span><span class="st">Тестове відправлення</span></span></li>
+          </ol></nav>
+          <div class="stepper-compact"><span class="lbl">Компактний · мобільний</span><div class="sc-t">Крок 3 з 4 · <span>Посилка</span></div><div class="kite-progress" data-size="sm"><div class="tr"><div class="fl" style="transform:scaleX(.75);background:var(--text)"></div></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="sidebar">
+      <div class="spec-h"><h3>KSidebar · KAppShell</h3><code>sidebar.md · app-shell.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/app-shell.md">Специфікація</a><p>Каркас kite-ops: бічна панель з групами, шапка з контекстом зміни й пошуком, заголовок сторінки. Згорнута панель — праворуч.</p></div>
+      <div class="row top-al side-demo" style="gap:16px;flex-wrap:nowrap;min-width:0">
+        <div class="shell" style="flex:1;min-width:0;min-height:460px">
+          <aside class="kite-sidebar">
+            <div class="sh"><svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path d="M16 1.5 L30.5 16 L16 30.5 L1.5 16 Z" fill="#FF5A36"/></svg><b>Kite Ops</b></div>
+            <nav aria-label="Основна навігація">
+              <div class="sg"><span class="sgl">Операції</span>
+                <a href="#sidebar" aria-current="page"><i data-lucide="package-check"></i>Прийом<span class="kite-badge count" data-variant="solid" data-tone="info" data-size="sm">12</span></a>
+                <a href="#sidebar"><i data-lucide="scan-line"></i>Сортування</a>
+                <a href="#sidebar"><i data-lucide="truck"></i>Рейси</a>
+                <a href="#sidebar"><i data-lucide="package-open"></i>Видача</a>
+              </div>
+              <div class="sg"><span class="sgl">Адміністрування</span>
+                <a href="#sidebar"><i data-lucide="users"></i>Користувачі</a>
+                <a href="#sidebar"><i data-lucide="settings"></i>Налаштування</a>
+              </div>
+            </nav>
+            <div class="sf"><div class="me"><span class="kite-avatar av-sky" aria-hidden="true">ОК</span><span>Ольга Ковальчук<small>оператор</small></span></div><button class="kite-btn" data-variant="ghost" data-size="sm" style="justify-content:flex-start"><i data-lucide="panel-left-close"></i>Згорнути</button></div>
+          </aside>
+          <div class="shell-main">
+            <header class="shell-hd"><span class="ctx"><i data-lucide="store" class="i16"></i>Київ, відділення №1 <small>· зміна 2</small><i data-lucide="chevron-down" class="i16 muted"></i></span><div class="kite-input filled" data-size="sm"><i data-lucide="search" class="i16"></i><input placeholder="Номер або телефон" aria-label="Пошук"><span class="kbds"><span class="kbd">⌘</span><span class="kbd">K</span></span></div><span class="right"><button class="kite-btn kite-icon-btn" data-variant="ghost" aria-label="Сповіщення"><i data-lucide="bell"></i></button></span></header>
+            <div class="shell-body">
+              <a class="skip" href="#sidebar">Перейти до вмісту</a>
+              <div class="ph"><div><nav class="kite-crumbs" aria-label="Навігаційний ланцюжок"><ol><li><a href="#sidebar">Операції</a><i data-lucide="chevron-right"></i></li><li><span aria-current="page">Прийом</span></li></ol></nav><h1>Прийом посилок</h1><p>12 очікують прийому · оновлено щойно</p></div><div class="acts"><button class="kite-btn" data-size="sm"><i data-lucide="qr-code"></i>Спарити телефон</button><button class="kite-btn" data-variant="primary" data-size="sm"><i data-lucide="scan-line"></i>Прийняти</button></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="shell" style="flex:none;min-height:460px" aria-label="Згорнута панель">
+          <aside class="kite-sidebar collapsed">
+            <div class="sh"><svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path d="M16 1.5 L30.5 16 L16 30.5 L1.5 16 Z" fill="#FF5A36"/></svg></div>
+            <nav aria-label="Основна навігація (згорнута)">
+              <div class="sg"><span class="sgl">Операції</span><a href="#sidebar" aria-current="page" aria-label="Прийом"><i data-lucide="package-check"></i></a><a href="#sidebar" aria-label="Сортування"><i data-lucide="scan-line"></i></a><a href="#sidebar" aria-label="Рейси"><i data-lucide="truck"></i></a><a href="#sidebar" aria-label="Видача"><i data-lucide="package-open"></i></a></div>
+              <div class="sg"><span class="sgl">Адміністрування</span><a href="#sidebar" aria-label="Користувачі"><i data-lucide="users"></i></a><a href="#sidebar" aria-label="Налаштування"><i data-lucide="settings"></i></a></div>
+            </nav>
+            <div class="sf" style="justify-items:center"><span class="kite-avatar av-sky" aria-hidden="true">ОК</span></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec" id="command-palette">
+      <div class="spec-h"><h3>KCommandPalette</h3><code>command-palette.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/command-palette.md">Специфікація</a><p>⌘K: номер накладної розпізнається першим результатом, далі розділи й дії.</p></div>
+      <div class="faux" style="place-items:start center"><div class="faux-page"></div>
+        <div class="cmd" role="dialog" aria-label="Командна палітра">
+          <div class="cq"><i data-lucide="search" class="muted"></i><input value="kt1234" aria-label="Знайти посилку, розділ або дію" role="combobox" aria-expanded="true"><span class="kbd">Esc</span></div>
+          <div class="kite-list">
+            <div class="kite-grp">Посилки</div>
+            <div class="kite-opt" data-highlighted><span class="ic"><i data-lucide="package"></i></span><span class="txt">Відкрити <span class="mono">KT 1234 5678 5 UA</span><span class="d">Їде до Львова · Ольга Ковальчук</span></span><span class="kbd">↵</span></div>
+            <div class="kite-grp">Дії</div>
+            <div class="kite-opt"><span class="ic"><i data-lucide="route"></i></span><span class="txt">Переадресувати посилку…</span><span class="ty">дія</span></div>
+            <div class="kite-opt"><span class="ic"><i data-lucide="printer"></i></span><span class="txt">Друкувати маніфест рейсу</span><span class="kbds sc"><span class="kbd">⌘</span><span class="kbd">P</span></span></div>
+            <div class="kite-grp">Розділи</div>
+            <div class="kite-opt"><span class="ic"><i data-lucide="truck"></i></span><span class="txt">Рейси</span><span class="ty">розділ</span></div>
+          </div>
+          <div class="cft"><span><span class="kbd">↑</span><span class="kbd">↓</span>вибрати</span><span><span class="kbd">↵</span>відкрити</span><span><span class="kbd">Esc</span>закрити</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ДАНІ ===================== -->
+  <section class="group" id="dani">
+    <h2>Дані</h2>
+    <p>Числа праворуч табличними цифрами, номер — моноширинним. У KDataTable вибір рядків перемикає тулбар на інверсну панель масових дій. Чекбокси працюють наживо.</p>
+
+    <div class="spec" id="table">
+      <div class="spec-h"><h3>KTable</h3><code>table.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/table.md">Специфікація</a><p>Семантична таблиця для статичних даних; підпис, підсумок, компактний режим.</p></div>
+      <div class="kite-table-wrap" role="region" aria-labelledby="tcap" tabindex="0">
+        <table class="kite-table">
+          <caption id="tcap">Тарифи «Стандарт», до відділення</caption>
+          <thead><tr><th scope="col">Вага</th><th scope="col">Термін</th><th scope="col" class="r">Київ → обласний центр</th><th scope="col" class="r">По області</th></tr></thead>
+          <tbody>
+            <tr><th scope="row" style="font:400 14px/20px var(--font-sans);background:none;color:var(--text);height:48px">до 1 кг (документи)</th><td>1–2 дні</td><td class="r">55 ₴</td><td class="r">45 ₴</td></tr>
+            <tr><th scope="row" style="font:400 14px/20px var(--font-sans);background:none;color:var(--text);height:48px">до 5 кг</th><td>2–3 дні</td><td class="r">80 ₴</td><td class="r">65 ₴</td></tr>
+            <tr><th scope="row" style="font:400 14px/20px var(--font-sans);background:none;color:var(--text);height:48px">до 15 кг</th><td>2–3 дні</td><td class="r">120 ₴</td><td class="r">95 ₴</td></tr>
+            <tr><th scope="row" style="font:400 14px/20px var(--font-sans);background:none;color:var(--text);height:48px">до 30 кг</th><td>2–4 дні</td><td class="r">185 ₴</td><td class="r">150 ₴</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="spec" id="data-table">
+      <div class="spec-h"><h3>KDataTable</h3><code>data-table.md</code><a href="https://github.com/kite-post/kite-ui/blob/main/docs/components/data-table.md">Специфікація</a><p>Пошук, фільтри-чіпи, сортування, вибір, масові дії, новий рядок у реальному часі, пагінація.</p></div>
+      <div class="stage dt js-dt">
+        <div class="dt-bar js-dt-bar">
+          <div class="kite-input filled" data-size="sm"><i data-lucide="search" class="i16"></i><input placeholder="Номер або телефон" aria-label="Пошук у таблиці"><span class="kbd">/</span></div>
+          <button class="kite-btn" data-size="sm">Статус<i data-lucide="chevron-down"></i></button>
+          <button class="kite-btn" data-size="sm">Створено<i data-lucide="chevron-down"></i></button>
+          <button class="kite-btn" data-variant="ghost" data-size="sm"><i data-lucide="list-filter"></i>Фільтр</button>
+          <span class="end"><button class="kite-btn" data-variant="ghost" data-size="sm"><i data-lucide="columns-3"></i>Стовпці</button><button class="kite-btn" data-size="sm"><i data-lucide="download"></i>Експорт</button></span>
+        </div>
+        <div class="bulk js-dt-bulk" hidden><span class="js-dt-count">Обрано: 2</span><button class="kite-btn" data-size="sm"><i data-lucide="printer"></i>Друкувати етикетки</button><button class="kite-btn" data-size="sm"><i data-lucide="file-text"></i>Сформувати маніфест</button><span class="end"><button class="kite-btn js-dt-clear" data-variant="ghost" data-size="sm">Зняти вибір</button></span></div>
+        <div class="dt-chips"><span class="fchip">Статус: <b>Їде, У хабі</b><button aria-label="Прибрати фільтр «Статус»"><i data-lucide="x" class="i12"></i></button></span><span class="fchip">Створено: <b class="num">1–24 лист.</b><button aria-label="Прибрати фільтр «Створено»"><i data-lucide="x" class="i12"></i></button></span><button class="kite-btn" data-variant="link" style="font-size:12px">Скинути все</button></div>
+        <div class="kite-table-wrap">
+          <table class="kite-table" aria-label="Відправлення">
+            <thead><tr>
+              <th class="w-ck"><label class="kite-check js-dt-all" data-size="sm" data-state="unchecked" aria-label="Обрати всі на сторінці"><span class="box"><i data-lucide="check"></i></span></label></th>
+              <th aria-sort="descending"><button class="sortb">Номер<i data-lucide="arrow-down"></i></button></th>
+              <th><button class="sortb">Отримувач<i data-lucide="arrow-up-down"></i></button></th>
+              <th>Статус</th>
+              <th>Маршрут</th>
+              <th class="r"><button class="sortb">Вага, кг<i data-lucide="arrow-up-down"></i></button></th>
+              <th class="r">Сума</th>
+              <th style="width:52px"><span class="sr">Дії</span></th>
+            </tr></thead>
+            <tbody class="js-dt-body">
+              <tr class="ia new"><td class="w-ck"><label class="kite-check js-dt-row" data-size="sm" data-state="unchecked"><span class="box"><i data-lucide="check"></i></span></label></td><td><span class="trk" data-size="sm"><a href="#data-table" class="g"><span>KT</span><span>4011</span><span>2233</span><span>8</span><span>UA</span></a></span></td><td>Тарас Бондар</td><td><span class="kite-badge" data-tone="neutral" data-size="sm"><i data-lucide="file-check"></i>Створено</span></td><td>Київ → Одеса</td><td class="r">0,8</td><td class="r">55 ₴</td><td><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Дії"><i data-lucide="ellipsis"></i></button></td></tr>
+              <tr class="ia"><td class="w-ck"><label class="kite-check js-dt-row" data-size="sm" data-state="unchecked"><span class="box"><i data-lucide="check"></i></span></label></td><td><span class="trk" data-size="sm"><a href="#data-table" class="g"><span>KT</span><span>1234</span><span>5678</span><span>5</span><span>UA</span></a></span></td><td>Ольга Ковальчук</td><td><span class="kite-badge" data-tone="info" data-size="sm"><i data-lucide="truck"></i>Їде до Львова</span></td><td>Київ → Львів</td><td class="r">2,4</td><td class="r">80 ₴</td><td><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Дії"><i data-lucide="ellipsis"></i></button></td></tr>
+              <tr class="ia"><td class="w-ck"><label class="kite-check js-dt-row" data-size="sm" data-state="unchecked"><span class="box"><i data-lucide="check"></i></span></label></td><td><span class="trk" data-size="sm"><a href="#data-table" class="g"><span>KT</span><span>9876</span><span>5432</span><span>6</span><span>UA</span></a></span></td><td>Андрій Мельник</td><td><span class="kite-badge" data-tone="info" data-size="sm"><i data-lucide="warehouse"></i>У сорт. центрі Дніпро</span></td><td>Харків → Дніпро</td><td class="r">12,0</td><td class="r">120 ₴</td><td><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Дії"><i data-lucide="ellipsis"></i></button></td></tr>
+              <tr class="ia"><td class="w-ck"><label class="kite-check js-dt-row" data-size="sm" data-state="unchecked"><span class="box"><i data-lucide="check"></i></span></label></td><td><span class="trk" data-size="sm"><a href="#data-table" class="g"><span>KT</span><span>5550</span><span>0011</span><span>4</span><span>UA</span></a></span></td><td>Ірина Петренко</td><td><span class="kite-badge" data-tone="warning" data-size="sm"><i data-lucide="pause"></i>Утримується до 2 груд.</span></td><td>Львів → Київ</td><td class="r">4,1</td><td class="r">80 ₴</td><td><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Дії"><i data-lucide="ellipsis"></i></button></td></tr>
+              <tr class="ia"><td class="w-ck"><label class="kite-check js-dt-row" data-size="sm" data-state="unchecked"><span class="box"><i data-lucide="check"></i></span></label></td><td><span class="trk" data-size="sm"><a href="#data-table" class="g"><span>KT</span><span>3141</span><span>5926</span><span>8</span><span>UA</span></a></span></td><td>Дарина Савчук</td><td><span class="kite-badge" data-tone="danger" data-size="sm"><i data-lucide="search-x"></i>Шукаємо посилку</span></td><td>Одеса → Харків</td><td class="r">1,5</td><td class="r">65 ₴</td><td><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Дії"><i data-lucide="ellipsis"></i></button></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <nav class="kite-pag" data-size="sm" aria-label="Сторінки"><span class="rng">Рядки 1–5 з 1 240</span><span class="pages"><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Попередня сторінка" disabled><i data-lucide="chevron-left"></i></button><button class="pg" aria-current="page">1</button><button class="pg">2</button><button class="pg">3</button><span class="ell">…</span><button class="pg">248</button><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Наступна сторінка"><i data-lucide="chevron-right"></i></button></span></nav>
+      </div>
+    </div>
+  </section>
+  <!-- ===================== ЕКРАНИ ===================== -->
+  <section class="group" id="ekrany">
+    <h2>Екрани</h2>
+    <p>Три сторінки, складені лише з компонентів кіта: сторінка посилки в kite-web, крок майстра накладної і черга прийому в kite-ops.</p>
+
+    <div class="spec">
+      <div class="spec-h"><h3>kite-web · сторінка посилки</h3><p>Статус людською мовою, номер із копіюванням, таймлайн, деталі й дії отримувача.</p></div>
+      <div class="screen">
+        <div class="screen-bar"><i></i><i></i><i></i><span style="margin-left:8px">kite.ua/track/KT123456785UA</span></div>
+        <header class="web-hd">
+          <span class="brand" style="font-size:16px"><svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path d="M16 1.5 L30.5 16 L16 30.5 L1.5 16 Z" fill="#FF5A36"/><path d="M16 1.5 V30.5 M1.5 16 H30.5" stroke="#0B1220" stroke-width="1.6" opacity=".55"/></svg>Kite</span>
+          <nav aria-label="Основна навігація"><a href="#ekrany" aria-current="page">Відправлення</a><a href="#ekrany">Відстежити</a><a href="#ekrany">Тарифи</a></nav>
+          <span class="end"><button class="kite-btn" data-variant="primary" data-size="sm"><i data-lucide="plus"></i>Створити накладну</button><span class="kite-avatar av-sky" aria-hidden="true">ОК</span></span>
+        </header>
+        <div class="parcel">
+          <div style="display:grid;gap:24px;min-width:0">
+            <div class="parcel-hero">
+              <nav class="kite-crumbs" aria-label="Навігаційний ланцюжок"><ol><li><a href="#ekrany">Відправлення</a><i data-lucide="chevron-right"></i></li><li><span aria-current="page">Посилка</span></li></ol></nav>
+              <span class="trk" data-size="lg"><span class="g"><span>KT</span><span>1234</span><span>5678</span><span>5</span><span>UA</span></span><button class="kite-btn kite-icon-btn js-copy" data-variant="ghost" data-size="sm" aria-label="Копіювати номер" data-v="KT123456785UA"><i data-lucide="copy"></i></button></span>
+              <div class="route">Київ <i data-lucide="arrow-right" class="i24"></i> Львів</div>
+              <div class="row"><span class="kite-badge" data-tone="success" data-size="lg"><i data-lucide="package-open"></i>Можна забирати</span><span class="note">оновлено о 09:12</span></div>
+              <div class="eta"><div><small>Де забрати</small><b>Відділення №12, вул. Городоцька, 10</b></div><div><small>Безкоштовно до</small><b>29 листопада</b></div><div><small>Код отримання</small><b class="mono">482 913</b></div></div>
+              <div class="kite-progress" data-tone="success"><div class="pl"><span>Безкоштовне зберігання</span><span>залишилось 5 днів з 5</span></div><div class="tr"><div class="fl" style="transform:scaleX(1)"></div></div></div>
+            </div>
+            <div class="kite-tabs" role="tablist" aria-label="Посилка"><button role="tab" aria-selected="true">Історія</button><button role="tab" aria-selected="false">Деталі</button><button role="tab" aria-selected="false">Документи</button></div>
+            <ol class="kite-tl">
+              <li class="ev fut"><span class="mk"></span><span class="et"><span class="sr">Очікується: </span>Отримання</span><time>до 29 лист.</time></li>
+              <li class="day">Сьогодні</li>
+              <li class="ev cur" aria-current="step"><span class="mk"></span><span class="et">Можна забирати</span><time>09:12</time><span class="ed">Відділення №12, Львів</span></li>
+              <li class="ev"><span class="mk"></span><span class="et">У сортувальному центрі Львів</span><time>04:30</time><span class="ed">Kite Hub Львів</span></li>
+              <li class="day">Вчора</li>
+              <li class="ev"><span class="mk"></span><span class="et">Їде до Львова</span><time>18:40</time><span class="ed">Kite Hub Київ</span></li>
+              <li class="ev"><span class="mk"></span><span class="et">Прийнято</span><time>11:05</time><span class="ed">Відділення №1, Київ</span></li>
+            </ol>
+          </div>
+          <aside style="display:grid;gap:16px;align-content:start">
+            <div class="kite-card">
+              <div class="ch"><div><h4 style="font:700 16px/24px var(--font-sans)">Отримувач</h4></div><div class="act"><button class="kite-btn kite-icon-btn" data-variant="ghost" data-size="sm" aria-label="Змінити отримувача"><i data-lucide="pencil"></i></button></div></div>
+              <div class="cc"><dl class="kite-dl inline"><div><dt>Ім’я</dt><dd>Ольга Ковальчук</dd></div><div><dt>Телефон</dt><dd class="num">+380 67 123 45 67</dd></div><div><dt>Оплата</dt><dd><span class="kite-badge" data-tone="success" data-size="sm"><i data-lucide="circle-check"></i>Оплачено</span></dd></div></dl></div>
+            </div>
+            <div class="kite-card">
+              <div class="ch"><div><h4 style="font:700 16px/24px var(--font-sans)">Посилка</h4></div></div>
+              <div class="cc"><dl class="kite-dl" style="grid-template-columns:1fr 1fr"><div><dt>Вага</dt><dd>2,4 кг</dd></div><div><dt>Місць</dt><dd>1</dd></div><div><dt>Габарити</dt><dd>40 × 30 × 20 см</dd></div><div><dt>Вартість</dt><dd>1 250 ₴</dd></div></dl></div>
+            </div>
+            <div style="display:grid;gap:8px"><button class="kite-btn" data-block><i data-lucide="route"></i>Переадресувати</button><button class="kite-btn" data-variant="ghost" data-block><i data-lucide="user-round"></i>Забере інша людина</button></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="spec-h"><h3>kite-web · майстер накладної, крок «Посилка»</h3><p>Stepper, тип відправлення сегментами, числові поля з одиницями, помилка ваги, тариф картками й підсумок.</p></div>
+      <div class="screen">
+        <div class="screen-bar"><i></i><i></i><i></i><span style="margin-left:8px">kite.ua/new</span></div>
+        <div class="wiz">
+          <div class="scroll-x"><nav class="kite-stepper" aria-label="Кроки" style="min-width:560px"><ol>
+            <li data-state="complete"><span class="ind"><i data-lucide="check"></i></span><span class="st">Відправник</span></li>
+            <li data-state="complete"><span class="ind"><i data-lucide="check"></i></span><span class="st">Отримувач</span></li>
+            <li data-state="current" aria-current="step"><span class="ind">3</span><span class="st">Посилка</span></li>
+            <li data-state="upcoming"><span class="ind">4</span><span class="st">Оплата</span></li>
+          </ol></nav></div>
+          <h2 style="margin:0;font:600 24px/32px var(--font-display)">Що відправляєте</h2>
+          <div class="wiz-form">
+            <div class="kite-field"><span class="fl">Тип відправлення</span><div class="kite-tg js-tg" data-block role="group" aria-label="Тип відправлення"><button aria-pressed="false">Документи</button><button aria-pressed="true">Посилка</button><button aria-pressed="false">Вантаж</button></div></div>
+            <div class="wiz-row">
+              <div class="kite-field"><label for="w1">Вага</label><div class="kite-input num-in" data-invalid><input id="w1" value="35" aria-invalid="true"><span class="suf">кг</span><span class="step"><button aria-label="Зменшити"><i data-lucide="minus" class="i16"></i></button><button aria-label="Збільшити" disabled><i data-lucide="plus" class="i16"></i></button></span></div><div class="err"><i data-lucide="circle-alert"></i>Посилка — до 30 кг. Оберіть тип «Вантаж»</div></div>
+              <div class="kite-field"><label for="w2">Оголошена вартість</label><div class="kite-input num-in"><input id="w2" value="1 250"><span class="suf">₴</span></div><div class="hint">Від неї рахується страхування</div></div>
+            </div>
+            <div class="kite-field"><label for="w3">Що всередині</label><div class="kite-input"><input id="w3" value="Мед, 3 банки"></div></div>
+            <fieldset class="fs"><legend>Тариф</legend>
+              <div class="rcards js-radio">
+                <label class="rcard kite-radio kite-check" data-state="checked"><span class="box"></span><span><span class="t">Стандарт</span><span class="d" style="display:block">2–3 дні</span></span><span class="aside">80 ₴</span></label>
+                <label class="rcard kite-radio kite-check" data-state="unchecked"><span class="box"></span><span><span class="t">Експрес</span><span class="d" style="display:block">завтра до 18:00</span></span><span class="aside">140 ₴</span></label>
+              </div>
+            </fieldset>
+            <button class="kite-btn js-coll" data-variant="link" aria-expanded="false" style="justify-self:start">Додаткові параметри<i data-lucide="chevron-down" class="i16 chev"></i></button>
+            <div class="coll-c" hidden style="display:grid;gap:12px"><label class="kite-check" data-state="checked"><span class="box"><i data-lucide="check"></i></span><span>Застрахувати посилку<span class="d">0,5 % — 7 ₴</span></span></label></div>
+          </div>
+          <div class="wiz-foot"><button class="kite-btn" data-variant="ghost"><i data-lucide="arrow-left"></i>Назад</button><span class="sum">Разом <b>87 ₴</b></span><button class="kite-btn" data-variant="primary">Далі: оплата<i data-lucide="arrow-right"></i></button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="spec-h"><h3>kite-ops · черга прийому</h3><p>KAppShell з сайдбаром, контекстом зміни й пошуком, алерт, таблиця з масовими діями й тостом результату.</p></div>
+      <div class="shell ops-shell">
+        <aside class="kite-sidebar">
+          <div class="sh"><svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path d="M16 1.5 L30.5 16 L16 30.5 L1.5 16 Z" fill="#FF5A36"/></svg><b>Kite Ops</b></div>
+          <nav aria-label="Основна навігація">
+            <div class="sg"><span class="sgl">Операції</span><a href="#ekrany" aria-current="page"><i data-lucide="package-check"></i>Прийом<span class="kite-badge count" data-variant="solid" data-tone="info" data-size="sm">12</span></a><a href="#ekrany"><i data-lucide="scan-line"></i>Сортування</a><a href="#ekrany"><i data-lucide="truck"></i>Рейси</a><a href="#ekrany"><i data-lucide="package-open"></i>Видача</a></div>
+            <div class="sg"><span class="sgl">Зміна</span><a href="#ekrany"><i data-lucide="banknote"></i>Каса</a><a href="#ekrany"><i data-lucide="file-text"></i>Звіти</a></div>
+          </nav>
+          <div class="sf"><div class="me"><span class="kite-avatar av-sky" aria-hidden="true">ОК</span><span>Ольга Ковальчук<small>оператор</small></span></div></div>
+        </aside>
+        <div class="shell-main">
+          <header class="shell-hd"><span class="ctx"><i data-lucide="store" class="i16"></i>Київ, №1 <small>· зміна 2, до 20:00</small></span><div class="kite-input filled" data-size="sm"><i data-lucide="search" class="i16"></i><input placeholder="Номер або телефон" aria-label="Пошук"><span class="kbds"><span class="kbd">⌘</span><span class="kbd">K</span></span></div><span class="right"><button class="kite-btn kite-icon-btn" data-variant="ghost" aria-label="Сповіщення"><i data-lucide="bell"></i></button></span></header>
+          <div class="shell-body">
+            <div class="ph"><div><h1>Прийом посилок</h1><p>12 очікують прийому</p></div><div class="acts"><button class="kite-btn" data-size="sm"><i data-lucide="qr-code"></i>Спарити телефон</button><button class="kite-btn" data-variant="primary" data-size="sm"><i data-lucide="scan-line"></i>Прийняти скануванням</button></div></div>
+            <div class="kite-alert" data-tone="warning" data-size="sm"><i data-lucide="triangle-alert" class="i16"></i>Телефон-сканер не спарено. Скануйте камерою ноутбука або спарте телефон.</div>
+            <div class="bulk"><span>Обрано: 3 <small>· 7,3 кг</small></span><button class="kite-btn" data-size="sm"><i data-lucide="package-check"></i>Прийняти</button><button class="kite-btn" data-size="sm"><i data-lucide="printer"></i>Етикетки</button><span class="end"><button class="kite-btn" data-variant="ghost" data-size="sm">Зняти вибір</button></span></div>
+            <div class="kite-table-wrap">
+              <table class="kite-table compact" aria-label="Очікують прийому">
+                <thead><tr><th class="w-ck"><label class="kite-check" data-size="sm" data-state="indeterminate" aria-label="Обрати всі"><span class="box"><i data-lucide="minus"></i></span></label></th><th aria-sort="ascending"><button class="sortb">Створено<i data-lucide="arrow-up"></i></button></th><th>Номер</th><th>Відправник</th><th>Куди</th><th class="r">Вага, кг</th><th>Оплата</th></tr></thead>
+                <tbody>
+                  <tr data-selected><td class="w-ck"><label class="kite-check" data-size="sm" data-state="checked"><span class="box"><i data-lucide="check"></i></span></label></td><td class="num">09:02</td><td><span class="trk" data-size="sm"><span class="g"><span>KT</span><span>1234</span><span>5678</span><span>5</span><span>UA</span></span></span></td><td>Чайна лавка</td><td>Львів №12</td><td class="r">2,4</td><td><span class="kite-badge" data-tone="success" data-size="sm"><i data-lucide="circle-check"></i>Оплачено</span></td></tr>
+                  <tr data-selected><td class="w-ck"><label class="kite-check" data-size="sm" data-state="checked"><span class="box"><i data-lucide="check"></i></span></label></td><td class="num">09:10</td><td><span class="trk" data-size="sm"><span class="g"><span>KT</span><span>3141</span><span>5926</span><span>8</span><span>UA</span></span></span></td><td>Тарас Бондар</td><td>Одеса №3</td><td class="r">0,8</td><td><span class="kite-badge" data-tone="warning" data-size="sm"><i data-lucide="banknote"></i>Платить отримувач</span></td></tr>
+                  <tr data-selected><td class="w-ck"><label class="kite-check" data-size="sm" data-state="checked"><span class="box"><i data-lucide="check"></i></span></label></td><td class="num">09:14</td><td><span class="trk" data-size="sm"><span class="g"><span>KT</span><span>9876</span><span>5432</span><span>6</span><span>UA</span></span></span></td><td>Андрій Мельник</td><td>Дніпро, Kite Box 220</td><td class="r">4,1</td><td><span class="kite-badge" data-tone="success" data-size="sm"><i data-lucide="circle-check"></i>Оплачено</span></td></tr>
+                  <tr class="ia"><td class="w-ck"><label class="kite-check" data-size="sm" data-state="unchecked"><span class="box"><i data-lucide="check"></i></span></label></td><td class="num">09:21</td><td><span class="trk" data-size="sm"><span class="g"><span>KT</span><span>4011</span><span>2233</span><span>8</span><span>UA</span></span></span></td><td>Ірина Петренко</td><td>Харків №7</td><td class="r">12,0</td><td><span class="kite-badge" data-tone="danger" data-size="sm"><i data-lucide="circle-x"></i>Не оплачено</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="kite-toast" data-tone="success" role="status" style="justify-self:end"><i data-lucide="circle-check"></i><div class="bd"><div class="tt">Прийнято 2 посилки</div><div class="ds">Етикетки надіслано на принтер</div></div><button class="tb">Скасувати</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <p class="note" style="margin-top:64px">Kite UI · дизайн компонентів v0.1 · токени зі стайлгайду kite-ui · іконки Lucide 0.468 · шрифти Unbounded, Manrope, JetBrains Mono.</p>
+</main>
+
+<!-- живі оверлеї -->
+<div class="live-ov" id="live-dialog" hidden style="position:fixed;inset:0;z-index:70;background:var(--scrim);display:grid;place-items:center;padding:16px">
+  <div class="kite-dialog" role="dialog" aria-modal="true" aria-labelledby="ldt">
+    <div class="dh"><div><h4 id="ldt">Переадресувати посилку</h4><p>Безкоштовно, поки посилка в дорозі</p></div><button class="kite-btn kite-icon-btn js-close" data-variant="ghost" data-size="sm" aria-label="Закрити"><i data-lucide="x"></i></button></div>
+    <div class="db"><div class="kite-field"><label for="ld1">Нове відділення або Kite Box</label><div class="kite-input"><i data-lucide="search"></i><input id="ld1" placeholder="Місто, вулиця або номер"></div></div></div>
+    <div class="df"><button class="kite-btn js-close">Скасувати</button><button class="kite-btn js-close" data-variant="primary">Переадресувати</button></div>
+  </div>
+</div>
+<div class="live-ov" id="live-sheet" hidden style="position:fixed;inset:0;z-index:70;background:var(--scrim);display:flex;justify-content:flex-end">
+  <aside class="kite-sheet" role="dialog" aria-modal="true" aria-labelledby="lst" style="height:100%;border-radius:var(--r-lg) 0 0 var(--r-lg)">
+    <div class="dh"><div style="display:grid;gap:4px"><h4 id="lst" style="font:500 20px/28px var(--font-mono)">KT 1234 5678 5 UA</h4><span class="kite-badge" data-tone="info"><i data-lucide="truck"></i>Їде до Львова</span></div><button class="kite-btn kite-icon-btn js-close" data-variant="ghost" data-size="sm" aria-label="Закрити" style="margin-left:auto"><i data-lucide="x"></i></button></div>
+    <div class="db"><dl class="kite-dl inline"><div><dt>Маршрут</dt><dd>Київ №1 → Львів №12</dd></div><div><dt>Вага</dt><dd>2,4 кг</dd></div><div><dt>Рейс</dt><dd class="mono">R-118 · 18:40</dd></div></dl></div>
+    <div class="df"><button class="kite-btn js-close" data-variant="primary" data-size="sm">Готово</button></div>
+  </aside>
+</div>
+<div id="toaster" aria-live="polite" style="position:fixed;z-index:80;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:grid;gap:8px;justify-items:end"></div>
+
+<script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+<script>
+(function(){
+  var root=document.documentElement;
+  var KEY='kite-ui-theme';
+  function applyTheme(t){
+    if(t==='light'||t==='dark'){root.setAttribute('data-theme',t)}else{root.removeAttribute('data-theme')}
+    document.querySelectorAll('.theme-sw button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.t===t))});
+  }
+  var saved='system';try{saved=localStorage.getItem(KEY)||'system'}catch(e){}
+  applyTheme(saved);
+  document.querySelectorAll('.theme-sw button').forEach(function(b){b.addEventListener('click',function(){applyTheme(b.dataset.t);try{localStorage.setItem(KEY,b.dataset.t)}catch(e){}})});
+
+  // палітра
+  var F={coral:{50:'#FFF4F1',100:'#FFE7E0',200:'#FFCEC1',300:'#FFAD98',400:'#FF8265',500:'#FF5A36',600:'#DE4323',700:'#B93218',800:'#942512',900:'#6C170B',950:'#4A0C05'},
+  sky:{50:'#F3F7FF',100:'#E3EDFF',200:'#C7DAFF',300:'#A3C1FF',400:'#79A4FF',500:'#5A8DFF',600:'#2E6BFF',700:'#2858D1',800:'#1E46A8',900:'#13327D',950:'#0B2158'},
+  green:{50:'#EEFAF3',100:'#DBF5E6',200:'#BBE9D0',300:'#90D9B3',400:'#62C596',500:'#40B582',600:'#1F9D6B',700:'#1A8057',800:'#116544',900:'#06472E',950:'#022F1D'},
+  amber:{50:'#FDF6EA',100:'#FDEDD3',200:'#FADCAE',300:'#F6C57E',400:'#F2A93B',500:'#DD9413',600:'#BC7A00',700:'#9B6200',800:'#7B4B00',900:'#583300',950:'#3A1F00'},
+  red:{50:'#FFF4F4',100:'#FFE6E7',200:'#FFCCCE',300:'#FFA9AF',400:'#FF7B8A',500:'#FA556F',600:'#D93F5A',700:'#C01242',800:'#902338',900:'#6A1626',950:'#490C18'},
+  slate:{50:'#F8FAFD',100:'#F1F4F7',200:'#E3E6EC',300:'#D0D4DC',400:'#A4ABB8',500:'#788190',600:'#545E6F',700:'#384355',800:'#222E42',900:'#142033',950:'#0E1A2B',975:'#0B1220'}};
+  var pins={coral:[500],sky:[600],green:[600],amber:[400],red:[700],slate:[900,950,975]};
+  var sw=document.getElementById('swatches'),h='<span></span>';
+  ['50','100','200','300','400','500','600','700','800','900','950','975'].forEach(function(s){h+='<span style="text-align:center">'+s+'</span>'});
+  Object.keys(F).forEach(function(n){h+='<span>'+n+'</span>';['50','100','200','300','400','500','600','700','800','900','950','975'].forEach(function(s){var v=F[n][s];h+=v?'<i title="'+n+'-'+s+' '+v+'" class="'+(pins[n].indexOf(+s)>-1?'pin':'')+'" style="background:'+v+'"></i>':'<span></span>'})});
+  sw.innerHTML=h;
+
+  // статуси посилки
+  var ST=[['DRAFT','neutral','file-pen','Чернетка'],['CREATED','neutral','file-check','Створено'],['ACCEPTED','info','package-check','Прийнято'],['IN_TRANSIT','info','truck','Їде до Львова'],['AT_HUB','info','warehouse','У сортувальному центрі Київ'],['SORTED','info','package','Готується до відправки'],['ON_HOLD','warning','pause','Утримується до 2 грудня'],['READY_FOR_PICKUP','success','package-open','Можна забирати'],['DELIVERED','success','circle-check','Отримано'],['RETURNED','warning','undo-2','Повертається відправнику'],['CANCELLED','neutral','ban','Скасовано'],['LOST','danger','search-x','Шукаємо посилку']];
+  document.getElementById('statuses').innerHTML=ST.map(function(s){return '<span title="'+s[0]+'" class="kite-badge" data-tone="'+s[1]+'"><i data-lucide="'+s[2]+'"></i>'+s[3]+'</span>'}).join('');
+
+  // словник іконок
+  var IC=[['package','Посилка'],['store','Відділення'],['box','Kite Box'],['warehouse','Kite Hub'],['route','Маршрут'],['truck','У дорозі'],['scan-line','Сканування'],['qr-code','QR-код'],['plus','Створити'],['pencil','Редагувати'],['trash-2','Видалити'],['copy','Копіювати'],['search','Пошук'],['list-filter','Фільтр'],['x','Закрити'],['ellipsis','Ще дії'],['external-link','Зовнішнє'],['download','Завантажити'],['credit-card','Оплата'],['banknote','Післяплата'],['bell','Сповіщення'],['settings','Налаштування'],['user','Користувач'],['log-out','Вийти'],['map-pin','Точка'],['clock','Час'],['sun','Світла тема'],['moon','Темна тема'],['circle-help','Допомога']];
+  document.getElementById('iconset').innerHTML=IC.map(function(i){return '<span style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border:1px solid var(--border);border-radius:var(--r-full);font-size:12px"><i data-lucide="'+i[0]+'" class="i16"></i>'+i[1]+'</span>'}).join('');
+
+  // календарі
+  function cal(el,opt){var d=['Пн','Вт','Ср','Чт','Пт','Сб','Нд'],h=d.map(function(x){return '<span class="dow">'+x+'</span>'}).join('');
+    var lead=[26,27,28,29,30,31];lead.forEach(function(x){h+='<span class="day out">'+x+'</span>'});
+    for(var i=1;i<=30;i++){var c='day';if(opt.today===i)c+=' today';if(opt.sel===i)c+=' sel';if(opt.na&&(i<=opt.na||(opt.max&&i>opt.max)))c+=' na';if(opt.rs&&i===opt.rs)c+=' sel rs';else if(opt.re&&i===opt.re)c+=' sel re';else if(opt.rs&&i>opt.rs&&i<opt.re)c+=' in';h+='<span class="'+c+'">'+i+'</span>'}
+    for(var j=1;j<=6;j++)h+='<span class="day out">'+j+'</span>';el.innerHTML=h}
+  cal(document.getElementById('cal1'),{today:24,sel:28,na:24});
+  cal(document.getElementById('cal2'),{today:24,rs:1,re:24});
+
+  // інтерактив
+  function toast(title,tone){var t=document.createElement('div');t.className='kite-toast';t.setAttribute('role','status');if(tone)t.dataset.tone=tone;t.innerHTML=(tone?'<i data-lucide="circle-check"></i>':'')+'<div class="bd"><div class="tt">'+title+'</div></div><button class="tb tx" aria-label="Закрити"><i data-lucide="x" class="i16"></i></button>';document.getElementById('toaster').appendChild(t);lucide.createIcons({attrs:{'stroke-width':1.5}});var kill=function(){t.remove()};t.querySelector('.tx').onclick=kill;setTimeout(kill,5000)}
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('button,label');if(!b)return;
+    if(b.classList.contains('js-toggle')){b.setAttribute('aria-pressed',String(b.getAttribute('aria-pressed')!=='true'))}
+    if(b.parentElement&&b.parentElement.classList.contains('js-tg')){b.parentElement.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))})}
+    if(b.classList.contains('js-check')){e.preventDefault();b.dataset.state=b.dataset.state==='checked'?'unchecked':'checked'}
+    if(b.classList.contains('js-switch')){e.preventDefault();b.dataset.state=b.dataset.state==='checked'?'unchecked':'checked'}
+    if(b.closest('.js-radio')&&b.classList.contains('kite-radio')&&!b.hasAttribute('data-disabled')){e.preventDefault();b.closest('.js-radio').querySelectorAll('.kite-radio').forEach(function(x){x.dataset.state=x===b?'checked':'unchecked'})}
+    if(b.classList.contains('js-copy')){var v=b.dataset.v||'';var done=function(){var i=b.querySelector('svg');var old=b.innerHTML;b.innerHTML='<i data-lucide="check"></i>'+(b.classList.contains('kite-icon-btn')?'':'Скопійовано');b.style.color='var(--success-text)';lucide.createIcons({attrs:{'stroke-width':1.5}});setTimeout(function(){b.innerHTML=old;b.style.color=''},2000)};try{navigator.clipboard.writeText(v).then(done,done)}catch(err){done()}}
+    if(b.classList.contains('js-toast')){toast('Адресу збережено','success')}
+    if(b.classList.contains('acc-t')){var it=b.closest('.acc-i'),open=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!open));it.querySelector('.acc-c').hidden=open;var ch=b.querySelector('.chev');if(ch)ch.style.transform=open?'':'rotate(180deg)'}
+    if(b.classList.contains('js-coll')){var o=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!o));var c=b.nextElementSibling;c.hidden=o;var ch2=b.querySelector('.chev');if(ch2)ch2.style.transform=o?'':'rotate(180deg)'}
+    if(b.closest('.js-tabs')&&b.getAttribute('role')==='tab'&&!b.disabled){var w=b.closest('.js-tabs');w.querySelectorAll('[role=tab]').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});w.querySelector('.tab-panel').textContent=b.dataset.p}
+    if(b.closest('.js-tabs-pills')&&b.getAttribute('role')==='tab'){b.parentElement.querySelectorAll('[role=tab]').forEach(function(x){x.setAttribute('aria-selected',String(x===b))})}
+    if(b.classList.contains('js-open')){var ov=document.getElementById(b.dataset.target);ov.hidden=false;ov._from=b;var f=ov.querySelector('input,button:not(.js-close)')||ov.querySelector('button');if(f)f.focus()}
+    if(b.classList.contains('js-close')){var ov2=b.closest('.live-ov');ov2.hidden=true;if(ov2._from)ov2._from.focus()}
+    if(b.classList.contains('js-dt-row')||b.classList.contains('js-dt-all')){e.preventDefault();var dt=b.closest('.js-dt');
+      if(b.classList.contains('js-dt-all')){var all=b.dataset.state!=='checked';dt.querySelectorAll('.js-dt-row').forEach(function(r){r.dataset.state=all?'checked':'unchecked'})}else{b.dataset.state=b.dataset.state==='checked'?'unchecked':'checked'}
+      syncDt(dt)}
+    if(b.classList.contains('js-dt-clear')){var dt2=b.closest('.js-dt');dt2.querySelectorAll('.js-dt-row').forEach(function(r){r.dataset.state='unchecked'});syncDt(dt2)}
+  });
+  function syncDt(dt){var rows=dt.querySelectorAll('.js-dt-row'),n=0;rows.forEach(function(r){var on=r.dataset.state==='checked';if(on)n++;var tr=r.closest('tr');if(on)tr.setAttribute('data-selected','');else tr.removeAttribute('data-selected')});
+    var all=dt.querySelector('.js-dt-all');all.dataset.state=n===0?'unchecked':n===rows.length?'checked':'indeterminate';all.querySelector('.box').innerHTML=n>0&&n<rows.length?'<i data-lucide="minus"></i>':'<i data-lucide="check"></i>';
+    dt.querySelector('.js-dt-bulk').hidden=n===0;dt.querySelector('.js-dt-bar').hidden=n>0;dt.querySelector('.js-dt-count').textContent='Обрано: '+n;lucide.createIcons({attrs:{'stroke-width':1.5}})}
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('.live-ov').forEach(function(o){if(!o.hidden){o.hidden=true;if(o._from)o._from.focus()}})}});
+  document.querySelectorAll('.live-ov').forEach(function(o){o.addEventListener('click',function(e){if(e.target===o){o.hidden=true;if(o._from)o._from.focus()}})});
+
+  if(window.lucide){lucide.createIcons({attrs:{'stroke-width':1.5}})}
+})();
+</script>
