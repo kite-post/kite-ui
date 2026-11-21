@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-.PHONY: help install build lint fmt types test verify pack version clean
+.PHONY: help install tokens build lint fmt types test verify pack version clean
 
 help: ## Показати цілі
 	@grep -hE '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
@@ -7,6 +7,9 @@ help: ## Показати цілі
 
 install: ## Поставити залежності строго за lock-файлом
 	pnpm install --frozen-lockfile
+
+tokens: ## Згенерувати CSS, тему Tailwind, TS і Dart з tokens/*.json
+	pnpm run tokens
 
 build: ## Зібрати пакет у ./dist (JS, CSS, .d.ts)
 	pnpm run build
@@ -23,7 +26,9 @@ types: ## vue-tsc
 test: ## Юніт-тести одним проходом
 	pnpm run test:unit --run
 
-verify: lint types test build ## Усе, що робить CI
+verify: ## Усе, що робить CI
+	pnpm run tokens:check
+	$(MAKE) lint types test build
 
 pack: build ## Зібрати .tgz, як його побачить застосунок
 	pnpm pack

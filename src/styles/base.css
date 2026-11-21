@@ -1,11 +1,80 @@
-/* Заготовка: CSS-змінні базової палітри (1.3). Повний набір генеруватиметься з токенів. */
-:root {
-  --kite-coral: #ff5a36;
-  --kite-ink: #0e1a2b;
-  --kite-sky: #2e6bff;
-  --kite-paper: #f7f4ee;
-  --kite-mist: #e6e9ef;
-  --kite-success: #1f9d6b;
-  --kite-warning: #f2a93b;
-  --kite-danger: #e5484d;
+/* Базові стилі кіта (стайлгайд 4, 9, 11). Застосунок свого reset не додає. */
+html {
+  font-family: var(--kite-font-sans);
+  font-size: 100%;
+  line-height: var(--kite-text-body-line-height);
+  color: var(--kite-color-text);
+  background: var(--kite-color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-size-adjust: 100%;
+}
+
+body {
+  background: var(--kite-color-bg);
+  color: var(--kite-color-text);
+}
+
+::selection {
+  background: var(--kite-color-selection-bg);
+  color: var(--kite-color-selection-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--kite-color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Табличні цифри: таблиці, суми, таймери. */
+.kite-num {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Спінер (KSpinner): власні keyframes, бо стандартну тему Tailwind вимкнено. */
+@keyframes kite-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes kite-pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.kite-spinner__svg {
+  animation: kite-spin 0.8s linear infinite;
+}
+
+/* Спінер передає стан, тож при reduced motion не зупиняється, а сповільнюється. */
+@media (prefers-reduced-motion: reduce) {
+  .kite-spinner__svg {
+    animation-duration: 1.6s !important;
+    animation-iteration-count: infinite !important;
+  }
+}
+
+/* Тултіп (KTooltip): поява за станом Reka. */
+@keyframes kite-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+}
+
+.kite-tooltip[data-state='delayed-open'],
+.kite-tooltip[data-state='instant-open'] {
+  animation: kite-fade-in var(--kite-duration-base) var(--kite-ease-out);
 }

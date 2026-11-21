@@ -1,7 +1,16 @@
 {
   "extends": "./tsconfig.app.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
-  "exclude": ["src/**/*.test.ts", "src/**/*.spec.ts", "src/**/*.stories.ts"],
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue"
+  ],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.stories.ts",
+    "src/test-utils/**"
+  ],
   "compilerOptions": {
     "composite": false,
     "noEmit": false,

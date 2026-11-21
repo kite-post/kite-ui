@@ -51,13 +51,13 @@
 
 ## Стани
 
-| Стан     | primary                                                                                                    | secondary                              | ghost                  | danger                                |
-| -------- | ---------------------------------------------------------------------------------------------------------- | -------------------------------------- | ---------------------- | ------------------------------------- |
-| hover    | `color-primary-hover`                                                                                      | `color-surface-hover`                  | `color-surface-hover`  | `color-danger-hover`                  |
-| active   | `color-primary-active` + `scale(0.98)`                                                                     | `color-surface-active` + `scale(0.98)` | `color-surface-active` | `color-danger-active` + `scale(0.98)` |
-| focus    | кільце фокусу (стайлгайд 9)                                                                                |                                        |                        |                                       |
-| disabled | фон `color-bg-subtle`, текст `color-text-disabled`, без рамки й тіні; у `ghost` і `link` лише колір тексту |                                        |                        |                                       |
-| loading  | спінер замість лівої іконки, підпис лишається; ширина не змінюється; клік ігнорується                      |                                        |                        |                                       |
+| Стан     | primary                                                                                                                                               | secondary                              | ghost                  | danger                                |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ---------------------- | ------------------------------------- |
+| hover    | `color-primary-hover`                                                                                                                                 | `color-surface-hover`                  | `color-surface-hover`  | `color-danger-hover`                  |
+| active   | `color-primary-active` + `scale(0.98)`                                                                                                                | `color-surface-active` + `scale(0.98)` | `color-surface-active` | `color-danger-active` + `scale(0.98)` |
+| focus    | кільце фокусу (стайлгайд 9)                                                                                                                           |                                        |                        |                                       |
+| disabled | фон `color-bg-subtle`, текст `color-text-disabled`, рамка `color-border` (тримає форму в темній темі), без тіні; у `ghost` і `link` лише колір тексту |                                        |                        |                                       |
+| loading  | спінер замість лівої іконки, підпис лишається; ширина не змінюється; клік ігнорується                                                                 |                                        |                        |                                       |
 
 - Перехід кольору — `duration-fast` `ease-out`. При `prefers-reduced-motion`
   `scale` вимикається.

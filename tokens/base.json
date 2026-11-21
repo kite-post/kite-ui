@@ -1,0 +1,57 @@
+{
+  "$description": "Токени, що не залежать від теми (стайлгайд 4–11). Розміри в px; генератор переводить у rem (1rem = 16px).",
+  "font": {
+    "display": "\"Unbounded\", \"Manrope\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+    "sans": "\"Manrope\", system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+    "mono": "\"JetBrains Mono\", ui-monospace, \"SF Mono\", Menlo, Consolas, \"Liberation Mono\", monospace"
+  },
+  "text": {
+    "display": { "size": 40, "line": 48, "weight": 600, "tracking": "-0.02em", "font": "display" },
+    "h1": { "size": 32, "line": 40, "weight": 600, "tracking": "-0.015em", "font": "display" },
+    "h2": { "size": 24, "line": 32, "weight": 600, "tracking": "-0.01em", "font": "display" },
+    "h3": { "size": 20, "line": 28, "weight": 500, "tracking": "0", "font": "display" },
+    "h4": { "size": 16, "line": 24, "weight": 700, "tracking": "0", "font": "sans" },
+    "body": { "size": 16, "line": 24, "weight": 400, "tracking": "0", "font": "sans" },
+    "body-strong": { "size": 16, "line": 24, "weight": 600, "tracking": "0", "font": "sans" },
+    "body-sm": { "size": 14, "line": 20, "weight": 400, "tracking": "0", "font": "sans" },
+    "label": { "size": 14, "line": 20, "weight": 500, "tracking": "0", "font": "sans" },
+    "caption": { "size": 12, "line": 16, "weight": 400, "tracking": "0.01em", "font": "sans" },
+    "overline": { "size": 12, "line": 16, "weight": 600, "tracking": "0.06em", "font": "sans" },
+    "mono": { "size": 14, "line": 20, "weight": 500, "tracking": "0", "font": "mono" },
+    "mono-lg": { "size": 20, "line": 28, "weight": 500, "tracking": "0.02em", "font": "mono" }
+  },
+  "space": { "unit": 4 },
+  "radius": { "none": 0, "xs": 4, "sm": 8, "md": 12, "lg": 16, "full": 9999 },
+  "duration": { "instant": 0, "fast": 100, "base": 150, "moderate": 200, "slow": 300 },
+  "ease": {
+    "out": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "in": "cubic-bezier(0.4, 0, 1, 1)",
+    "in-out": "cubic-bezier(0.65, 0, 0.35, 1)",
+    "linear": "linear"
+  },
+  "z": {
+    "base": 0,
+    "raised": 10,
+    "sticky": 100,
+    "dropdown": 1000,
+    "overlay": 1100,
+    "modal": 1200,
+    "popover": 1300,
+    "toast": 1400,
+    "tooltip": 1500
+  },
+  "size": {
+    "control-sm": 32,
+    "control-md": 40,
+    "control-lg": 48,
+    "target-min": 40,
+    "avatar-sm": 24,
+    "avatar-md": 32,
+    "avatar-lg": 48,
+    "sidebar": 264,
+    "sidebar-collapsed": 64,
+    "header": 64
+  },
+  "breakpoint": { "sm": 640, "md": 768, "lg": 1024, "xl": 1280, "2xl": 1536 },
+  "container": { "form": 640, "page": 1200, "wide": 1440 }
+}

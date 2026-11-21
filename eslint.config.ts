@@ -14,5 +14,13 @@ export default [
   // Бібліотека — строгіший набір, ніж у застосунках: компоненти читають усі.
   ...pluginVue.configs['flat/recommended'],
   ...vueTsEslintConfig(),
+  {
+    name: 'kite/rules',
+    rules: {
+      // Необов'язковий TS-проп і так undefined; типові undefined ламають exactOptionalPropertyTypes.
+      'vue/require-default-prop': 'off',
+      '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
+    },
+  },
   skipFormatting,
 ]

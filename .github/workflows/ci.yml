@@ -32,6 +32,8 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
+      - name: Токени згенеровано з tokens/*.json
+        run: pnpm run tokens:check
       - run: pnpm run lint
       - run: pnpm run type-check
       - run: pnpm run test:unit --run

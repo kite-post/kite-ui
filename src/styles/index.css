@@ -1,0 +1,14 @@
+/* Вхід стилів кіта. Збирається Tailwind v4 у dist/kite-ui.css.
+   Класи кіта мають префікс k: (k:bg-surface), щоб не перетинатися з утилітами
+   застосунку, де може бути інша тема. Застосунку Tailwind не потрібен. */
+@layer theme, base, components, utilities;
+
+@import 'tailwindcss/theme.css' layer(theme) prefix(k);
+@import './theme.css';
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@import './tokens.css';
+@import './base.css' layer(base);
+
+@source '..';

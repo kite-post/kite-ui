@@ -1,0 +1,95 @@
+{
+  "$description": "Семантичні токени (стайлгайд, розділ 3.2). Посилання {група.крок} ведуть на primitives.json; значення з альфою — rgb(... / a). Перемикаються з темою.",
+  "color": {
+    "bg": { "light": "{paper}", "dark": "{slate.975}" },
+    "bg-subtle": { "light": "{slate.100}", "dark": "{slate.900}" },
+    "surface": { "light": "{white}", "dark": "{slate.900}" },
+    "surface-raised": { "light": "{white}", "dark": "#1E2C40" },
+    "surface-sunken": { "light": "{slate.50}", "dark": "{slate.975}" },
+    "surface-hover": { "light": "{slate.100}", "dark": "{slate.800}" },
+    "surface-active": { "light": "{slate.200}", "dark": "{slate.700}" },
+    "surface-inverse": { "light": "{slate.950}", "dark": "{snow}" },
+    "scrim": { "light": "rgb(14 26 43 / 0.5)", "dark": "rgb(0 0 0 / 0.6)" },
+    "raised-border": { "light": "transparent", "dark": "{slate.800}" },
+
+    "text": { "light": "{slate.950}", "dark": "{snow}" },
+    "text-muted": { "light": "{slate.600}", "dark": "{slate.400}" },
+    "text-disabled": { "light": "{slate.400}", "dark": "{slate.600}" },
+    "text-inverse": { "light": "{snow}", "dark": "{slate.950}" },
+    "text-link": { "light": "{sky.700}", "dark": "{sky.400}" },
+    "text-link-hover": { "light": "{sky.800}", "dark": "{sky.300}" },
+
+    "border": { "light": "{slate.200}", "dark": "{slate.800}" },
+    "border-strong": { "light": "{slate.300}", "dark": "{slate.700}" },
+    "border-input": { "light": "{slate.500}", "dark": "{slate.500}" },
+    "border-input-hover": { "light": "{slate.600}", "dark": "{slate.400}" },
+    "border-focus": { "light": "{sky.600}", "dark": "{sky.400}" },
+
+    "primary": { "light": "{coral.500}", "dark": "{coral.500}" },
+    "primary-hover": { "light": "{coral.400}", "dark": "{coral.400}" },
+    "primary-active": { "light": "{coral.300}", "dark": "{coral.300}" },
+    "on-primary": { "light": "{slate.950}", "dark": "{slate.975}" },
+    "primary-subtle": { "light": "{coral.50}", "dark": "{coral.950}" },
+    "primary-text": { "light": "{coral.800}", "dark": "{coral.300}" },
+
+    "neutral-solid": { "light": "{slate.700}", "dark": "{slate.300}" },
+    "neutral-on-solid": { "light": "{white}", "dark": "{slate.975}" },
+    "neutral-subtle": { "light": "{slate.100}", "dark": "{slate.800}" },
+    "neutral-border": { "light": "{slate.300}", "dark": "{slate.700}" },
+    "neutral-text": { "light": "{slate.700}", "dark": "{slate.300}" },
+    "neutral-text-inverse": { "light": "{slate.300}", "dark": "{slate.700}" },
+
+    "info-solid": { "light": "{sky.700}", "dark": "{sky.400}" },
+    "info-on-solid": { "light": "{white}", "dark": "{slate.975}" },
+    "info-subtle": { "light": "{sky.50}", "dark": "{sky.950}" },
+    "info-border": { "light": "{sky.200}", "dark": "{sky.800}" },
+    "info-text": { "light": "{sky.800}", "dark": "{sky.300}" },
+    "info-text-inverse": { "light": "{sky.300}", "dark": "{sky.800}" },
+
+    "success-solid": { "light": "{green.700}", "dark": "{green.400}" },
+    "success-on-solid": { "light": "{white}", "dark": "{slate.975}" },
+    "success-subtle": { "light": "{green.50}", "dark": "{green.950}" },
+    "success-border": { "light": "{green.200}", "dark": "{green.800}" },
+    "success-text": { "light": "{green.800}", "dark": "{green.300}" },
+    "success-text-inverse": { "light": "{green.300}", "dark": "{green.800}" },
+
+    "warning-solid": { "light": "{amber.400}", "dark": "{amber.400}" },
+    "warning-on-solid": { "light": "{slate.950}", "dark": "{slate.975}" },
+    "warning-subtle": { "light": "{amber.50}", "dark": "{amber.950}" },
+    "warning-border": { "light": "{amber.200}", "dark": "{amber.800}" },
+    "warning-text": { "light": "{amber.800}", "dark": "{amber.300}" },
+    "warning-text-inverse": { "light": "{amber.300}", "dark": "{amber.800}" },
+
+    "danger-solid": { "light": "{red.700}", "dark": "{red.300}" },
+    "danger-on-solid": { "light": "{white}", "dark": "{slate.975}" },
+    "danger-hover": { "light": "{red.800}", "dark": "{red.200}" },
+    "danger-active": { "light": "{red.900}", "dark": "{red.100}" },
+    "danger-subtle": { "light": "{red.50}", "dark": "{red.950}" },
+    "danger-border": { "light": "{red.200}", "dark": "{red.800}" },
+    "danger-text": { "light": "{red.800}", "dark": "{red.300}" },
+    "danger-text-inverse": { "light": "{red.300}", "dark": "{red.800}" },
+
+    "switch-off": { "light": "{slate.500}", "dark": "{slate.500}" },
+    "focus-ring": { "light": "{sky.600}", "dark": "{sky.400}" },
+    "selection-bg": { "light": "{sky.100}", "dark": "{sky.900}" },
+    "selection-text": { "light": "{slate.950}", "dark": "{snow}" }
+  },
+  "shadow": {
+    "sm": {
+      "light": "0 1px 2px rgb(14 26 43 / 0.06), 0 1px 3px rgb(14 26 43 / 0.08)",
+      "dark": "0 1px 2px rgb(0 0 0 / 0.4)"
+    },
+    "md": {
+      "light": "0 4px 8px -2px rgb(14 26 43 / 0.08), 0 2px 4px -2px rgb(14 26 43 / 0.06)",
+      "dark": "0 4px 8px -2px rgb(0 0 0 / 0.5)"
+    },
+    "lg": {
+      "light": "0 12px 24px -6px rgb(14 26 43 / 0.14), 0 4px 8px -4px rgb(14 26 43 / 0.08)",
+      "dark": "0 12px 24px -6px rgb(0 0 0 / 0.6)"
+    },
+    "xl": {
+      "light": "0 24px 48px -12px rgb(14 26 43 / 0.22)",
+      "dark": "0 24px 48px -12px rgb(0 0 0 / 0.7)"
+    }
+  }
+}
