@@ -174,7 +174,6 @@ Kite Box (лише x), робоче місце сортувальника (ли�
 | `KPopover`      | `Popover`      | w b o   | Довільний вміст біля елемента (фільтр стовпця, пояснення ціни)                              |
 | `KTooltip`      | `Tooltip`      | w b o   | Короткий текст на ховер і фокус, затримка, не містить інтерактиву                           |
 | `KDropdownMenu` | `DropdownMenu` | w b o   | Меню дій: групи, іконки, гарячі клавіші, чекбокси й радіо, вкладені меню, небезпечний пункт |
-| `KContextMenu`  | `ContextMenu`  | o       | Правий клік на рядку таблиці. Лише kite-ops — **кандидат на винесення з кіта**              |
 
 ### 3.8 Навігація й каркаси
 
@@ -186,7 +185,6 @@ Kite Box (лише x), робоче місце сортувальника (ли�
 | `KStepper`        | `Stepper`             | w b   | Кроки майстра: номер, назва, стан (пройдено / поточний / помилка), горизонтально і вертикально |
 | `KSidebar`        | — (+ `Collapsible`)   | b o   | Бічна навігація з групами, згортанням до іконок, мобільним режимом                             |
 | `KAppShell`       | —                     | b o   | Каркас робочого застосунку: сайдбар + шапка + вміст, keyboard skip-link                        |
-| `KNavbar`         | `NavigationMenu`      | w     | Шапка клієнтського сайту. Лише kite-web — **кандидат на винесення з кіта**                     |
 | `KCommandPalette` | `Combobox` + `Dialog` | b o   | ⌘K: пошук сутностей і дій, групи, недавні, клавіатура                                          |
 
 ### 3.9 Утиліти й провайдери
@@ -200,24 +198,23 @@ Kite Box (лише x), робоче місце сортувальника (ли�
 | `formatMoney`, `formatDate`, `formatNumber`, `formatTrackingNumber`, `formatPhone` | `Intl`           | Формати зі стайлгайду (розділ 14), спільні для компонентів і застосунків |
 | Токени                                                                             | —                | `@kite-post/ui/tokens` + CSS-змінні (крок 3)                             |
 
-**Разом:** 62 компоненти. Крім них — провайдер `KConfigProvider`, composables
-`useTheme` і `useToast`, `KVisuallyHidden`, форматери й токени. Два
-компоненти, `KContextMenu` і `KNavbar`, зараз потрібні лише одному
-застосунку, тож за критерієм вони кандидати на винесення з кіта.
+**Разом:** 60 компонентів. Крім них — провайдер `KConfigProvider`, composables
+`useTheme` і `useToast`, `KVisuallyHidden`, форматери й токени.
 
 ## 4. Свідомо не беремо
 
-| Що                                             | Чому                                                                                                          |
-| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| Карта, вибір точки на карті                    | Окремий пакет `@kite-post/map` (важкий MapLibre не потрібен кожному застосунку)                               |
-| Графіки (Chart)                                | Потрібні лише дашбордам b і o. Кандидат на окремий пакет, коли з'являться реальні дашборди                    |
-| Carousel                                       | Анти-патерн (не дочитують, погана доступність); маркетинг поза обсягом                                        |
-| Rating, Color picker, Slider                   | Немає сценаріїв у Kite (слайдер для діапазону ціни — радше два NumberField)                                   |
-| Menubar, Hover card, Aspect ratio, Scroll area | Немає сценаріїв або вистачає CSS (`aspect-ratio`, нативна прокрутка)                                          |
-| Tree, Splitter, Editable                       | Немає сценаріїв у MVP; Tree — Alpha                                                                           |
-| Форм-бібліотека (валідація)                    | Кіт не прив'язується до VeeValidate чи іншої: `KField` приймає помилку пропсом, валідація — справа застосунку |
-| Компоненти AI-асистента Kit                    | v2 і лише w; буде видно, коли з'явиться дизайн                                                                |
-| Типографічні компоненти (`KHeading`, `KText`)  | Вистачає семантичних тегів і утилітних класів токенів; компонент заради стилю — зайвий шар                    |
+| Що                                             | Чому                                                                                                                                                                   |
+| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Контекстне меню, шапка клієнтського сайту      | Кожен потрібен лише одному застосунку (меню — kite-ops, шапка — kite-web), тож живе в ньому. Контекстне меню kite-ops будується на `ContextMenu` з Reka і токенах кіта |
+| Карта, вибір точки на карті                    | Окремий пакет `@kite-post/map` (важкий MapLibre не потрібен кожному застосунку)                                                                                        |
+| Графіки (Chart)                                | Потрібні лише дашбордам b і o. Кандидат на окремий пакет, коли з'являться реальні дашборди                                                                             |
+| Carousel                                       | Анти-патерн (не дочитують, погана доступність); маркетинг поза обсягом                                                                                                 |
+| Rating, Color picker, Slider                   | Немає сценаріїв у Kite (слайдер для діапазону ціни — радше два NumberField)                                                                                            |
+| Menubar, Hover card, Aspect ratio, Scroll area | Немає сценаріїв або вистачає CSS (`aspect-ratio`, нативна прокрутка)                                                                                                   |
+| Tree, Splitter, Editable                       | Немає сценаріїв у MVP; Tree — Alpha                                                                                                                                    |
+| Форм-бібліотека (валідація)                    | Кіт не прив'язується до VeeValidate чи іншої: `KField` приймає помилку пропсом, валідація — справа застосунку                                                          |
+| Компоненти AI-асистента Kit                    | v2 і лише w; буде видно, коли з'явиться дизайн                                                                                                                         |
+| Типографічні компоненти (`KHeading`, `KText`)  | Вистачає семантичних тегів і утилітних класів токенів; компонент заради стилю — зайвий шар                                                                             |
 
 ## 5. Ризики
 
@@ -252,14 +249,14 @@ Kite Box (лише x), робоче місце сортувальника (ли�
    `KCheckboxGroup`, `KRadioGroup`, `KSwitch`, `KSelect`, `KNumberField`,
    `KPinInput`, `KSearchInput`, `KToggle`, `KToggleGroup`, `KButtonGroup`.
 4. **Оверлеї й відгук:** `KTooltip`, `KPopover`, `KDropdownMenu`,
-   `KContextMenu`, `KDialog`, `KAlertDialog`, `KSheet`, `KDrawer`, `KToast`,
+   `KDialog`, `KAlertDialog`, `KSheet`, `KDrawer`, `KToast`,
    `KAlert`, `KProgress`, `KEmptyState`, `KCopyButton`.
 5. **Складні поля:** `KCombobox`, `KTagsInput`, `KDatePicker`,
    `KDateRangePicker`, `KFileUpload`.
 6. **Доменні:** `KPhoneInput`, `KTrackingNumberInput`, `KTrackingNumber`,
    `KParcelStatus`, `KTimeline`, `KDescriptionList`.
 7. **Навігація:** `KTabs`, `KBreadcrumbs`, `KPagination`, `KStepper`,
-   `KAccordion`, `KCollapsible`, `KSidebar`, `KAppShell`, `KNavbar`,
+   `KAccordion`, `KCollapsible`, `KSidebar`, `KAppShell`,
    `KCommandPalette`.
 8. **Дані:** `KTable`, `KDataTable`.
 
