@@ -1,0 +1,47 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="Вступ" />
+
+# @kite-post/ui
+
+UI-кіт Kite: дизайн-токени (корал `#FF5A36`, світла й темна теми, типографіка) і базові
+Vue-компоненти для kite-web, kite-business і kite-ops.
+
+## Встановлення
+
+```bash
+pnpm add @kite-post/ui @lucide/vue
+```
+
+Пакет лежить у GitHub Packages, тож у `.npmrc` застосунку потрібен рядок
+`@kite-post:registry=https://npm.pkg.github.com`.
+
+```ts
+// main.ts
+import '@kite-post/ui/style.css'
+```
+
+```vue
+<script setup lang="ts">
+import { KButton, KConfigProvider } from '@kite-post/ui'
+</script>
+
+<template>
+  <KConfigProvider locale="uk">
+    <KButton variant="primary">Створити накладну</KButton>
+  </KConfigProvider>
+</template>
+```
+
+`KConfigProvider` у корені дає мову службових текстів, тости, підтвердження й live-регіони
+для скрінрідерів.
+
+## Перемикачі в панелі
+
+- **Тема** — світла, темна або системна (`data-theme` на `<html>`).
+- **Мова** — українська або англійська для службових текстів компонентів.
+
+## Правила
+
+Повні правила — у стайлгайді (`docs/styleguide`) і специфікаціях компонентів
+(`docs/components`). Класи Tailwind кіта мають префікс `k:`, кольори й відступи — лише з токенів.

@@ -9,7 +9,8 @@
     "src/**/*.test.ts",
     "src/**/*.spec.ts",
     "src/**/*.stories.ts",
-    "src/test-utils/**"
+    "src/test-utils/**",
+    "src/stories/**"
   ],
   "compilerOptions": {
     "composite": false,

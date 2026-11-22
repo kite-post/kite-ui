@@ -8,3 +8,5 @@ storybook-static/
 .vscode/
 .DS_Store
 .pnpm-store/
+test-results/
+playwright-report/

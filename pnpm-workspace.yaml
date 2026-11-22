@@ -4,3 +4,7 @@
 # тож для них затримки немає.
 minimumReleaseAgeExclude:
   - '@kite-post/*'
+# Скрипти встановлення дозволено лише цим пакетам (перевірка бінарника esbuild
+# для Storybook).
+allowBuilds:
+  esbuild: true

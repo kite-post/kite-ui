@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-.PHONY: help install tokens build lint fmt types test verify pack version clean
+.PHONY: help install tokens build lint fmt types test verify pack version clean storybook visual visual-update
 
 help: ## Показати цілі
 	@grep -hE '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
@@ -41,3 +41,16 @@ version: ## Нова версія: make version V=0.2.0, потім git push --f
 
 clean: ## Прибрати збірку і кеші
 	rm -rf dist coverage storybook-static node_modules/.tmp node_modules/.vite
+
+PLAYWRIGHT_IMAGE := mcr.microsoft.com/playwright:v1.65.1-noble
+
+storybook: ## Storybook для розробки (http://localhost:6006)
+	pnpm storybook
+
+visual: ## Візуальні регресії в Linux-образі Playwright (як у CI)
+	pnpm build-storybook
+	docker run --rm --ipc=host -v "$(CURDIR):/work" -w /work -e CI=1 $(PLAYWRIGHT_IMAGE) npx playwright test
+
+visual-update: ## Оновити еталонні знімки (після навмисних змін вигляду)
+	pnpm build-storybook
+	docker run --rm --ipc=host -v "$(CURDIR):/work" -w /work $(PLAYWRIGHT_IMAGE) npx playwright test --update-snapshots
