@@ -1,0 +1,36 @@
+name: Помилка в компоненті
+description: Компонент поводиться не так, як описано в специфікації
+labels: [bug]
+body:
+  - type: input
+    id: component
+    attributes:
+      label: Компонент
+      placeholder: KSelect
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Версія @kite-post/ui
+      placeholder: 0.7.0
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Як відтворити
+      description: Кроки, а краще — посилання на історію Storybook або мінімальний приклад.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Що очікували і що сталося
+    validations:
+      required: true
+  - type: dropdown
+    id: theme
+    attributes:
+      label: Тема
+      options: [світла, темна, обидві]
