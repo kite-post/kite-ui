@@ -64,6 +64,13 @@ const inputAttrs = computed(() => {
   const { class: _class, style: _style, ...rest } = attrs
   return rest
 })
+// Власний опис (підказка формату в KPhoneInput) додається до опису з KField, а не замінює його.
+const describedBy = computed(
+  () =>
+    [attrs['aria-describedby'] as string | undefined, control.ariaAttrs.value['aria-describedby']]
+      .filter(Boolean)
+      .join(' ') || undefined,
+)
 
 watchEffect(() => {
   if (!props.showCount || props.maxlength === undefined) return
@@ -117,7 +124,7 @@ defineExpose({
     <input
       ref="input"
       v-model="model"
-      v-bind="{ ...inputAttrs, ...control.ariaAttrs.value }"
+      v-bind="{ ...inputAttrs, ...control.ariaAttrs.value, 'aria-describedby': describedBy }"
       :type="nativeType"
       :placeholder="placeholder"
       :maxlength="maxlength"

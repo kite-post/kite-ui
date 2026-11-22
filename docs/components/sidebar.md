@@ -125,3 +125,13 @@ interface SidebarGroup {
 
 `<nav>`, `KCollapsible`, `KTooltip`, `KSheet`. Reka `NavigationMenu` не
 підходить (він для горизонтальних меню з підменю).
+
+### Реалізація (хвиля 6)
+
+- Є лише декларативний API: `items` і слоти `header`, `footer`, `default`.
+  Частин `KSidebarHeader…KSidebarToggle` поки немає, бо `items` покриває
+  відомі застосунки.
+- Без Vue Router пункт може мати `href` і `active`.
+- Проп `inSheet`: панель усередині мобільного `KSheet` завжди розгорнута і
+  без кнопки згортання. Його передає `KAppShell` через scoped-слот
+  `sidebar` (`{ inSheet }`).

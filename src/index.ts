@@ -11,6 +11,8 @@ export {
   type ThemePreference,
 } from './config/useTheme'
 export { cn } from './lib/cn'
+export * from './lib/format'
+export { useFormat } from './config/useFormat'
 export { builtInMessages, type Locale, type MessageKey, type Messages } from './lib/messages'
 export * from './tokens'
 export { version } from './version'

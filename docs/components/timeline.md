@@ -112,3 +112,10 @@ interface TimelineItem {
 ## Основа
 
 `<ol>`, `KIcon`, `KSkeleton`, `KButton`.
+
+### Реалізація (хвиля 6)
+
+`parcelEventsToTimeline` поки немає: перетворення подій tracking-service
+залежить від типів contracts, і його краще зробити у спільному пакеті
+застосунків. Групи днів — окремі `<ol>` з підписом
+(`aria-labelledby`). Майбутні події не потрапляють у групи днів.

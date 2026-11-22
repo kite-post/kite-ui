@@ -84,3 +84,39 @@ export { default as KTabsPanel } from './tabs/KTabsPanel.vue'
 export { default as KBreadcrumbs, type BreadcrumbItem } from './breadcrumbs/KBreadcrumbs.vue'
 export { default as KPagination } from './pagination/KPagination.vue'
 export { default as KStepper, type StepItem } from './stepper/KStepper.vue'
+export { default as KPhoneInput, type PhoneValidity } from './phone-input/KPhoneInput.vue'
+export {
+  default as KTrackingNumberInput,
+  type TrackingValidity,
+} from './tracking-number-input/KTrackingNumberInput.vue'
+export { default as KTrackingNumber } from './tracking-number/KTrackingNumber.vue'
+export { default as KParcelStatus } from './parcel-status/KParcelStatus.vue'
+export {
+  parcelStatusMeta,
+  PARCEL_STATUSES,
+  type ParcelStatus,
+  type ParcelStatusMeta,
+} from './parcel-status/meta'
+export { default as KTimeline, type TimelineItem } from './timeline/KTimeline.vue'
+export { default as KSidebar } from './sidebar/KSidebar.vue'
+export type { SidebarGroup, SidebarItem, SidebarLink } from './sidebar/types'
+export { default as KAppShell } from './app-shell/KAppShell.vue'
+export { default as KAppShellPageHeader } from './app-shell/KAppShellPageHeader.vue'
+export { default as KCommandPalette } from './command-palette/KCommandPalette.vue'
+export type { CommandItem, CommandSource } from './command-palette/types'
+export { default as KTable } from './table/KTable.vue'
+export { default as KTableHeader } from './table/KTableHeader.vue'
+export { default as KTableBody } from './table/KTableBody.vue'
+export { default as KTableFooter } from './table/KTableFooter.vue'
+export { default as KTableRow } from './table/KTableRow.vue'
+export { default as KTableHead } from './table/KTableHead.vue'
+export { default as KTableCell } from './table/KTableCell.vue'
+export { default as KTableEmpty } from './table/KTableEmpty.vue'
+export { default as KDataTable } from './data-table/KDataTable.vue'
+export type {
+  DataTableColumn,
+  DataTableFilter,
+  Density,
+  FiltersState,
+  SortingState,
+} from './data-table/types'

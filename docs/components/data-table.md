@@ -208,3 +208,20 @@ type DataTableFilter =
 видимість, пагінація) + `@tanstack/vue-virtual` (для `virtual`).
 `KSearchInput`, `KPopover`, `KDropdownMenu`, `KCheckbox`, `KPagination`,
 `KEmptyState`, `KSkeleton`.
+
+### Реалізація (хвиля 6)
+
+- `@tanstack/vue-table` закріплено на 8.21.3. Гілка 9 має інше API (плагіни
+  фіч), перехід — окремою задачею.
+- **Ще не реалізовано:**
+  - `virtual` (`@tanstack/vue-virtual`) і «Нові: n ↑»;
+  - підсвітка нових рядків;
+  - `syncUrl`;
+  - фільтри `number` і `custom`.
+
+  Вони потрібні черзі прийому kite-ops, тож прийдуть разом із нею.
+
+- Проп `rowLabel` дає підпис рядка для чекбокса й меню дій (типово —
+  перша комірка).
+- Сортування завжди йде ↑ → ↓ → без сортування (`sortDescFirst: false`):
+  TanStack для чисел починає з ↓.
