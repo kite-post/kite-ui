@@ -1,9 +1,9 @@
 .DEFAULT_GOAL := help
-.PHONY: help install tokens build lint fmt types test verify pack version clean storybook visual visual-update
+.PHONY: help install tokens build lint fmt types test verify pack release tag clean playground storybook visual visual-update
 
 help: ## Показати цілі
 	@grep -hE '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
-		| awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2}'
+		| awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
 
 install: ## Поставити залежності строго за lock-файлом
 	pnpm install --frozen-lockfile
@@ -33,16 +33,28 @@ verify: ## Усе, що робить CI
 pack: build ## Зібрати .tgz, як його побачить застосунок
 	pnpm pack
 
-version: ## Нова версія: make version V=0.2.0, потім git push --follow-tags
-	@test -n "$(V)" || (echo "Вкажи версію: make version V=0.2.0"; exit 1)
+release: ## Крок 1 релізу: гілка release/vV з новою версією і PR — make release V=0.8.0
+	@test -n "$(V)" || (echo "Вкажи версію: make release V=0.8.0"; exit 1)
+	@test -z "$$(git status --porcelain)" || (echo "Спершу закоміть або сховай зміни"; exit 1)
+	git switch main && git pull --ff-only
+	git switch -c "release/v$(V)"
 	pnpm version "$(V)" --no-git-tag-version
 	git commit -am "Реліз $(V)"
-	git tag -a "v$(V)" -m "@kite-post/ui $(V)"
+	git push -u origin "release/v$(V)"
+	gh pr create --title "Реліз $(V)" --body "Версія $(V). Після злиття: make tag."
+
+tag: ## Крок 2 релізу (після злиття PR): тег vX.Y.Z на main → публікація і Storybook
+	git switch main && git pull --ff-only
+	@v="$$(node -p "require('./package.json').version")"; \
+		git tag -a "v$$v" -m "@kite-post/ui $$v" && git push origin "v$$v"
 
 clean: ## Прибрати збірку і кеші
 	rm -rf dist coverage storybook-static node_modules/.tmp node_modules/.vite
 
-PLAYWRIGHT_IMAGE := mcr.microsoft.com/playwright:v1.65.1-noble
+playground: ## Майданчик компонентів (http://localhost:5174, ?shell — оболонка)
+	pnpm exec vite --config playground/vite.config.ts
+
+PLAYWRIGHT_IMAGE :=mcr.microsoft.com/playwright:v1.65.1-noble
 
 storybook: ## Storybook для розробки (http://localhost:6006)
 	pnpm storybook

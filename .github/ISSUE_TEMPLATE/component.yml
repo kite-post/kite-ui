@@ -1,0 +1,26 @@
+name: Новий компонент або зміна API
+description: Запит на компонент чи зміну, потрібну кільком застосункам
+labels: [enhancement]
+body:
+  - type: input
+    id: component
+    attributes:
+      label: Компонент
+    validations:
+      required: true
+  - type: checkboxes
+    id: apps
+    attributes:
+      label: Кому потрібно
+      description: У кіт потрапляє лише те, що потрібно щонайменше двом застосункам.
+      options:
+        - label: kite-web
+        - label: kite-business
+        - label: kite-ops
+  - type: textarea
+    id: need
+    attributes:
+      label: Сценарій
+      description: Що робить людина і чому наявних компонентів не вистачає.
+    validations:
+      required: true
