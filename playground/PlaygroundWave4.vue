@@ -169,7 +169,7 @@ const report = ref<IsoRange | null>(null)
           <KToggleGroupItem value="left" :icon="AlignLeft" label="Ліворуч" disabled />
         </KToggleGroup>
       </div>
-      <KField label="Тип (block)" class="k:max-w-md">
+      <KField label="Тип (block)" class="k:max-w-[28rem]">
         <KToggleGroup v-model="kind" block>
           <KToggleGroupItem value="docs">Документи</KToggleGroupItem>
           <KToggleGroupItem value="parcel">Посилка</KToggleGroupItem>

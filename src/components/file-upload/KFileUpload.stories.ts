@@ -45,7 +45,7 @@ const meta = {
   render: (args) => ({
     components: { KField, KFileUpload },
     setup: () => ({ args }),
-    template: `<KField label="Імпорт відправлень" class="k:max-w-lg"><KFileUpload v-bind="args" /></KField>`,
+    template: `<KField label="Імпорт відправлень" class="k:max-w-[32rem]"><KFileUpload v-bind="args" /></KField>`,
   }),
 } satisfies Meta<typeof KFileUpload>
 

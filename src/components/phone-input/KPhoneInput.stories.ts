@@ -17,7 +17,7 @@ const meta = {
   render: (args) => ({
     components: { KField, KPhoneInput },
     setup: () => ({ args }),
-    template: `<KField label="Телефон отримувача" hint="На нього прийде код" class="k:max-w-xs"><KPhoneInput v-bind="args" /></KField>`,
+    template: `<KField label="Телефон отримувача" hint="На нього прийде код" class="k:max-w-[20rem]"><KPhoneInput v-bind="args" /></KField>`,
   }),
 } satisfies Meta<typeof KPhoneInput>
 

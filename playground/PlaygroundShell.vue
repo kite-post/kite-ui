@@ -149,7 +149,7 @@ const parcels: CommandSource = {
           label="Пошук"
           placeholder="Пошук ⌘K"
           readonly
-          class="k:max-w-md k:w-full"
+          class="k:w-full k:max-w-[28rem]"
           @focus="palette = true"
         />
       </template>

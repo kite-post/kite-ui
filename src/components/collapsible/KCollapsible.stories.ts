@@ -16,7 +16,7 @@ const meta = {
   render: (args) => ({
     components: { KCollapsible, KCollapsibleTrigger, KCollapsibleContent, KButton, KField, KInput },
     setup: () => ({ args, ChevronDown }),
-    template: `<KCollapsible v-bind="args" v-slot="{ open }" class="k:max-w-md">
+    template: `<KCollapsible v-bind="args" v-slot="{ open }" class="k:max-w-[28rem]">
       <KCollapsibleTrigger as-child><KButton variant="link" :trailing-icon="ChevronDown">{{ open ? 'Сховати додаткові параметри' : 'Додаткові параметри' }}</KButton></KCollapsibleTrigger>
       <KCollapsibleContent><div class="k:grid k:gap-3 k:pt-3"><KField label="Код ЄДРПОУ"><KInput /></KField></div></KCollapsibleContent>
     </KCollapsible>`,

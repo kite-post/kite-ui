@@ -21,7 +21,7 @@ const meta = {
   render: (args) => ({
     components: { KAccordion, KAccordionItem },
     setup: () => ({ args }),
-    template: `<KAccordion v-bind="args" class="k:max-w-xl">
+    template: `<KAccordion v-bind="args" class="k:max-w-[36rem]">
       <KAccordionItem value="when" title="Коли прийде посилка?">Зазвичай за 1–2 дні між обласними центрами.</KAccordionItem>
       <KAccordionItem value="where" title="Як змінити відділення?">Відкрийте відправлення і натисніть «Переадресувати».</KAccordionItem>
       <KAccordionItem value="pay" title="Як оплатити післяплату?" disabled>Карткою у відділенні або в застосунку.</KAccordionItem>

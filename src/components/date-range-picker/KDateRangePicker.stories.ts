@@ -20,7 +20,7 @@ const meta = {
   render: (args) => ({
     components: { KField, KDateRangePicker },
     setup: () => ({ args }),
-    template: `<KField label="Період" class="k:max-w-sm"><KDateRangePicker v-bind="args" /></KField>`,
+    template: `<KField label="Період" class="k:max-w-[24rem]"><KDateRangePicker v-bind="args" /></KField>`,
   }),
 } satisfies Meta<typeof KDateRangePicker>
 

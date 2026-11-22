@@ -22,7 +22,7 @@ const meta = {
   render: (args) => ({
     components: { KField, KInput },
     setup: () => ({ args }),
-    template: `<KField label="Ім’я отримувача" class="k:max-w-sm"><KInput v-bind="args" /></KField>`,
+    template: `<KField label="Ім’я отримувача" class="k:max-w-[24rem]"><KInput v-bind="args" /></KField>`,
   }),
 } satisfies Meta<typeof KInput>
 
@@ -35,7 +35,7 @@ export const Varianty: Story = {
   render: () => ({
     components: { KField, KInput },
     setup: () => ({ Search }),
-    template: `<div class="k:grid k:max-w-sm k:gap-4">
+    template: `<div class="k:grid k:max-w-[24rem] k:gap-4">
       <KField label="Вага"><KInput model-value="2,4" suffix="кг" /></KField>
       <KField label="Пошук"><KInput :leading-icon="Search" model-value="Львів" clearable /></KField>
       <KField label="Пароль"><KInput type="password" model-value="secret" /></KField>

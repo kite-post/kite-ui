@@ -24,7 +24,7 @@ const meta = {
   render: (args) => ({
     components: { KField, KSelect },
     setup: () => ({ args }),
-    template: `<KField label="Причина повернення" class="k:max-w-sm"><KSelect v-bind="args" /></KField>`,
+    template: `<KField label="Причина повернення" class="k:max-w-[24rem]"><KSelect v-bind="args" /></KField>`,
   }),
 } satisfies Meta<typeof KSelect>
 

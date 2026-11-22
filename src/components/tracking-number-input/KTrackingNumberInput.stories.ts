@@ -11,7 +11,7 @@ const meta = {
   render: (args) => ({
     components: { KField, KTrackingNumberInput },
     setup: () => ({ args }),
-    template: `<KField label="Номер відправлення" class="k:max-w-sm"><KTrackingNumberInput v-bind="args" /></KField>`,
+    template: `<KField label="Номер відправлення" class="k:max-w-[24rem]"><KTrackingNumberInput v-bind="args" /></KField>`,
   }),
 } satisfies Meta<typeof KTrackingNumberInput>
 

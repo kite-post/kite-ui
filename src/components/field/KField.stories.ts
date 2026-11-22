@@ -19,7 +19,7 @@ const meta = {
   render: (args) => ({
     components: { KField, KInput },
     setup: () => ({ args }),
-    template: `<KField v-bind="args" class="k:max-w-lg"><KInput model-value="Ірина Петренко" /></KField>`,
+    template: `<KField v-bind="args" class="k:max-w-[32rem]"><KInput model-value="Ірина Петренко" /></KField>`,
   }),
 } satisfies Meta<typeof KField>
 

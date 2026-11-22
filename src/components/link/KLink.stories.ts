@@ -25,7 +25,7 @@ export const UTeksti: Story = {
   name: 'У тексті',
   render: () => ({
     components: { KLink },
-    template: `<p class="k:m-0 k:max-w-prose">Посилка чекає 5 днів. <KLink href="#">Детальніше про зберігання</KLink> і повернення.
+    template: `<p class="k:m-0 k:max-w-[65ch]">Посилка чекає 5 днів. <KLink href="#">Детальніше про зберігання</KLink> і повернення.
       <KLink href="https://docs.example.com">Документація API</KLink> відкривається в новій вкладці.</p>
       <p class="k:flex k:gap-4"><KLink href="#" variant="standalone">Усі відправлення</KLink><KLink href="#" variant="subtle">Умови використання</KLink></p>`,
   }),

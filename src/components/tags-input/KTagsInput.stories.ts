@@ -23,7 +23,7 @@ const meta = {
   render: (args) => ({
     components: { KField, KTagsInput },
     setup: () => ({ args }),
-    template: `<KField label="Номери накладних" hint="Вставте стовпець з Excel" class="k:max-w-xl"><KTagsInput v-bind="args" /></KField>`,
+    template: `<KField label="Номери накладних" hint="Вставте стовпець з Excel" class="k:max-w-[36rem]"><KTagsInput v-bind="args" /></KField>`,
   }),
 } satisfies Meta<typeof KTagsInput>
 

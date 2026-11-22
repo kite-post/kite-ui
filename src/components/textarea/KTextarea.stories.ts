@@ -10,7 +10,7 @@ const meta = {
   render: (args) => ({
     components: { KField, KTextarea },
     setup: () => ({ args }),
-    template: `<KField label="Коментар для відділення" optional class="k:max-w-md"><KTextarea v-bind="args" /></KField>`,
+    template: `<KField label="Коментар для відділення" optional class="k:max-w-[28rem]"><KTextarea v-bind="args" /></KField>`,
   }),
 } satisfies Meta<typeof KTextarea>
 

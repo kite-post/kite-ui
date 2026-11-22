@@ -40,7 +40,7 @@ const meta = {
     template: `<KAppShell v-bind="args">
       <template #sidebar="{ inSheet }"><KSidebar :items="nav" :in-sheet="inSheet" :shortcut="false" /></template>
       <template #header-start><span class="k:text-label k:font-semibold">Хаб Київ</span></template>
-      <template #header-center><KSearchInput label="Пошук" placeholder="Пошук" class="k:w-full k:max-w-md" /></template>
+      <template #header-center><KSearchInput label="Пошук" placeholder="Пошук" class="k:w-full k:max-w-[28rem]" /></template>
       <template #header-end><KIconButton :icon="Bell" label="Сповіщення" /><KAvatar name="Ольга Ковальчук" size="sm" /></template>
       <KAppShellPageHeader title="Прийом" description="Посилки, які чекають на прийом у хабі." :breadcrumbs="[{ label: 'Операції', href: '#' }, { label: 'Прийом' }]" :set-document-title="false">
         <template #actions><KButton variant="primary">Прийняти</KButton></template>

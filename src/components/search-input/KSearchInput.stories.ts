@@ -20,7 +20,7 @@ const meta = {
   render: (args) => ({
     components: { KSearchInput },
     setup: () => ({ args }),
-    template: `<KSearchInput v-bind="args" class="k:max-w-md" />`,
+    template: `<KSearchInput v-bind="args" class="k:max-w-[28rem]" />`,
   }),
 } satisfies Meta<typeof KSearchInput>
 

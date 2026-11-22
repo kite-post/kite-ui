@@ -38,7 +38,7 @@ export const Riadkamy: Story = {
   name: 'Рядками',
   render: () => ({
     components: { KDescriptionList, KDescriptionItem, KBadge },
-    template: `<KDescriptionList layout="inline" divided size="sm" class="k:max-w-xl">
+    template: `<KDescriptionList layout="inline" divided size="sm" class="k:max-w-[36rem]">
       <KDescriptionItem label="Номер" value="KT 1234 5678 5 UA" />
       <KDescriptionItem label="Статус"><KBadge tone="info">У дорозі</KBadge></KDescriptionItem>
       <KDescriptionItem label="Відділення" value="Львів, №14, вул. Соборна, 14" />

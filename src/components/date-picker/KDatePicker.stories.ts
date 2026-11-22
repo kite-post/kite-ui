@@ -26,7 +26,7 @@ const meta = {
   render: (args) => ({
     components: { KField, KDatePicker },
     setup: () => ({ args }),
-    template: `<KField label="Тримати до" class="k:max-w-xs"><KDatePicker v-bind="args" /></KField>`,
+    template: `<KField label="Тримати до" class="k:max-w-[20rem]"><KDatePicker v-bind="args" /></KField>`,
   }),
 } satisfies Meta<typeof KDatePicker>
 

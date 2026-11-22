@@ -24,7 +24,7 @@ const meta = {
   render: (args) => ({
     components: { KField, KNumberField },
     setup: () => ({ args }),
-    template: `<KField label="Вага" hint="До 30 кг" class="k:max-w-xs"><KNumberField v-bind="args" /></KField>`,
+    template: `<KField label="Вага" hint="До 30 кг" class="k:max-w-[20rem]"><KNumberField v-bind="args" /></KField>`,
   }),
 } satisfies Meta<typeof KNumberField>
 

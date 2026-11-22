@@ -21,7 +21,7 @@ const meta = {
   render: (args) => ({
     components: { KProgress },
     setup: () => ({ args }),
-    template: `<KProgress v-bind="args" class="k:max-w-md" />`,
+    template: `<KProgress v-bind="args" class="k:max-w-[28rem]" />`,
   }),
 } satisfies Meta<typeof KProgress>
 

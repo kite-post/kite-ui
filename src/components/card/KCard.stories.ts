@@ -19,7 +19,7 @@ const meta = {
   render: (args) => ({
     components: { KCard, KCardHeader, KCardContent, KCardFooter, KBadge, KButton },
     setup: () => ({ args }),
-    template: `<KCard v-bind="args" class="k:max-w-md">
+    template: `<KCard v-bind="args" class="k:max-w-[28rem]">
       <KCardHeader title="KT 1234 5678 5 UA" description="Київ → Львів · 2,4 кг" />
       <KCardContent><KBadge tone="success">Можна забирати</KBadge></KCardContent>
       <KCardFooter><KButton size="sm">Деталі</KButton><KButton size="sm" variant="primary">Переадресувати</KButton></KCardFooter>

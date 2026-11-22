@@ -47,7 +47,7 @@ const meta = {
   render: (args) => ({
     components: { KTimeline },
     setup: () => ({ args }),
-    template: `<KTimeline v-bind="args" class="k:max-w-xl" />`,
+    template: `<KTimeline v-bind="args" class="k:max-w-[36rem]" />`,
   }),
 } satisfies Meta<typeof KTimeline>
 

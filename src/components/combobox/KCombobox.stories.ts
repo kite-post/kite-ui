@@ -35,7 +35,7 @@ const meta = {
   render: (args) => ({
     components: { KField, KCombobox },
     setup: () => ({ args }),
-    template: `<KField label="Місто" class="k:max-w-sm"><KCombobox v-bind="args" /></KField>`,
+    template: `<KField label="Місто" class="k:max-w-[24rem]"><KCombobox v-bind="args" /></KField>`,
   }),
 } satisfies Meta<typeof KCombobox>
 
