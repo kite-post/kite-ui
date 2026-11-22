@@ -18,6 +18,7 @@ import {
   KTooltip,
   useTheme,
 } from '../src'
+import Wave2 from './Wave2.vue'
 
 const { theme, setTheme } = useTheme()
 const variants = ['primary', 'secondary', 'ghost', 'danger', 'link'] as const
@@ -142,6 +143,8 @@ const tones = ['neutral', 'info', 'success', 'warning', 'danger'] as const
           <KSeparator label="або" />
         </KCardContent>
       </KCard>
+
+      <Wave2 />
     </main>
   </KConfigProvider>
 </template>

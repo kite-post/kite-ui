@@ -4,9 +4,11 @@ UI-кит Kite: дизайн-токени бренду і базові Vue-ко�
 npm-пакет `@kite-post/ui` у GitHub Packages; веб-застосунки ставлять його за
 закріпленою версією (документація, 1.3 і 5.2).
 
-> Стан: хвиля 1 з 6 — токени (CSS, Tailwind, TS, Dart), KConfigProvider,
-> useTheme і 10 компонентів: KIcon, KSpinner, KButton, KIconButton, KTooltip,
-> KLink, KBadge, KSeparator, KKbd, KCard. Storybook і сайт документації — далі.
+> Стан: хвиля 2 з 6 — токени (CSS, Tailwind, TS, Dart), KConfigProvider,
+> useTheme і 20 компонентів: KIcon, KSpinner, KButton, KIconButton, KTooltip,
+> KLink, KBadge, KSeparator, KKbd, KCard, KSkeleton, KField, KLabel, KInput,
+> KTextarea, KCheckbox, KCheckboxGroup, KRadioGroup, KSwitch, KSelect.
+> Storybook і сайт документації — далі.
 
 ## Структура
 

@@ -12,6 +12,15 @@ export const uk = {
   'kbd.enter': 'Enter',
   'kbd.command': 'Command',
   'kbd.option': 'Option',
+  'field.optional': '(необов’язково)',
+  'input.clear': 'Очистити',
+  'input.showPassword': 'Показати пароль',
+  'input.hidePassword': 'Сховати пароль',
+  'input.count': '{n} з {max}',
+  'textarea.remain': 'Залишилось символів: {n}',
+  'select.placeholder': 'Оберіть',
+  'select.clear': 'Очистити вибір',
+  'skeleton.loading': 'Завантаження…',
 } as const
 
 export type MessageKey = keyof typeof uk
@@ -28,6 +37,15 @@ export const en: Messages = {
   'kbd.enter': 'Enter',
   'kbd.command': 'Command',
   'kbd.option': 'Option',
+  'field.optional': '(optional)',
+  'input.clear': 'Clear',
+  'input.showPassword': 'Show password',
+  'input.hidePassword': 'Hide password',
+  'input.count': '{n} of {max}',
+  'textarea.remain': '{n} characters remaining',
+  'select.placeholder': 'Select',
+  'select.clear': 'Clear selection',
+  'skeleton.loading': 'Loading…',
 }
 
 export const builtInMessages = { uk: uk as Messages, en } as const
