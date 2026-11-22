@@ -117,5 +117,9 @@ toast.dismiss(id)
 
 ## Основа
 
-Reka `Toast` (`ToastProvider`, `ToastRoot`, `ToastTitle`,
-`ToastDescription`, `ToastAction`, `ToastClose`, `ToastViewport`).
+Власна реалізація без Reka: у Reka 2.11 `Toast` переписано на новий API з
+менеджером, і він ще не стабілізувався. Кіт тримає чергу (`useToast`,
+до трьох видимих), регіон `<section aria-label>` з тостами `role="status"`
+(`danger` — `role="alert"`), паузу таймера при ховері, фокусі й неактивній
+вкладці, `F8` для переходу в регіон і `Esc` для закриття. Регіон рендерить
+`KConfigProvider`.
