@@ -1,6 +1,6 @@
 {
   "name": "@kite-post/ui",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Kite UI-кит: дизайн-токени і базові Vue-компоненти",
   "license": "UNLICENSED",
   "type": "module",
