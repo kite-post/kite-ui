@@ -95,5 +95,8 @@
 
 ## Основа
 
-Reka `Stepper` (`StepperRoot`, `StepperItem`, `StepperTrigger`,
-`StepperIndicator`, `StepperTitle`, `StepperDescription`, `StepperSeparator`).
+Власна реалізація без Reka: правило `linear` (назад — завжди, вперед — лише
+кнопкою сторінки) і стан `error` простіше тримати в одному масиві `steps`, ніж
+у `StepperItem`. Тому поки немає дочірніх `KStep` і `useStepper()`: фокус на
+заголовок нового кроку ставить сторінка. Слот `indicator` (`{ step, status }`)
+є в `KStepper`.

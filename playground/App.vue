@@ -21,6 +21,7 @@ import {
 import PlaygroundWave2 from './PlaygroundWave2.vue'
 import PlaygroundWave3 from './PlaygroundWave3.vue'
 import PlaygroundWave4 from './PlaygroundWave4.vue'
+import PlaygroundWave5 from './PlaygroundWave5.vue'
 
 const { theme, setTheme } = useTheme()
 const variants = ['primary', 'secondary', 'ghost', 'danger', 'link'] as const
@@ -149,6 +150,7 @@ const tones = ['neutral', 'info', 'success', 'warning', 'danger'] as const
       <PlaygroundWave2 />
       <PlaygroundWave3 />
       <PlaygroundWave4 />
+      <PlaygroundWave5 />
     </main>
   </KConfigProvider>
 </template>

@@ -74,4 +74,5 @@
 
 ## Основа
 
-`KInput`, `KKbd`, `KSpinner`.
+`KInput`, `KKbd`, `KSpinner`. Фон `filled` — `color-surface-hover`: у темній
+темі `color-bg-subtle` збігається з поверхнею картки, і поле зникає.

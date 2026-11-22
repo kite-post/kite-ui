@@ -97,4 +97,7 @@
 ## Основа
 
 Reka `Tabs` (`TabsRoot`, `TabsList`, `TabsTrigger`, `TabsContent`,
-`TabsIndicator`).
+`TabsIndicator`). Для `routing` кіт не залежить від Vue Router: `KTab` рендерить
+`RouterLink`, якщо роутер підключено й задано `to`, інакше `<a href>`.
+`RouterLink` сам ставить `aria-current="page"`, а для `<a>` поточну вкладку
+позначає проп `active`.

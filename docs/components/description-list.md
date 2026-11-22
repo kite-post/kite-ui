@@ -36,14 +36,15 @@ w b o.
 
 ## API
 
-| Проп      | Тип                                                                         | Типово      | Опис                           |
-| --------- | --------------------------------------------------------------------------- | ----------- | ------------------------------ |
-| `items`   | `{ label: string, value?: string \| number \| null, span?: 1 \| 2 \| 3 }[]` | —           | Або дочірні `KDescriptionItem` |
-| `layout`  | `'stacked' \| 'inline'`                                                     | `'stacked'` |                                |
-| `columns` | `1 \| 2 \| 3`                                                               | `2`         |                                |
-| `size`    | `'sm' \| 'md'`                                                              | `'md'`      |                                |
-| `divided` | `boolean`                                                                   | `false`     |                                |
-| `loading` | `boolean`                                                                   | `false`     |                                |
+| Проп         | Тип                                                                         | Типово      | Опис                           |
+| ------------ | --------------------------------------------------------------------------- | ----------- | ------------------------------ |
+| `items`      | `{ label: string, value?: string \| number \| null, span?: 1 \| 2 \| 3 }[]` | —           | Або дочірні `KDescriptionItem` |
+| `layout`     | `'stacked' \| 'inline'`                                                     | `'stacked'` |                                |
+| `columns`    | `1 \| 2 \| 3`                                                               | `2`         |                                |
+| `size`       | `'sm' \| 'md'`                                                              | `'md'`      |                                |
+| `divided`    | `boolean`                                                                   | `false`     |                                |
+| `loading`    | `boolean`                                                                   | `false`     |                                |
+| `labelWidth` | `string`                                                                    | `'10rem'`   | Колонка міток для `inline`     |
 
 `KDescriptionItem`: `label`, `span`; слот `default` — значення.
 
