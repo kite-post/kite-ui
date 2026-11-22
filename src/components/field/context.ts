@@ -3,6 +3,8 @@ import { computed, inject, ref, type ComputedRef, type InjectionKey, type Ref } 
 /** Те, що KField передає контролу всередині (загальні правила, розділ 8). */
 export interface FieldContext {
   id: ComputedRef<string>
+  /** id підпису: групові контроли (KToggleGroup, KPinInput) беруть назву через aria-labelledby. */
+  labelId: ComputedRef<string>
   /** id підказки/помилки/лічильника для aria-describedby. */
   describedBy: ComputedRef<string | undefined>
   invalid: ComputedRef<boolean>

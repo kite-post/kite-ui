@@ -51,3 +51,40 @@ describe('useTheme', () => {
     expect(localStorage.getItem('kite-theme')).toBeNull()
   })
 })
+
+describe('хвиля 4: утиліти', async () => {
+  const { normalizeSearch, intlLocale } = await import('./intl')
+  const { parseLooseDate } = await import('../components/date-picker/date')
+  const { acceptLabel, matchesAccept, middleTruncate } =
+    await import('../components/file-upload/utils')
+
+  it('normalizeSearch: регістр, апострофи, латинська i', () => {
+    expect(normalizeSearch('Кам’янець')).toBe(normalizeSearch("кам'янець"))
+    expect(normalizeSearch('Irpin')).toBe('іrpіn')
+    expect(normalizeSearch('Кам’янець').length).toBe('Кам’янець'.length)
+    expect(intlLocale('uk')).toBe('uk-UA')
+  })
+
+  it('parseLooseDate: три формати і відмова від неіснуючих дат', () => {
+    expect(parseLooseDate('24.11.2026')).toBe('2026-11-24')
+    expect(parseLooseDate('24/11/2026')).toBe('2026-11-24')
+    expect(parseLooseDate('2026-11-24')).toBe('2026-11-24')
+    expect(parseLooseDate('31.02.2026')).toBeNull()
+    expect(parseLooseDate('завтра')).toBeNull()
+  })
+
+  it('accept: збіг за розширенням, mime і маскою; підпис типів', () => {
+    const f = (name: string, type: string) => new File([''], name, { type })
+    expect(matchesAccept(f('a.CSV', ''), '.csv')).toBe(true)
+    expect(matchesAccept(f('a.png', 'image/png'), 'image/*,.pdf')).toBe(true)
+    expect(matchesAccept(f('a.exe', 'application/x-msdownload'), 'image/*,.pdf')).toBe(false)
+    expect(acceptLabel('.csv,text/csv')).toBe('CSV')
+    expect(acceptLabel('image/*,.pdf', (k) => (k === 'image' ? 'Зображення' : undefined))).toBe(
+      'Зображення, PDF',
+    )
+    expect(middleTruncate('vidpravky-lystopad-2026-final-version.csv', 30)).toMatch(
+      /^vidpravky.*…n\.csv$|…/,
+    )
+    expect(middleTruncate('short.csv')).toBe('short.csv')
+  })
+})

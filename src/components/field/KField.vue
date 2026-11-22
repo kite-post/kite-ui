@@ -51,6 +51,7 @@ defineSlots<{
 const { t } = useMessages()
 const autoId = useId()
 const id = computed(() => props.id ?? `kite-field-${autoId}`)
+const labelId = computed(() => `${id.value}-label`)
 const hintId = computed(() => `${id.value}-hint`)
 const errorId = computed(() => `${id.value}-error`)
 const counterId = computed(() => `${id.value}-count`)
@@ -74,6 +75,7 @@ const describedBy = computed(() => {
 
 provide(fieldKey, {
   id,
+  labelId,
   describedBy,
   invalid,
   required: computed(() => props.required),
@@ -108,7 +110,11 @@ const horizontal = computed(() => props.orientation === 'horizontal')
         )
       "
     >
-      <label :for="id" :class="cn('k:text-label k:text-fg', disabled && 'k:text-fg-disabled')">
+      <label
+        :id="labelId"
+        :for="id"
+        :class="cn('k:text-label k:text-fg', disabled && 'k:text-fg-disabled')"
+      >
         <slot name="label">{{ label }}</slot>
         <span v-if="optional" class="k:ml-1 k:font-normal k:text-fg-muted">{{
           t('field.optional')

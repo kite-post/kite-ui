@@ -3,6 +3,7 @@ import { computed, useAttrs, type Component } from 'vue'
 
 import { cn } from '../../lib/cn'
 import KButton from '../button/KButton.vue'
+import { useButtonGroup } from '../button-group/context'
 import { iconButtonSize, type ButtonSize } from '../button/variants'
 import KIcon from '../icon/KIcon.vue'
 import KTooltip from '../tooltip/KTooltip.vue'
@@ -15,7 +16,9 @@ const props = withDefaults(
     icon: Component
     /** Назва дії: aria-label і текст тултіпа. Обов'язкова. */
     label: string
+    /** Типово ghost; у KButtonGroup — variant групи. */
     variant?: 'ghost' | 'secondary' | 'primary' | 'danger'
+    /** Типово md; у KButtonGroup — size групи. */
     size?: ButtonSize
     /** Показувати тултіп з назвою. */
     tooltip?: boolean
@@ -26,8 +29,8 @@ const props = withDefaults(
     asChild?: boolean
   }>(),
   {
-    variant: 'ghost',
-    size: 'md',
+    variant: undefined,
+    size: undefined,
     tooltip: true,
     type: 'button',
     disabled: false,
@@ -38,10 +41,12 @@ const props = withDefaults(
 )
 
 const attrs = useAttrs()
+const group = useButtonGroup()
+const size = computed<ButtonSize>(() => props.size ?? group?.size.value ?? 'md')
 const iconSize = computed(() => ({ sm: 'sm', md: 'md', lg: 'lg' }) as const)
 const buttonProps = computed(() => ({
-  variant: props.variant,
-  size: props.size,
+  variant: props.variant ?? group?.variant.value ?? 'ghost',
+  size: size.value,
   type: props.type,
   disabled: props.disabled,
   loading: props.loading,

@@ -39,16 +39,17 @@
 
 ## API
 
-| Проп                              | Тип                                                  | Типово       | Опис                                                      |
-| --------------------------------- | ---------------------------------------------------- | ------------ | --------------------------------------------------------- |
-| `modelValue`                      | `UploadItem[]`                                       | —            | `v-model`: файли та їхній стан                            |
-| `accept`                          | `string`                                             | —            | `'.csv,text/csv'`, `'image/*,.pdf'`                       |
-| `multiple`                        | `boolean`                                            | `false`      |                                                           |
-| `maxSize`                         | `number`                                             | —            | Байти                                                     |
-| `maxFiles`                        | `number`                                             | —            |                                                           |
-| `variant`                         | `'dropzone' \| 'button'`                             | `'dropzone'` |                                                           |
-| `upload`                          | `(file, { onProgress, signal }) => Promise<unknown>` | —            | Функція завантаження. Без неї компонент лише збирає файли |
-| `invalid`, `disabled`, `required` | `boolean`                                            | `false`      |                                                           |
+| Проп                              | Тип                                                  | Типово                 | Опис                                                      |
+| --------------------------------- | ---------------------------------------------------- | ---------------------- | --------------------------------------------------------- |
+| `modelValue`                      | `UploadItem[]`                                       | —                      | `v-model`: файли та їхній стан                            |
+| `accept`                          | `string`                                             | —                      | `'.csv,text/csv'`, `'image/*,.pdf'`                       |
+| `multiple`                        | `boolean`                                            | `false`                |                                                           |
+| `maxSize`                         | `number`                                             | —                      | Байти                                                     |
+| `maxFiles`                        | `number`                                             | —                      |                                                           |
+| `variant`                         | `'dropzone' \| 'button'`                             | `'dropzone'`           |                                                           |
+| `upload`                          | `(file, { onProgress, signal }) => Promise<unknown>` | —                      | Функція завантаження. Без неї компонент лише збирає файли |
+| `hint`                            | `string`                                             | з `accept` і `maxSize` | Підказка в зоні; є і слот `hint` («[Завантажити шаблон]») |
+| `invalid`, `disabled`, `required` | `boolean`                                            | `false`                |                                                           |
 
 ```ts
 interface UploadItem {
@@ -87,20 +88,22 @@ interface UploadItem {
 
 ## Тексти
 
-| Ключ               | uk                                           | en                                          |
-| ------------------ | -------------------------------------------- | ------------------------------------------- |
-| `upload.drop`      | Перетягніть файл сюди або                    | Drag a file here or                         |
-| `upload.dropMany`  | Перетягніть файли сюди або                   | Drag files here or                          |
-| `upload.browse`    | оберіть на пристрої                          | browse                                      |
-| `upload.button`    | Обрати файл                                  | Choose file                                 |
-| `upload.hint`      | {types}, до {size}                           | {types}, up to {size}                       |
-| `upload.tooLarge`  | Файл більший за {size}                       | File is larger than {size}                  |
-| `upload.wrongType` | Цей тип файлу не підходить. Потрібен {types} | This file type isn't supported. Use {types} |
-| `upload.tooMany`   | Не більше {n} файлів                         | Up to {n} files                             |
-| `upload.cancel`    | Скасувати                                    | Cancel                                      |
-| `upload.remove`    | Прибрати {name}                              | Remove {name}                               |
-| `upload.retry`     | Спробувати ще                                | Try again                                   |
-| `upload.done`      | {name} завантажено                           | {name} uploaded                             |
+| Ключ                | uk                                           | en                                          |
+| ------------------- | -------------------------------------------- | ------------------------------------------- |
+| `upload.drop`       | Перетягніть файл сюди або                    | Drag a file here or                         |
+| `upload.dropMany`   | Перетягніть файли сюди або                   | Drag files here or                          |
+| `upload.browse`     | оберіть на пристрої                          | browse                                      |
+| `upload.button`     | Обрати файл                                  | Choose file                                 |
+| `upload.hint`       | {types}, до {size}                           | {types}, up to {size}                       |
+| `upload.tooLarge`   | Файл більший за {size}                       | File is larger than {size}                  |
+| `upload.wrongType`  | Цей тип файлу не підходить. Потрібен {types} | This file type isn't supported. Use {types} |
+| `upload.tooMany`    | Не більше {n} файлів                         | Up to {n} files                             |
+| `upload.cancel`     | Скасувати                                    | Cancel                                      |
+| `upload.remove`     | Прибрати {name}                              | Remove {name}                               |
+| `upload.retry`      | Спробувати ще                                | Try again                                   |
+| `upload.done`       | {name} завантажено                           | {name} uploaded                             |
+| `upload.failed`     | Не вдалося завантажити                       | Upload failed                               |
+| `upload.kind.image` | Зображення                                   | Images                                      |
 
 ## Так / не так
 

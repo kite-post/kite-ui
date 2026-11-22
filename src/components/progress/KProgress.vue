@@ -14,6 +14,8 @@ const props = withDefaults(
     max?: number
     /** Підпис і доступна назва. */
     label?: string
+    /** Підпис лише для скрінрідера (рядок файлу, де назва вже видна поруч). */
+    hideLabel?: boolean
     showValue?: boolean
     /** «240 з 1 000», «2 дні». Типово — відсоток. */
     formatValue?: (value: number, max: number) => string
@@ -21,7 +23,7 @@ const props = withDefaults(
     size?: 'sm' | 'md'
     class?: string
   }>(),
-  { value: null, max: 100, showValue: false, tone: 'info', size: 'md' },
+  { value: null, max: 100, hideLabel: false, showValue: false, tone: 'info', size: 'md' },
 )
 
 const { t } = useMessages()
@@ -46,7 +48,10 @@ const fill: Record<Tone, string> = {
 
 <template>
   <div :class="cn('kite-progress k:grid k:min-w-0 k:gap-1.5', props.class)" :data-tone="tone">
-    <div v-if="label || showValue" class="k:flex k:justify-between k:gap-2 k:text-label">
+    <div
+      v-if="label || showValue"
+      :class="cn('k:flex k:justify-between k:gap-2 k:text-label', hideLabel && 'k:sr-only')"
+    >
       <span :id="labelId">{{ label }}</span>
       <span v-if="showValue && text" class="kite-num k:font-normal k:text-fg-muted">{{
         text

@@ -80,6 +80,10 @@ async function askLeave() {
   })
   toast({ title: ok ? 'Вийшли без збереження' : 'Лишаємося' })
 }
+function saveRecipient() {
+  dialog.value = false
+  toast.success('Отримувача змінено')
+}
 const fakeCancel = () => new Promise<void>((r) => setTimeout(r, 1200))
 </script>
 
@@ -123,14 +127,7 @@ const fakeCancel = () => new Promise<void>((r) => setTimeout(r, 1200))
     </KDialogBody>
     <KDialogFooter>
       <KDialogClose><KButton>Скасувати</KButton></KDialogClose>
-      <KButton
-        variant="primary"
-        @click="
-          dialog = false
-          toast.success('Отримувача змінено')
-        "
-        >Зберегти</KButton
-      >
+      <KButton variant="primary" @click="saveRecipient">Зберегти</KButton>
     </KDialogFooter>
   </KDialog>
 

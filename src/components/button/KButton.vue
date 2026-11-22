@@ -4,6 +4,7 @@ import { computed, useAttrs, watch, type Component } from 'vue'
 
 import { useMessages } from '../../config/context'
 import { cn } from '../../lib/cn'
+import { useButtonGroup } from '../button-group/context'
 import KIcon from '../icon/KIcon.vue'
 import KSpinner from '../spinner/KSpinner.vue'
 import { buttonVariants, type ButtonSize, type ButtonVariant } from './variants'
@@ -11,7 +12,9 @@ import { buttonVariants, type ButtonSize, type ButtonVariant } from './variants'
 defineOptions({ inheritAttrs: false })
 
 export interface KButtonProps {
+  /** Типово secondary; у KButtonGroup — variant групи. */
   variant?: ButtonVariant
+  /** Типово md; у KButtonGroup — size групи. */
   size?: ButtonSize
   /** Нативний тип. Типово button, щоб кнопка у формі випадково її не відправила. */
   type?: 'button' | 'submit' | 'reset'
@@ -27,8 +30,8 @@ export interface KButtonProps {
 }
 
 const props = withDefaults(defineProps<KButtonProps>(), {
-  variant: 'secondary',
-  size: 'md',
+  variant: undefined,
+  size: undefined,
   type: 'button',
   disabled: false,
   loading: false,
@@ -41,10 +44,13 @@ defineSlots<{ default?(): unknown; leading?(): unknown; trailing?(): unknown }>(
 
 const attrs = useAttrs()
 const { t, announce } = useMessages()
+const group = useButtonGroup()
+const variant = computed(() => props.variant ?? group?.variant.value ?? 'secondary')
+const size = computed(() => props.size ?? group?.size.value ?? 'md')
 
 const isNativeButton = computed(() => !props.asChild && props.as === 'button')
 const blocked = computed(() => props.disabled || props.loading)
-const iconSize = computed(() => (props.size === 'sm' ? 'sm' : 'md'))
+const iconSize = computed(() => (size.value === 'sm' ? 'sm' : 'md'))
 
 const rootAttrs = computed(() => {
   // onClick обробляємо самі, клас зливаємо через cn.

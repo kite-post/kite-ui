@@ -175,6 +175,9 @@ importers:
 
   .:
     dependencies:
+      '@internationalized/date':
+        specifier: 3.12.4
+        version: 3.12.4
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
