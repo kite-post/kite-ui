@@ -2,6 +2,8 @@
 import { ConfigProvider, TooltipProvider } from 'reka-ui'
 import { computed, onMounted, provide, ref, toRef } from 'vue'
 
+import KConfirmHost from '../components/alert-dialog/KConfirmHost.vue'
+import KToaster from '../components/toast/KToaster.vue'
 import { builtInMessages, type Locale, type Messages } from '../lib/messages'
 import { kiteConfigKey } from './context'
 
@@ -13,8 +15,10 @@ const props = withDefaults(
     messages?: Partial<Messages>
     /** Затримка тултіпів, мс. */
     tooltipDelay?: number
+    /** Рендерити регіон тостів (useToast) і хост підтверджень (useConfirm). */
+    toaster?: boolean
   }>(),
-  { locale: 'uk', tooltipDelay: 500 },
+  { locale: 'uk', tooltipDelay: 500, toaster: true },
 )
 
 defineSlots<{ default(): unknown }>()
@@ -47,6 +51,10 @@ onMounted(() => {
   <ConfigProvider :locale="locale" dir="ltr">
     <TooltipProvider :delay-duration="tooltipDelay" :skip-delay-duration="300">
       <slot />
+      <template v-if="toaster">
+        <KToaster />
+        <KConfirmHost />
+      </template>
     </TooltipProvider>
   </ConfigProvider>
   <div class="k:sr-only" aria-live="polite" aria-atomic="true" data-kite-announcer>

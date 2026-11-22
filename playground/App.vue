@@ -19,6 +19,7 @@ import {
   useTheme,
 } from '../src'
 import PlaygroundWave2 from './PlaygroundWave2.vue'
+import PlaygroundWave3 from './PlaygroundWave3.vue'
 
 const { theme, setTheme } = useTheme()
 const variants = ['primary', 'secondary', 'ghost', 'danger', 'link'] as const
@@ -145,6 +146,7 @@ const tones = ['neutral', 'info', 'success', 'warning', 'danger'] as const
       </KCard>
 
       <PlaygroundWave2 />
+      <PlaygroundWave3 />
     </main>
   </KConfigProvider>
 </template>

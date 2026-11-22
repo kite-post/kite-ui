@@ -70,11 +70,150 @@ body {
 @keyframes kite-fade-in {
   from {
     opacity: 0;
+  }
+}
+
+@keyframes kite-tooltip-in {
+  from {
+    opacity: 0;
     transform: translateY(2px);
   }
 }
 
 .kite-tooltip[data-state='delayed-open'],
 .kite-tooltip[data-state='instant-open'] {
-  animation: kite-fade-in var(--kite-duration-base) var(--kite-ease-out);
+  animation: kite-tooltip-in var(--kite-duration-base) var(--kite-ease-out);
+}
+
+/* ---------- Оверлеї (хвиля 3): поява й зникнення за data-state від Reka ----------
+   Тривалості й криві — стайлгайд 11: поява ease-out, зникнення ease-in і швидше. */
+@keyframes kite-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+}
+@keyframes kite-pop-out {
+  to {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+}
+@keyframes kite-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes kite-dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+@keyframes kite-dialog-out {
+  to {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+@keyframes kite-slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+}
+@keyframes kite-slide-out-right {
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes kite-slide-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+}
+@keyframes kite-slide-out-left {
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes kite-slide-in-bottom {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes kite-slide-out-bottom {
+  to {
+    transform: translateY(100%);
+  }
+}
+@keyframes kite-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+.kite-pop[data-state='open'] {
+  animation: kite-pop-in var(--kite-duration-moderate) var(--kite-ease-out);
+}
+.kite-pop[data-state='closed'] {
+  animation: kite-pop-out var(--kite-duration-base) var(--kite-ease-in);
+}
+.kite-scrim[data-state='open'] {
+  animation: kite-fade-in var(--kite-duration-slow) var(--kite-ease-out);
+}
+.kite-scrim[data-state='closed'] {
+  animation: kite-fade-out var(--kite-duration-moderate) var(--kite-ease-in);
+}
+.kite-dialog[data-state='open'] {
+  animation: kite-dialog-in var(--kite-duration-slow) var(--kite-ease-out);
+}
+.kite-dialog[data-state='closed'] {
+  animation: kite-dialog-out var(--kite-duration-moderate) var(--kite-ease-in);
+}
+.kite-sheet[data-side='right'][data-state='open'] {
+  animation: kite-slide-in-right var(--kite-duration-slow) var(--kite-ease-out);
+}
+.kite-sheet[data-side='right'][data-state='closed'] {
+  animation: kite-slide-out-right var(--kite-duration-moderate) var(--kite-ease-in);
+}
+.kite-sheet[data-side='left'][data-state='open'] {
+  animation: kite-slide-in-left var(--kite-duration-slow) var(--kite-ease-out);
+}
+.kite-sheet[data-side='left'][data-state='closed'] {
+  animation: kite-slide-out-left var(--kite-duration-moderate) var(--kite-ease-in);
+}
+.kite-sheet[data-side='bottom'][data-state='open'] {
+  animation: kite-slide-in-bottom var(--kite-duration-slow) var(--kite-ease-out);
+}
+.kite-sheet[data-side='bottom'][data-state='closed'] {
+  animation: kite-slide-out-bottom var(--kite-duration-moderate) var(--kite-ease-in);
+}
+.kite-toast[data-state='open'] {
+  animation: kite-toast-in var(--kite-duration-moderate) var(--kite-ease-out);
+}
+
+/* Reduced motion: переміщення замінює fade ≤ 150 мс (стайлгайд 11.2). */
+@media (prefers-reduced-motion: reduce) {
+  .kite-pop[data-state='open'],
+  .kite-dialog[data-state='open'],
+  .kite-sheet[data-state='open'],
+  .kite-toast[data-state='open'] {
+    animation: kite-fade-in var(--kite-duration-base) linear !important;
+  }
+  .kite-pop[data-state='closed'],
+  .kite-dialog[data-state='closed'],
+  .kite-sheet[data-state='closed'] {
+    animation: kite-fade-out var(--kite-duration-fast) linear !important;
+  }
+}
+
+/* Індикатор невизначеного прогресу (KProgress). */
+@keyframes kite-indeterminate {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(340%);
+  }
 }

@@ -61,7 +61,7 @@
 ## Доступність
 
 Тригер — `aria-haspopup="dialog"`, `aria-expanded`, `aria-controls`.
-Панель — `role="dialog"` з `aria-labelledby` = `title` (або `aria-label`).
+Панель — `role="dialog"`; доступну назву Reka бере з тексту тригера (`aria-labelledby` = тригер), тож тригер мусить мати зрозумілий текст. `title` — видимий заголовок панелі.
 
 ## Токени
 
