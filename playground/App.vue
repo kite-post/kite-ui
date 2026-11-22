@@ -18,7 +18,7 @@ import {
   KTooltip,
   useTheme,
 } from '../src'
-import Wave2 from './Wave2.vue'
+import PlaygroundWave2 from './PlaygroundWave2.vue'
 
 const { theme, setTheme } = useTheme()
 const variants = ['primary', 'secondary', 'ghost', 'danger', 'link'] as const
@@ -144,7 +144,7 @@ const tones = ['neutral', 'info', 'success', 'warning', 'danger'] as const
         </KCardContent>
       </KCard>
 
-      <Wave2 />
+      <PlaygroundWave2 />
     </main>
   </KConfigProvider>
 </template>
