@@ -37,7 +37,7 @@ version: ## Нова версія: make version V=0.2.0, потім git push --f
 	@test -n "$(V)" || (echo "Вкажи версію: make version V=0.2.0"; exit 1)
 	pnpm version "$(V)" --no-git-tag-version
 	git commit -am "Реліз $(V)"
-	git tag "v$(V)"
+	git tag -a "v$(V)" -m "@kite-post/ui $(V)"
 
 clean: ## Прибрати збірку і кеші
 	rm -rf dist coverage storybook-static node_modules/.tmp node_modules/.vite
