@@ -1,4 +1,4 @@
-// Генератор токенів: tokens/*.json → CSS-змінні, тема Tailwind, TS і Dart.
+// Генератор токенів: tokens/*.json → CSS-змінні, тема Tailwind, TS і Dart-пакет kite_tokens.
 // Запуск: node scripts/build-tokens.ts (Node ≥ 24 знімає типи сам).
 /* eslint-disable @typescript-eslint/no-explicit-any -- генератор читає довільний JSON токенів */
 // Перевірка в CI: node scripts/build-tokens.ts --check — падає, якщо згенероване застаріло.
@@ -13,6 +13,7 @@ const read = (p: string): any => JSON.parse(readFileSync(resolve(root, p), 'utf8
 const primitives = read('tokens/primitives.json')
 const semantic = read('tokens/semantic.json')
 const base = read('tokens/base.json')
+const version: string = read('package.json').version
 
 const HEADER = 'Згенеровано scripts/build-tokens.ts з tokens/*.json. Не редагувати руками.'
 const rem = (px: number): string => (px === 0 ? '0' : `${px / 16}rem`)
@@ -246,7 +247,7 @@ function dartScheme(name: string, theme: Theme): string {
 }
 const colorKeys = Object.keys(semantic.color)
 const dartOut = `// ${HEADER}
-// Ті самі токени для kite-mobile (5.2). Підключення: скопіювати файл або взяти з тегу kite-ui.
+// Ті самі токени для kite-mobile (5.2): Flutter-пакет kite_tokens, git-залежність за тегом kite-ui.
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/painting.dart';
@@ -300,12 +301,31 @@ ${Object.entries(base.text as Record<string, any>)
 }
 `
 
+// Версія Dart-пакета = версія @kite-post/ui, тож тег vX.Y.Z однаково читається з обох боків.
+// publish_to: none — пакет живе лише в git, на pub.dev його не публікуємо (як kite_contracts).
+const pubspecOut = `# ${HEADER}
+name: kite_tokens
+description: Дизайн-токени Kite для Flutter (kite-mobile), згенеровані з kite-ui.
+version: ${version}
+repository: https://github.com/kite-post/kite-ui
+publish_to: none
+
+environment:
+  sdk: ^3.0.0
+  flutter: '>=3.10.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+`
+
 // ---------- запис ----------
 const outputs: Record<string, string> = {
   'src/styles/tokens.css': tokensCss,
   'src/styles/theme.css': themeCss,
   'src/tokens/tokens.generated.ts': tsOut,
-  'tokens/dart/kite_tokens.dart': dartOut,
+  'tokens/dart/lib/kite_tokens.dart': dartOut,
+  'tokens/dart/pubspec.yaml': pubspecOut,
 }
 
 const check = process.argv.includes('--check')
