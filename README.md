@@ -121,7 +121,7 @@ const toast = useToast()
 | `@kite-post/ui/tokens.css` | Лише CSS-змінні `--kite-*` (світла й темна теми)         |
 | `@kite-post/ui/theme.css`  | Тема Tailwind v4 (`@theme`) для класів застосунку        |
 | `@kite-post/ui/tokens`     | Токени в TS: `tokens`, `raw`, `brand`, `googleFontsHref` |
-| `tokens/dart`              | Ті самі токени для Flutter (Kite Scan)                   |
+| `tokens/dart`              | Flutter-пакет `kite_tokens`: ті самі токени для kite-mobile |
 
 Класи кіта мають префікс `k:` і не конфліктують із Tailwind застосунку. Застосунок
 може взяти ту саму тему у свій Tailwind:
@@ -130,6 +130,31 @@ const toast = useToast()
 @import 'tailwindcss';
 @import '@kite-post/ui/theme.css';
 ```
+
+### Flutter (kite-mobile)
+
+`tokens/dart` — Dart-пакет `kite_tokens`, його версія дорівнює версії `@kite-post/ui`.
+На pub.dev він не публікується, тож kite-mobile бере його з git за тегом, як і
+`kite_contracts`:
+
+```yaml
+dependencies:
+  kite_tokens:
+    git:
+      url: https://github.com/kite-post/kite-ui.git
+      ref: v0.8.0
+      path: tokens/dart
+```
+
+```dart
+import 'package:kite_tokens/kite_tokens.dart';
+
+final scheme = isDark ? KiteColorScheme.dark : KiteColorScheme.light;
+Text('Посилку доставлено', style: KiteText.h3.copyWith(color: scheme.text));
+```
+
+Нові токени доїжджають у застосунок перегенерацією і новим тегом: правка `tokens/*.json`,
+`make tokens`, реліз, потім `ref` на новий тег у kite-mobile. Копіювати файл руками не треба.
 
 ## Розробка
 

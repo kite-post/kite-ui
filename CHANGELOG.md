@@ -9,6 +9,14 @@
 
 - README, CONTRIBUTING, шаблони PR та issue, CODEOWNERS.
 - `make release` / `make tag`: реліз через PR (гілка `main` захищена).
+- `tokens/dart` — Flutter-пакет `kite_tokens` (`pubspec.yaml` генерується, версія = версія
+  пакета). kite-mobile підключає його git-залежністю за тегом kite-ui, шлях `tokens/dart`.
+- CI: `flutter analyze` для згенерованого Dart-пакета; `make dart` — те саме локально.
+
+### Змінено
+
+- **Несумісне:** `tokens/dart/kite_tokens.dart` переїхав у `tokens/dart/lib/kite_tokens.dart`
+  (розкладка Dart-пакета). Хто копіював файл, переходить на git-залежність.
 
 ## [0.7.0] — 2026-11-22
 

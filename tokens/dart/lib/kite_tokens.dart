@@ -1,5 +1,5 @@
 // Згенеровано scripts/build-tokens.ts з tokens/*.json. Не редагувати руками.
-// Ті самі токени для kite-mobile (5.2). Підключення: скопіювати файл або взяти з тегу kite-ui.
+// Ті самі токени для kite-mobile (5.2): Flutter-пакет kite_tokens, git-залежність за тегом kite-ui.
 // ignore_for_file: public_member_api_docs
 
 import 'package:flutter/painting.dart';

@@ -8,5 +8,8 @@ storybook-static/
 .vscode/
 .DS_Store
 .pnpm-store/
+tokens/dart/.dart_tool/
+tokens/dart/pubspec.lock
+tokens/dart/build/
 test-results/
 playwright-report/

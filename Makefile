@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := help
-.PHONY: help install tokens build lint fmt types test verify pack release tag clean playground storybook visual visual-update
+.PHONY: help install tokens build lint fmt types test verify pack release tag clean playground storybook visual visual-update dart
 
 help: ## Показати цілі
 	@grep -hE '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) \
@@ -8,8 +8,14 @@ help: ## Показати цілі
 install: ## Поставити залежності строго за lock-файлом
 	pnpm install --frozen-lockfile
 
-tokens: ## Згенерувати CSS, тему Tailwind, TS і Dart з tokens/*.json
+tokens: ## Згенерувати CSS, тему Tailwind, TS і Dart-пакет з tokens/*.json
 	pnpm run tokens
+
+FLUTTER_IMAGE := ghcr.io/cirruslabs/flutter:stable
+
+dart: ## Перевірити Dart-пакет tokens/dart (flutter analyze у Docker, як у CI)
+	docker run --rm -v "$(CURDIR)/tokens/dart:/w" -w /w $(FLUTTER_IMAGE) \
+		sh -c 'flutter pub get >/dev/null && flutter analyze --fatal-infos; s=$$?; rm -rf .dart_tool pubspec.lock; exit $$s'
 
 build: ## Зібрати пакет у ./dist (JS, CSS, .d.ts)
 	pnpm run build
@@ -39,6 +45,7 @@ release: ## Крок 1 релізу: гілка release/vV з новою вер�
 	git switch main && git pull --ff-only
 	git switch -c "release/v$(V)"
 	pnpm version "$(V)" --no-git-tag-version
+	pnpm run tokens   # версія Dart-пакета tokens/dart/pubspec.yaml = версія package.json
 	git commit -am "Реліз $(V)"
 	git push -u origin "release/v$(V)"
 	gh pr create --title "Реліз $(V)" --body "Версія $(V). Після злиття: make tag."

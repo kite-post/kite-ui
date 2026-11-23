@@ -1,0 +1,14 @@
+# Згенеровано scripts/build-tokens.ts з tokens/*.json. Не редагувати руками.
+name: kite_tokens
+description: Дизайн-токени Kite для Flutter (kite-mobile), згенеровані з kite-ui.
+version: 0.7.0
+repository: https://github.com/kite-post/kite-ui
+publish_to: none
+
+environment:
+  sdk: ^3.0.0
+  flutter: '>=3.10.0'
+
+dependencies:
+  flutter:
+    sdk: flutter

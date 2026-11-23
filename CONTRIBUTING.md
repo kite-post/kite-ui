@@ -51,8 +51,9 @@ make storybook    # http://localhost:6006
 ## Токени
 
 Правте `tokens/*.json`, потім `make tokens`. Згенеровані файли (`src/styles/tokens.css`,
-`src/styles/theme.css`, `src/tokens/tokens.generated.ts`, `tokens/dart/`) комітяться; CI
-перевіряє, що вони актуальні. Нові кольори — з перевіркою контрасту (WCAG 2.2 AA:
+`src/styles/theme.css`, `src/tokens/tokens.generated.ts`, `tokens/dart/lib/`, `tokens/dart/pubspec.yaml`)
+комітяться; CI перевіряє, що вони актуальні, а `flutter analyze` — що Dart компілюється
+(локально: `make dart`, потрібен Docker). Нові кольори — з перевіркою контрасту (WCAG 2.2 AA:
 текст 4.5:1, межі й іконки 3:1).
 
 ## Реліз
