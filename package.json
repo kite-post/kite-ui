@@ -66,11 +66,11 @@
     "tailwind-merge": "^3.7.1"
   },
   "peerDependencies": {
-    "@lucide/vue": "^1.77.0",
+    "@lucide/vue": "^1.79.0",
     "vue": "^3.5.0"
   },
   "devDependencies": {
-    "@lucide/vue": "^1.77.0",
+    "@lucide/vue": "^1.79.0",
     "@playwright/test": "^1.65.1",
     "@storybook/addon-a11y": "^10.6.8",
     "@storybook/addon-docs": "^10.6.8",
